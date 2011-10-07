@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8132B21B-C4AE-4BB6-A26E-570383FB20B0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LycuteEbookManagement</RootNamespace>
+    <AssemblyName>LycuteEbookManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="3DWall\3DWallLayout.cs" />
+    <Compile Include="3DWall\FlickerProvider.cs" />
+    <Compile Include="3DWall\PhotoInfo.cs" />
+    <Compile Include="3DWall\Wall3dHelper.cs" />
+    <Compile Include="Common\AlertDiag.xaml.cs">
+      <DependentUpon>AlertDiag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ComboBox.xaml.cs">
+      <DependentUpon>ComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ImageBox.xaml.cs">
+      <DependentUpon>ImageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ebook\3DWall.xaml.cs">
+      <DependentUpon>3DWall.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ebook\AddTool.xaml.cs">
+      <DependentUpon>AddTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ebook\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Behavior\ReflectionBehavior.cs" />
+    <Compile Include="Setting\ConfigStructure.xaml.cs">
+      <DependentUpon>ConfigStructure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\ConfigLocation.xaml.cs">
+      <DependentUpon>ConfigLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\StructureStore.xaml.cs">
+      <DependentUpon>StructureStore.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Components\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ImageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ebook\3DWall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ebook\AddTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ebook\Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Search\FindBookInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Search\SearchResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Common\AlertDiag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setting\ConfigStructure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setting\ConfigLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setting\SettingPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\FindBookInformation.xaml.cs">
+      <DependentUpon>FindBookInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Search\SearchResult.xaml.cs">
+      <DependentUpon>SearchResult.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\SettingPanel.xaml.cs">
+      <DependentUpon>SettingPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Setting\StructureStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.Config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Agrond.Lycute.Bus\Agrond.Lycute.Bus.csproj">
+      <Project>{D6F6199C-BF25-4721-AD25-E17124807DC6}</Project>
+      <Name>Agrond.Lycute.Bus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Agrond.Lycute.DAO\Agrond.Lycute.DAO.csproj">
+      <Project>{D1733DCF-A8FC-483F-8368-97BDFBCA8840}</Project>
+      <Name>Agrond.Lycute.DAO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SQL.Server.Compact.3.5">
+      <Visible>False</Visible>
+      <ProductName>SQL Server Compact 3.5 SP2</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Sql.Server.Express.10.0">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2008 Express</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\bg2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\bg1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\questionmark.png" />
+    <Resource Include="Images\Setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\back.png" />
+    <Resource Include="Images\Components\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\overflowdots.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Backgrounds\diag_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\cancel.png" />
+    <Resource Include="Images\Components\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Temp\Sisterskeeper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\cancel_wc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\1star.png" />
+    <Resource Include="Images\Components\2stars.png" />
+    <Resource Include="Images\Components\3stars.png" />
+    <Resource Include="Images\Components\4stars.png" />
+    <Resource Include="Images\Components\5stars.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Temp\PeterPanFinal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\add.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
