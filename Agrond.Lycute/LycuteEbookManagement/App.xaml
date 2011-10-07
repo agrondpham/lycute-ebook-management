@@ -1,0 +1,14 @@
+﻿<Application x:Class="LycuteEbookManagement.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MarsaX"    
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="backgroundBrush" Color="Transparent"/>
+        <LinearGradientBrush x:Key="backgroundGradientBrush"  EndPoint="0.59,0.24" StartPoint="0.59,0.81">
+            <GradientStop Color="#FF000000" Offset="0"/>
+            <GradientStop Color="#FF555555" Offset="1"/>
+        </LinearGradientBrush>
+
+    </Application.Resources>
+</Application>
