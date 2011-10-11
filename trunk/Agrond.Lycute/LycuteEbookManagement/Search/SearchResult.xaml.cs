@@ -26,6 +26,7 @@ namespace LycuteEbookManagement.Search
     public partial class SearchResult : UserControl
     {
         BookLib bus_book = new BookLib();
+        Book _bookValue;
         public SearchResult()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace LycuteEbookManagement.Search
             XmlElement root = (XmlElement)xdoc.ChildNodes[0];
             XmlNodeList xnl = root.SelectNodes("Page");
             viewer.ItemsSource = xnl;
-            viewer.BeginStoryboard((Storyboard)this.Resources["slideRightToLeft"]);
+            viewer.BeginStoryboard((Storyboard)App.Current.Resources["slideRightToLeft"]);
         }
         public void closeSide() {
             viewer.ItemsSource = null;
@@ -55,11 +56,11 @@ namespace LycuteEbookManagement.Search
 
         private void listview_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Book value = (Book)listview_Result.SelectedValue;
-            if (value != null)
+            _bookValue= (Book)listview_Result.SelectedValue;
+            if (_bookValue != null)
             {
                 showBookProperties();
-                setData(value);
+                setData(_bookValue);
             }
         }
         /// <summary>
@@ -84,7 +85,7 @@ namespace LycuteEbookManagement.Search
         {
             lbl_Title.Content = pBook.bok_Title;
             lbl_Author.Content = "";
-            lbl_Edition.Content = "";
+            lbl_Edition.Content = pBook.bok_Edition;
             lbl_Publisher.Content = "";
             lbl_Volume.Content = pBook.bok_Volume;
             lbl_Year.Content = pBook.bok_Year;
@@ -101,6 +102,7 @@ namespace LycuteEbookManagement.Search
         private void btn_Edit_Click(object sender, RoutedEventArgs e)
         {
             showEditor();
+            LycuteEbookManagement.Ebook.Editor._book = _bookValue;
         }
     }
 }

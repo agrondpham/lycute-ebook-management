@@ -80,6 +80,7 @@
           <Property Name="bok_Location" Type="ntext" />
           <Property Name="bok_Volume" Type="int" />
           <Property Name="seri_ID" Type="int" />
+          <Property Name="bok_Edition" Type="int" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -288,6 +289,7 @@
           <Property Type="Int32" Name="bok_Volume" />
           <Property Type="Int32" Name="seri_ID" />
           <NavigationProperty Name="Seri" Relationship="LibraryModel.fk_Book_Seri_seriID" FromRole="Book" ToRole="Seri" />
+          <Property Type="Int32" Name="bok_Edition" />
         </EntityType>
         <EntityType Name="Publisher">
           <Key>
@@ -396,7 +398,8 @@
             <ScalarProperty Name="ath_Name" ColumnName="ath_Name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Books"><EntityTypeMapping TypeName="LibraryModel.Book"><MappingFragment StoreEntitySet="Book">
-            <ScalarProperty Name="seri_ID" ColumnName="seri_ID" />
+            <ScalarProperty Name="bok_Edition" ColumnName="bok_Edition" />
+                <ScalarProperty Name="seri_ID" ColumnName="seri_ID" />
                 <ScalarProperty Name="bok_Volume" ColumnName="bok_Volume" />
                 <ScalarProperty Name="bok_Location" ColumnName="bok_Location" />
                 <ScalarProperty Name="lng_ID" ColumnName="lng_ID" />

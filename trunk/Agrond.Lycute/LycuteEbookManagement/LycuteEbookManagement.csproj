@@ -63,6 +63,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
@@ -78,6 +79,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -91,11 +93,20 @@
     <Compile Include="Common\AlertDiag.xaml.cs">
       <DependentUpon>AlertDiag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\LoadingWait.xaml.cs">
+      <DependentUpon>LoadingWait.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ComboBox.xaml.cs">
       <DependentUpon>ComboBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\FileLocation.xaml.cs">
+      <DependentUpon>FileLocation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\ImageBox.xaml.cs">
       <DependentUpon>ImageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\RankComponent.xaml.cs">
+      <DependentUpon>RankComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
@@ -116,11 +127,23 @@
     <Compile Include="Setting\StructureStore.xaml.cs">
       <DependentUpon>StructureStore.xaml</DependentUpon>
     </Compile>
+    <Page Include="Common\LoadingWait.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\FileLocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\ImageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\RankComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -325,7 +348,9 @@
   <ItemGroup>
     <Resource Include="Images\Components\add.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="API\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

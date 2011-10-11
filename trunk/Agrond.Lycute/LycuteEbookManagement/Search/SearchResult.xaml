@@ -8,55 +8,7 @@
 			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
              Height="800" Width="1280">
     <UserControl.Resources>
-        <Style x:Key="ImageButton" TargetType="Image">
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="TextAlignment" Value="Left"/>
-        </Style>
-        <Style x:Key="btnGlass" TargetType="{x:Type Button}">
-    		<Setter Property="FontSize" Value="23" />
-    		<Setter Property="Foreground" Value="WhiteSmoke" />
-    		<Setter Property="Cursor" Value="Hand"/>
-			<Setter Property="Template">
-    			<Setter.Value>
-    				<ControlTemplate TargetType="{x:Type Button}">
-    					<Border x:Name="ButtonBorder" 
-    						CornerRadius="7" 
-    						BorderThickness="4" 
-    						Background="#AA4E4D4D"  
-    						BorderBrush="#99FFFFFF"
-    						RenderTransformOrigin="0.5,0.5">
-    						<Grid>
-    							<Grid.RowDefinitions>
-    								<RowDefinition Height="*"/>
-    								<RowDefinition Height="1.7*"/>
-    							</Grid.RowDefinitions>
-    							<ContentPresenter x:Name="ButtonContentPresenter"
-    								VerticalAlignment="Center"  
-    								HorizontalAlignment="Center" 
-    								Grid.RowSpan="2" />
-    						</Grid>
-    					</Border>
-    					<ControlTemplate.Triggers>
-    						<Trigger Property="IsPressed" Value="True">
-    							<Setter Property="RenderTransform" TargetName="ButtonBorder">
-    								<Setter.Value>
-    									<TransformGroup>
-    										<ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
-    									</TransformGroup>
-    								</Setter.Value>
-    							</Setter>
-    						</Trigger>
-    					</ControlTemplate.Triggers>
-    				</ControlTemplate>
-    			</Setter.Value>
-    		</Setter>
-    	</Style>
-    	<Style x:Key="textBoxStyle" TargetType="{x:Type TextBox}">
+    	<Style x:Key="SearchingBoxStyle" TargetType="{x:Type TextBox}">
     		<Setter Property="FontSize" Value="20" />
     		<Setter Property="FontFamily" Value="Segoe UI"/>
     		<Setter Property="Background" Value="#AA4E4D4D"/>
@@ -64,45 +16,12 @@
     		<Setter Property="BorderBrush" Value="#99FFFFFF"/>
     		<Setter Property="BorderThickness" Value="5"/>
     	</Style>
-    	<Style x:Key="canvas_border" TargetType="{x:Type Border}">
-    		<Setter Property="BorderThickness" Value="10" />
-            <!--<Setter Property="Margin" Value="58,146,0,0"/>-->
-    		<Setter Property="HorizontalAlignment" Value="Left" />
-    		<Setter Property="VerticalAlignment" Value="Top"/>
-    		<Setter Property="Width" Value="860"/>
-    		<Setter Property="Height" Value="600"/>
-    		<Setter Property="Background" Value="#AA4E4D4D"/>
-    		<Setter Property="BorderBrush" Value="#99FFFFFF"/>
-    		<Setter Property="CornerRadius" Value="10"/>
-    		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-    	</Style>
         <!--properties style-->
-        <Style x:Key="txblckEBookInforStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Foreground" Value="#FFFFFFFF"/>
-        </Style>
         <Style x:Key="LaybelEBookInforStyle" TargetType="Label">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
-        <!--Fly in effect-->
-        <Storyboard x:Key="slideLeftToRight"  
-                    TargetProperty="RenderTransform.(TranslateTransform.X)"
-                    AccelerationRatio=".4"
-                    DecelerationRatio=".4">
-            <DoubleAnimation Storyboard.TargetName="viewer" Duration="0:0:0.6" From="1280" To="0"/>
-            <DoubleAnimation Storyboard.TargetName="bordervisual" Duration="0:0:0.6" From="0" To="-1280"/>
-        </Storyboard>
-        <Storyboard x:Key="slideRightToLeft" 
-                    TargetProperty="RenderTransform.(TranslateTransform.X)"
-                    AccelerationRatio=".4"
-                    DecelerationRatio=".4">
-            <DoubleAnimation Storyboard.TargetName="viewer" Duration="0:0:0.6" From="-1280" To="0"/>
-            <DoubleAnimation Storyboard.TargetName="bordervisual" Duration="0:0:0.6" From="0" To="1280"/>
-        </Storyboard>
-        <VisualBrush x:Key="VisualBrush1" Visual="{Binding ElementName=viewer}"/>
         <!-- Listview resource-->
         <Style x:Key="ListviewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="20"/>
@@ -179,7 +98,7 @@
                 <StackPanel>
                     <Grid>
                         <!--Search result-->
-                        <Border Style="{StaticResource canvas_border}" Height="684" >
+                        <Border Style="{StaticResource canvas_border}" Height="680" Width="860" >
                     <Canvas>
                         <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588.668" Canvas.Left="5" Canvas.Top="75.332" Width="835" SelectionChanged="listview_Result_SelectionChanged">
                             <ListView.View>
@@ -193,7 +112,7 @@
                             </ListView.View>
                         </ListView>
                         <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
-                        <TextBox Canvas.Left="125" TextWrapping="Wrap" Text="TextBox" Canvas.Top="23.332" Style="{StaticResource textBoxStyle}" Width="357.26"/>
+                            <TextBox Canvas.Left="125" TextWrapping="Wrap" Text="TextBox" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
                         </Canvas>
                 </Border>
                         <!--properties Panel-->
@@ -204,12 +123,12 @@
                                     <local:ReflectionBehavior />
                                 </i:Interaction.Behaviors>
                             </Image>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Title:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="39.443" Canvas.Top="386.4"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Year:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="39.443" Canvas.Top="462.6"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Publisher:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="39.443" Canvas.Top="536.2"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Edition:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="212.92" Canvas.Top="462.6"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Volume:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="39.443" Canvas.Top="499.2"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Author:" VerticalAlignment="Bottom" Style="{StaticResource txblckEBookInforStyle}" Canvas.Left="39.443" Canvas.Top="426"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Title:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="386.4"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Year:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="462.6"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Publisher:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="536.2"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Edition:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="212.92" Canvas.Top="462.6"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Volume:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="499.2"/>
+                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Author:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="426"/>
                             <Label Content="My sister's keeper" Name="lbl_Title" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="381.4"/>
                             <Label Content="Jodi Picoult" Name="lbl_Author" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="416"/>
                             <Label Content="Newyork Time" Name="lbl_Publisher" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="531.2"/>

@@ -9,6 +9,109 @@
             <GradientStop Color="#FF000000" Offset="0"/>
             <GradientStop Color="#FF555555" Offset="1"/>
         </LinearGradientBrush>
-
+        <Style x:Key="btnGlass" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="23" />
+            <Setter Property="Foreground" Value="WhiteSmoke" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" 
+                  CornerRadius="0" 
+                  BorderThickness="4" 
+                  Background="#AA4E4D4D"  
+                  BorderBrush="#99FFFFFF"
+                  RenderTransformOrigin="0.5,0.5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="1.7*"/>
+                                </Grid.RowDefinitions>
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                VerticalAlignment="Center"
+                                                  Margin="5"
+                                HorizontalAlignment="Left" 
+                                Grid.RowSpan="2" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform" TargetName="ButtonBorder">
+                                    <Setter.Value>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                                        </TransformGroup>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="imagebutton" TargetType="{x:Type Image}">
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style x:Key="textBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Background" Value="#AA4E4D4D"/>
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#99FFFFFF"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+        <Style x:Key="richTextBoxStyle" TargetType="{x:Type RichTextBox}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Background" Value="#AA4E4D4D"/>
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="#99FFFFFF"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+        <Style x:Key="canvas_border" TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="10" />
+            <!--<Setter Property="Margin" Value="58,146,0,0"/>-->
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <!--<Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="220"/>-->
+            <Setter Property="Background" Value="#AA4E4D4D"/>
+            <Setter Property="BorderBrush" Value="#99FFFFFF"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        </Style>
+        <Style x:Key="defautText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        <!--slider-->
+        <XmlDataProvider x:Key="views">
+            <x:XData>
+                <Views xmlns="">
+                    <View Title="View1">
+                        <Page Source="BookSearch/SearchResult.xaml"/>
+                    </View>
+                    <View Title="View2">
+                        <Page Source="BookSearch/main.xaml"/>
+                    </View>
+                </Views>
+            </x:XData>
+        </XmlDataProvider>
+        <Storyboard x:Key="slideLeftToRight"  
+                    Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="viewer" Duration="0:0:0.6" From="1280" To="0"/>
+            <DoubleAnimation Storyboard.TargetName="bordervisual" Duration="0:0:0.6" From="0" To="-1280"/>
+        </Storyboard>
+        <Storyboard x:Key="slideRightToLeft" 
+                    Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="viewer" Duration="0:0:0.6" From="-1280" To="0"/>
+            <DoubleAnimation Storyboard.TargetName="bordervisual" Duration="0:0:0.6" From="0" To="1280"/>
+        </Storyboard>
+        <VisualBrush x:Key="VisualBrush1" Visual="{Binding ElementName=viewer}"/>
+        
     </Application.Resources>
 </Application>
