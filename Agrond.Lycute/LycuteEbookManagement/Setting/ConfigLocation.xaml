@@ -16,52 +16,12 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Foreground" Value="#FFFFFF" />
         </Style>
-        <!--Common style-->
-        <Style x:Key="btnGlass" TargetType="Button">
-            <Setter Property="FontSize" Value="23" />
-            <Setter Property="Foreground" Value="WhiteSmoke" />
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="ButtonBorder" 
-                        CornerRadius="7" 
-                        BorderThickness="4" 
-                        Background="#AA4E4D4D"  
-                        BorderBrush="#99FFFFFF"
-                        RenderTransformOrigin="0.5,0.5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="1.7*"/>
-                                </Grid.RowDefinitions>
-                                <ContentPresenter x:Name="ButtonContentPresenter"
-                                VerticalAlignment="Center"
-                                                  Margin="5"
-                                HorizontalAlignment="Left" 
-                                Grid.RowSpan="2" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="RenderTransform" TargetName="ButtonBorder">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
     </UserControl.Resources>
     <Grid>
         <TextBox HorizontalAlignment="Left" Text="C:/Program Files/Agrond/Lycute" Margin="279,66,0,0" Name="tbx_Store" VerticalAlignment="Top" Width="400" Style="{StaticResource textBoxStyle}"/>
         <Label Content="Ebook Store Area" HorizontalAlignment="Left" Margin="36,66,0,0" Name="label1" VerticalAlignment="Top" Style="{StaticResource labelStyle}"/>
-        <Button Content="Browse" HorizontalAlignment="Left" Margin="703,54,0,679" Name="btn_BrowserFolder" Style="{StaticResource btnGlass}" Width="150" Click="btn_BrowserFolder_Click" />
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="703,54,0,679" Name="btn_BrowserFolder" Style="{StaticResource btnGlass}" Width="150" Click="btn_BrowserFolder_Click"/>
         <Image Height="48" HorizontalAlignment="Left" Margin="794,64,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="48" Source="/LycuteEbookManagement;component/Images/Components/folder.png" />
     </Grid>
 </UserControl>

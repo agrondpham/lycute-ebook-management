@@ -696,6 +696,30 @@ namespace Agrond.Lycute.DAO
         private Nullable<global::System.Int32> _seri_ID;
         partial void Onseri_IDChanging(Nullable<global::System.Int32> value);
         partial void Onseri_IDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> bok_Edition
+        {
+            get
+            {
+                return _bok_Edition;
+            }
+            set
+            {
+                Onbok_EditionChanging(value);
+                ReportPropertyChanging("bok_Edition");
+                _bok_Edition = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("bok_Edition");
+                Onbok_EditionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _bok_Edition;
+        partial void Onbok_EditionChanging(Nullable<global::System.Int32> value);
+        partial void Onbok_EditionChanged();
 
         #endregion
     

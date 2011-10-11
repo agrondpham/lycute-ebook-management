@@ -16,6 +16,7 @@ namespace Agrond.Lycute.Bus
     {
         BookInfo bookinfo = new BookInfo();
         private ObservableCollection<Book> _books = new ObservableCollection<Book>();
+        private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
         public ObservableCollection<Book> GetAuthor()
         {
             XmlDocument xdoc = bookinfo.GetCover(false, false, "keyword", "", "peterpan");
@@ -91,16 +92,17 @@ namespace Agrond.Lycute.Bus
         public ObservableCollection<Book> ShowAll() { 
             LibraryEntities mainDB=new LibraryEntities();
             var ebooks = from ebook in mainDB.Books
-                         select new 
-                         { 
-                             bok_Title= ebook.bok_Title,
-                             bok_ISBN=ebook.bok_ISBN,
-                             bok_ImageURl=ebook.bok_ImageURl,
-                             bok_Rank=ebook.bok_Rank,
-                             bok_Year = ebook.bok_Year//,
-                             //bok_Edition = ebook.bok_Year,
-                             //bok_Volumn=ebook.bok_Year
-                         };
+                         select ebook;
+                             //select new 
+                         //{ 
+                         //    bok_Title= ebook.bok_Title,
+                         //    bok_ISBN=ebook.bok_ISBN,
+                         //    bok_ImageURl=ebook.bok_ImageURl,
+                         //    bok_Rank=ebook.bok_Rank,
+                         //    bok_Year = ebook.bok_Year//,
+                         //    //bok_Edition = ebook.bok_Year,
+                         //    //bok_Volumn=ebook.bok_Year
+                         //};
             _books.Clear();
             foreach( var b in ebooks)
             {
@@ -109,11 +111,36 @@ namespace Agrond.Lycute.Bus
                     bok_ISBN = b.bok_ISBN,
                     bok_ImageURl = b.bok_ImageURl,
                     bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
-                    bok_Year=b.bok_Year
+                    bok_Year=b.bok_Year,
+                    bok_Edition=b.bok_Edition,
+                    bok_Location=b.bok_Location,
+                    bok_Modified=b.bok_Modified,
+                    bok_Volume=b.bok_Volume,
+                    bok_ID=b.bok_ID
                 });
             }
             return _books;
         }
+        /*Show all information ebook*/
+        public ObservableCollection<Author> ShowAuthorByBookID(int pId) { 
+            LibraryEntities mainDB = new LibraryEntities();
+            var authors = from ebook in mainDB.Books
+                         from author in ebook.Authors where ebook.bok_ID==pId
+                         select author;
+                         //select author
+            foreach (var a in authors)
+            {
+                _authors.Add(new Author()
+                {
+                    ath_ID=a.ath_ID,
+                    ath_Name=a.ath_Name
+                });
+
+            }
+            return _authors;
+        }
+        
+        
         /*Show image*/
         //public ObservableCollection<Book>
     }

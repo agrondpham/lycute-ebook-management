@@ -74,7 +74,7 @@ namespace LycuteEbookManagement
             XmlElement root = (XmlElement)xdoc.ChildNodes[0];
             XmlNodeList xnl = root.SelectNodes("Page");
             viewer.ItemsSource = xnl;
-            viewer.BeginStoryboard((Storyboard)this.Resources["slideRightToLeft"]);
+            viewer.BeginStoryboard((Storyboard)Application.Current.Resources["slideRightToLeft"]);
         }
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
@@ -86,7 +86,7 @@ namespace LycuteEbookManagement
         public void moveout()
         {
             viewer.ItemsSource = null;
-            viewer.BeginStoryboard((Storyboard)this.Resources["slideRightToLeft"]);
+            viewer.BeginStoryboard((Storyboard)Application.Current.Resources["slideRightToLeft"]);
         }
 
         private void btn_back(object sender, MouseButtonEventArgs e)
@@ -107,6 +107,14 @@ namespace LycuteEbookManagement
 
             string strSearchResult = @"<root>
                 <Page Source='Setting/SettingPanel.xaml'/>
+            </root>";
+            chanceSlide(strSearchResult);
+        }
+
+        private void btn_AddEbook(object sender, MouseButtonEventArgs e)
+        {
+            string strSearchResult = @"<root>
+                <Page Source='Ebook/AddTool.xaml'/>
             </root>";
             chanceSlide(strSearchResult);
         }

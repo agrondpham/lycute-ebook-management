@@ -34,7 +34,7 @@ namespace LycuteEbookManagement.Setting
             XmlElement root = (XmlElement)xdoc.ChildNodes[0];
             XmlNodeList xnl = root.SelectNodes("Page");
             viewer.ItemsSource = xnl;
-            viewer.BeginStoryboard((Storyboard)this.Resources["slideRightToLeft"]);
+            viewer.BeginStoryboard((Storyboard)Application.Current.Resources["slideRightToLeft"]);
         }
 
         private void btn_SetLocation_Click(object sender, RoutedEventArgs e)

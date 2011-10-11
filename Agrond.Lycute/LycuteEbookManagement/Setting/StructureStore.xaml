@@ -6,44 +6,6 @@
         <ImageBrush ImageSource="/LycuteEbookManagement;component/Images/Backgrounds/diag_bg.jpg" />
     </Window.Background>
         <Window.Resources>
-            <Style x:Key="btnGlass" TargetType="Button">
-                <Setter Property="FontSize" Value="23" />
-                <Setter Property="Foreground" Value="WhiteSmoke" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="ButtonBorder" 
-                        CornerRadius="7" 
-                        BorderThickness="4" 
-                        Background="#AA4E4D4D"  
-                        BorderBrush="#99FFFFFF"
-                        RenderTransformOrigin="0.5,0.5">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="1.7*"/>
-                                    </Grid.RowDefinitions>
-                                    <ContentPresenter x:Name="ButtonContentPresenter"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center" 
-                                Grid.RowSpan="2" />
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="RenderTransform" TargetName="ButtonBorder">
-                                        <Setter.Value>
-                                            <TransformGroup>
-                                                <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
-                                            </TransformGroup>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <Style x:Key="rdbStyle" TargetType="RadioButton">
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="Foreground" Value="White"/>

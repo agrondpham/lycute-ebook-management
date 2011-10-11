@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
-using Agrond._3DWallLayout;
 using System.Windows.Media.Animation;
 using System.Diagnostics;
-using MarsaX;
 using System.Windows.Threading;
 using LycuteEbookManagement._3DWall;
 using System.Collections.ObjectModel;
@@ -62,7 +54,7 @@ namespace LycuteEbookManagement.Ebook
 
             IsSearchAreaShown = false;
             this.Loaded += ucslideImages3DViewPort_Loaded;
-            loadTimer.Interval = TimeSpan.FromSeconds(1);
+            loadTimer.Interval = TimeSpan.FromSeconds(2);
             loadTimer.IsEnabled = false;
             loadTimer.Tick += loadTimer_Tick;
         }
@@ -77,7 +69,8 @@ namespace LycuteEbookManagement.Ebook
         }
         private void loadTimer_Tick(object sender, EventArgs e)
         {
-            //ucLoader.Visibility = Visibility.Hidden;
+
+            loadingWait1.Visibility = Visibility.Hidden;
             controlsArea.Visibility = Visibility.Visible;
             IsAnimating = false;
             IsVisible = true;
@@ -88,7 +81,8 @@ namespace LycuteEbookManagement.Ebook
             //currentSearchtype = newSearchType;
             loadTimer.IsEnabled = true;
             controlsArea.Visibility = Visibility.Collapsed;
-            //ucLoader.Visibility = Visibility.Visible;
+            
+            loadingWait1.Visibility = Visibility.Visible;
             IsAnimating = true;
             IsVisible = false;
 
@@ -187,11 +181,13 @@ namespace LycuteEbookManagement.Ebook
             bord.BorderBrush = Brushes.WhiteSmoke;
             try
             {
+                //Interaction.GetBehaviors() interaction = new ReflectionBehavior();
                 Image img = new Image
                 {
                     Source = new BitmapImage(new Uri(@url, UriKind.RelativeOrAbsolute)),
                     Stretch = Stretch.Fill,
-                    Margin = new Thickness(0)
+                    Margin = new Thickness(0),
+                    //interac
 
                 };
 
