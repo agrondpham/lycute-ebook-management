@@ -83,8 +83,19 @@ namespace LycuteEbookManagement.Search
         }
         private void setData(Book pBook)
         {
+
+            ObservableCollection<Author> _authors = bus_book.ShowAuthorByBookID(pBook.bok_ID);//new ObservableCollection<Author>();
+            //_authors.Clear();
+            //_authors=bus_book.ShowAuthorByBookID(pBook.bok_ID);
+            string strAuthor = "";
+            
+            foreach (var a in _authors)
+            {
+                strAuthor = a.ath_Name + ";" + strAuthor;
+            }
+            lbl_Author.Content = strAuthor;
+
             lbl_Title.Content = pBook.bok_Title;
-            lbl_Author.Content = "";
             lbl_Edition.Content = pBook.bok_Edition;
             lbl_Publisher.Content = "";
             lbl_Volume.Content = pBook.bok_Volume;
@@ -93,7 +104,7 @@ namespace LycuteEbookManagement.Search
             {
                 BitmapImage bi = new BitmapImage();
                 bi.BeginInit();
-                bi.UriSource = new Uri(pBook.bok_ImageURl, UriKind.Absolute);
+                bi.UriSource = new Uri(pBook.bok_ImageURl, UriKind.RelativeOrAbsolute);
                 bi.EndInit();
                 img_Cover.Source = bi;
             }

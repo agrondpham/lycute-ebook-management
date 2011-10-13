@@ -114,7 +114,7 @@ namespace LycuteEbookManagement
         private void btn_AddEbook(object sender, MouseButtonEventArgs e)
         {
             string strSearchResult = @"<root>
-                <Page Source='Ebook/AddTool.xaml'/>
+                <Page Source='Ebook/Editor.xaml'/>
             </root>";
             chanceSlide(strSearchResult);
         }

@@ -122,7 +122,8 @@ namespace Agrond.Lycute.Bus
             return _books;
         }
         /*Show all information ebook*/
-        public ObservableCollection<Author> ShowAuthorByBookID(int pId) { 
+        public ObservableCollection<Author> ShowAuthorByBookID(int pId) {
+            _authors.Clear();
             LibraryEntities mainDB = new LibraryEntities();
             var authors = from ebook in mainDB.Books
                          from author in ebook.Authors where ebook.bok_ID==pId

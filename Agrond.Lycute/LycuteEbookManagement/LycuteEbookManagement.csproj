@@ -111,9 +111,6 @@
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ebook\AddTool.xaml.cs">
-      <DependentUpon>AddTool.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Ebook\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
@@ -148,10 +145,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ebook\3DWall.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ebook\AddTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

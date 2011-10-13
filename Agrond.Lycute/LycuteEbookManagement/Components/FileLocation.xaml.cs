@@ -32,5 +32,10 @@ namespace LycuteEbookManagement.Components
             if (dlg.FileName != "")
                 txtFileLocation.Text = dlg.FileName;
         }
+
+        private void btn_OK_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+        }
     }
 }
