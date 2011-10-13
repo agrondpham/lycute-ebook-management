@@ -25,7 +25,7 @@
         <!-- Listview resource-->
         <Style x:Key="ListviewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Background" Value="#000000"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
         <Style TargetType="{x:Type ListViewItem}" x:Key="ListViewItemStyleBase">
             <Setter Property="Template">
@@ -48,7 +48,33 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <Style x:Key="GridViewColumnHeaderStyle"  TargetType="GridViewColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Chocolate"/>
+            <Setter Property="Foreground" Value="Chocolate"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Grid>
+                            <Border Name="HeaderBorder"
+                                    BorderThickness="0"
+                                    BorderBrush="White"
+                                    Background="Transparent"
+                                    Padding="2,0,2,0">
+                                <ContentPresenter Name="HeaderContent"
+                                      TextElement.Foreground="White"
+                                      Margin="0,0,0,1"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="True"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DataTemplate x:Key="CoverItemTemplate">
             <Border BorderThickness="0,0,0,0" BorderBrush="#6FBDE8">
                 <Grid>
@@ -73,7 +99,7 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-	<Grid Margin="-15,52,8,8">
+	<Grid Margin="-15,0,0,0">
         <StackPanel>
                 <!--Holder child layout-->
                 <Grid>
@@ -98,11 +124,11 @@
                 <StackPanel>
                     <Grid>
                         <!--Search result-->
-                        <Border Style="{StaticResource canvas_border}" Height="680" Width="860" >
-                    <Canvas>
-                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588.668" Canvas.Left="5" Canvas.Top="75.332" Width="835" SelectionChanged="listview_Result_SelectionChanged">
+                        <Border Style="{StaticResource canvas_border}" Height="700" Width="860" >
+                    <Canvas Background="#000000">
+                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588" Canvas.Left="4" Canvas.Top="93" Width="835.5" SelectionChanged="listview_Result_SelectionChanged" >
                             <ListView.View>
-                                <GridView>
+                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
                                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
                                     <GridViewColumn Header="Author" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
                                     <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>
@@ -112,8 +138,8 @@
                             </ListView.View>
                         </ListView>
                         <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
-                            <TextBox Canvas.Left="125" TextWrapping="Wrap" Text="TextBox" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
-                        </Canvas>
+                        <TextBox Canvas.Left="125" TextWrapping="Wrap" Text="TextBox" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
+                    </Canvas>
                 </Border>
                         <!--properties Panel-->
                         <Border Style="{StaticResource canvas_border}" Height="0" Width="0" Margin="894,0,0,0" Name="properties">

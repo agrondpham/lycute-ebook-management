@@ -28,9 +28,30 @@ namespace Agrond.Lycute.Bus
                     _strImageURL = @"pack://application:,,,/LycuteEbookManagement;component/Images/Components/5stars.png";
                     break;
             }
-           //Uri uriLink= new Uri (_strImageURL,UriKind.Absolute);
-           //return uriLink;
             return _strImageURL;
+        }
+        public static int RankNumber(String pStrRanklink)
+        {
+            int _intRankNumber = 1;
+            switch (pStrRanklink)
+            {
+                case "pack://application:,,,/LycuteEbookManagement;component/Images/Components/1star.png":
+                    _intRankNumber = 1;
+                    break;
+                case "pack://application:,,,/LycuteEbookManagement;component/Images/Components/2stars.png":
+                    _intRankNumber = 2;
+                    break;
+                case "pack://application:,,,/LycuteEbookManagement;component/Images/Components/3stars.png":
+                    _intRankNumber = 3;
+                    break;
+                case "pack://application:,,,/LycuteEbookManagement;component/Images/Components/4stars.png":
+                    _intRankNumber = 4;
+                    break;
+                case "pack://application:,,,/LycuteEbookManagement;component/Images/Components/5stars.png":
+                    _intRankNumber = 5;
+                    break;
+            }
+            return _intRankNumber;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace LycuteEbookManagement.Components
         {
             _intRank = value;
             textBox1.Text = _intRank.ToString();
+            changeRank(_intRank);
         }
         public RankComponent()
         {
