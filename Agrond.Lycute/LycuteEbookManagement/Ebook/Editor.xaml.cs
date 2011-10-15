@@ -39,7 +39,6 @@ namespace LycuteEbookManagement.Ebook
             foreach (var a in _authors) {
                 strAuthor = a.ath_Name + ";" + strAuthor;
             }
-            //Author author=_book[0].Authors.;
             txtAuthor.Text = strAuthor;
             txtISBN.Text = _book.bok_ISBN;
             txtTitle.Text = _book.bok_Title;
@@ -51,7 +50,16 @@ namespace LycuteEbookManagement.Ebook
             SetPic(_book.bok_ImageURl);
 
         }
-
+        private Book AddData(Book pbook) {
+            pbook.bok_ISBN = txtISBN.Text;
+            pbook.bok_Title = txtTitle.Text;
+            pbook.bok_Edition= Convert.ToInt32(txtEdition.Text);
+            pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.getText());
+            pbook.bok_Year=Convert.ToInt32(ucComBoxYear.getText());
+            pbook.bok_Rank=rankComponent1.getText().ToString();
+            pbook.bok_ImageURl=img_Cover.Source.ToString();
+            return pbook;
+        }
         private void btnLoadPicture_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
@@ -69,5 +77,23 @@ namespace LycuteEbookManagement.Ebook
             bi.EndInit();
             img_Cover.Source = bi;
         }
+
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            string strAuthor=txtAuthor.Text;
+            Book editedBook = AddData(_book);
+            bus_book.Edit(editedBook,strAuthor);
+        }
+        //private void GetPic(string pStrPicURI)
+        //{
+        //    ImageSource img=img_Cover.Source;
+        //    img.GetValue();
+        //    BitmapImage bi = new BitmapImage();
+        //    bi = 
+        //    bi.BeginInit();
+        //    bi.UriSource = new Uri(pStrPicURI, UriKind.RelativeOrAbsolute);
+        //    bi.EndInit();
+            
+        //}
     }
 }
