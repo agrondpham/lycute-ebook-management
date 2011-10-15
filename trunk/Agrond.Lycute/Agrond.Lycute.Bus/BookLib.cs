@@ -109,7 +109,7 @@ namespace Agrond.Lycute.Bus
                 _books.Add(new Book(){
                     bok_Title=b.bok_Title,
                     bok_ISBN = b.bok_ISBN,
-                    bok_ImageURl = b.bok_ImageURl,
+                    bok_ImageURl = LycuteApplication.GetLocationString()+b.bok_ImageURl,
                     bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
                     bok_Year=b.bok_Year,
                     bok_Edition=b.bok_Edition,
@@ -121,6 +121,59 @@ namespace Agrond.Lycute.Bus
             }
             return _books;
         }
+        /*Search ebook*/
+        public ObservableCollection<Book> Search(string pKeywords)
+        {
+            LibraryEntities mainDB = new LibraryEntities();
+            var ebooks=from ebook in mainDB.Books
+                              select ebook;
+            if (pKeywords != null && pKeywords != "")
+            {
+                ebooks = from ebook in mainDB.Books join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+                             where ebook.bok_Title.Contains(pKeywords)
+                             select ebook;
+            }
+            _books.Clear();
+            foreach (var b in ebooks)
+            {
+                _books.Add(new Book()
+                {
+                    bok_Title = b.bok_Title,
+                    bok_ISBN = b.bok_ISBN,
+                    bok_ImageURl = LycuteApplication.GetLocationString() + b.bok_ImageURl,
+                    bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
+                    bok_Year = b.bok_Year,
+                    bok_Edition = b.bok_Edition,
+                    bok_Location = b.bok_Location,
+                    bok_Modified = b.bok_Modified,
+                    bok_Volume = b.bok_Volume,
+                    bok_ID = b.bok_ID,
+                    Publisher=b.Publisher
+                });
+            }
+            return _books;
+        }
+        /*Insert ebook*/
+        public void Edit(Book pEbook,string pAuthor)
+        {
+            LibraryEntities mainDB = new LibraryEntities();
+            var ebooks = from ebook in mainDB.Books where ebook.bok_ID == pEbook.bok_ID
+                         select ebook;
+            foreach (var b in ebooks)
+            {
+                b.bok_Edition = pEbook.bok_Edition;
+                b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0],pEbook.bok_Title,"cover.jpg");
+                b.bok_ISBN = pEbook.bok_ISBN;
+                b.bok_Location = pEbook.bok_Location;
+                b.bok_Modified = pEbook.bok_Modified;
+                b.bok_Rank = pEbook.bok_Rank;
+                b.bok_Title = pEbook.bok_Title;
+                b.bok_Volume = pEbook.bok_Volume;
+                b.bok_Year = pEbook.bok_Year;
+            }
+            mainDB.SaveChanges();
+        }
+        
         /*Show all information ebook*/
         public ObservableCollection<Author> ShowAuthorByBookID(int pId) {
             _authors.Clear();
@@ -140,9 +193,27 @@ namespace Agrond.Lycute.Bus
             }
             return _authors;
         }
-        
-        
-        /*Show image*/
-        //public ObservableCollection<Book>
+        /*Edit author*/
+        //public void EditAuthorByBookID(int pId)
+        //{
+        //    _authors.Clear();
+        //    LibraryEntities mainDB = new LibraryEntities();
+        //    var authors = from ebook in mainDB.Books
+        //                  from author in ebook.Authors
+        //                  where ebook.bok_ID == pId
+        //                  select author;
+        //    //select author
+        //    foreach (var a in authors)
+        //    {
+        //        _authors.Add(new Author()
+        //        {
+        //            ath_ID = a.ath_ID,
+        //            ath_Name = a.ath_Name
+        //        });
+
+        //    }
+        //    return _authors;
+        //}
+        /*Show publisher*/
     }
 }

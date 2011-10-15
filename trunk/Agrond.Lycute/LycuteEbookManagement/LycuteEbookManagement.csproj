@@ -87,8 +87,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="3DWall\3DWallLayout.cs" />
-    <Compile Include="3DWall\FlickerProvider.cs" />
-    <Compile Include="3DWall\PhotoInfo.cs" />
     <Compile Include="3DWall\Wall3dHelper.cs" />
     <Compile Include="Common\AlertDiag.xaml.cs">
       <DependentUpon>AlertDiag.xaml</DependentUpon>
@@ -220,7 +218,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -343,6 +343,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no_picture_available.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -34,15 +34,10 @@ namespace LycuteEbookManagement.Components
         public RankComponent()
         {
             InitializeComponent();
-            //load();
         }
-        //private void load() {
-        //    textBox1.Text = _intRank.ToString() ;
-        //    //_intRank = Convert.ToInt32(textBox1.Text);
-        //}
-
         private void btn_Minus_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            _intRank = Convert.ToInt32(textBox1.Text);
             if (_intRank >1)
             {
                 _intRank -= 1;
@@ -50,9 +45,9 @@ namespace LycuteEbookManagement.Components
                 textBox1.Text = _intRank.ToString();
             }
         }
-
         private void btn_Add_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            _intRank = Convert.ToInt32(textBox1.Text);
             if (_intRank < 5)
             {
                 _intRank += 1;

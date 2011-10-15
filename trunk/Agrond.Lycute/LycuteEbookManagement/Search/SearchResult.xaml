@@ -138,7 +138,7 @@
                             </ListView.View>
                         </ListView>
                         <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
-                        <TextBox Canvas.Left="125" TextWrapping="Wrap" Text="TextBox" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
+                        <TextBox Name="txt_Search" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
                     </Canvas>
                 </Border>
                         <!--properties Panel-->
@@ -163,7 +163,7 @@
                             <Label Content="one" Name="lbl_Volume" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="494.2"/>
 
                             <Button Content="Edit" Name="btn_Edit" Canvas.Left="226" Canvas.Top="582" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
-                            <Button Content="Read" Name="btn_Read" Canvas.Left="39.443" Canvas.Top="582" Style="{StaticResource btnGlass}" Height="50" Width="100"/>
+                            <Button Content="Read" Name="btn_Read" Canvas.Left="39.443" Canvas.Top="582" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
                             <Image Canvas.Left="328" Canvas.Top="6" Height="32" Name="image1" Stretch="Fill" Width="32" Source="/LycuteEbookManagement;component/Images/Components/cancel_wc.png" />
                         </Canvas>
                     </Border>

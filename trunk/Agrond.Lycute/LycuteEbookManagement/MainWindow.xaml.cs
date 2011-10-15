@@ -16,7 +16,7 @@ namespace LycuteEbookManagement
         {
             InitializeComponent();
             Agrond.Lycute.Bus.StoreLocation store=new Agrond.Lycute.Bus.StoreLocation();
-            string strLocation = Agrond.Lycute.Bus.Application.GetLocationString();
+            string strLocation = Agrond.Lycute.Bus.LycuteApplication.GetLocationString();
             if (store.CheckDatabase(strLocation)==false)
             { 
                 //alert direct wrong
