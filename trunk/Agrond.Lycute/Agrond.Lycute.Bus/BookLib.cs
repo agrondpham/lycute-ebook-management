@@ -148,12 +148,13 @@ namespace Agrond.Lycute.Bus
                     bok_Modified = b.bok_Modified,
                     bok_Volume = b.bok_Volume,
                     bok_ID = b.bok_ID,
+                    bok_Review = GetReview(LycuteApplication.GetLocationString() + b.bok_Review),
                     Publisher=b.Publisher
                 });
             }
             return _books;
         }
-        /*Insert ebook*/
+        /*Edit ebook*/
         public void Edit(Book pEbook,string pAuthor)
         {
             LibraryEntities mainDB = new LibraryEntities();
@@ -170,10 +171,33 @@ namespace Agrond.Lycute.Bus
                 b.bok_Title = pEbook.bok_Title;
                 b.bok_Volume = pEbook.bok_Volume;
                 b.bok_Year = pEbook.bok_Year;
+                b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.jpg");
             }
             mainDB.SaveChanges();
         }
-        
+        public void EditReview(string pStrXMLURL,string pStrReview) {
+            XmlTextWriter xmlWriter = new XmlTextWriter(pStrXMLURL,null);
+            xmlWriter.WriteStartDocument();
+                xmlWriter.WriteStartElement("Review");
+                    xmlWriter.WriteStartElement("Content");
+                        xmlWriter.WriteString(pStrReview);  
+                    xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndElement();
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
+        }
+        public string GetReview(string pFileURL) {
+            XmlTextReader xmlReader = new XmlTextReader(pFileURL);
+            string strReview="";
+            while (xmlReader.Read())
+            {
+                if(xmlReader.NodeType==XmlNodeType.Text)
+                {
+                        strReview= xmlReader.Value;
+                }
+            }
+            return strReview;
+        }
         /*Show all information ebook*/
         public ObservableCollection<Author> ShowAuthorByBookID(int pId) {
             _authors.Clear();
