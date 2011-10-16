@@ -720,6 +720,30 @@ namespace Agrond.Lycute.DAO
         private Nullable<global::System.Int32> _bok_Edition;
         partial void Onbok_EditionChanging(Nullable<global::System.Int32> value);
         partial void Onbok_EditionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String bok_Review
+        {
+            get
+            {
+                return _bok_Review;
+            }
+            set
+            {
+                Onbok_ReviewChanging(value);
+                ReportPropertyChanging("bok_Review");
+                _bok_Review = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("bok_Review");
+                Onbok_ReviewChanged();
+            }
+        }
+        private global::System.String _bok_Review;
+        partial void Onbok_ReviewChanging(global::System.String value);
+        partial void Onbok_ReviewChanged();
 
         #endregion
     

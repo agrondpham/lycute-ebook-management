@@ -81,6 +81,7 @@
           <Property Name="bok_Volume" Type="int" />
           <Property Name="seri_ID" Type="int" />
           <Property Name="bok_Edition" Type="int" />
+          <Property Name="bok_Review" Type="ntext" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -290,6 +291,7 @@
           <Property Type="Int32" Name="seri_ID" />
           <NavigationProperty Name="Seri" Relationship="LibraryModel.fk_Book_Seri_seriID" FromRole="Book" ToRole="Seri" />
           <Property Type="Int32" Name="bok_Edition" />
+          <Property Type="String" Name="bok_Review" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Publisher">
           <Key>
@@ -398,7 +400,8 @@
             <ScalarProperty Name="ath_Name" ColumnName="ath_Name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Books"><EntityTypeMapping TypeName="LibraryModel.Book"><MappingFragment StoreEntitySet="Book">
-            <ScalarProperty Name="bok_Edition" ColumnName="bok_Edition" />
+            <ScalarProperty Name="bok_Review" ColumnName="bok_Review" />
+                <ScalarProperty Name="bok_Edition" ColumnName="bok_Edition" />
                 <ScalarProperty Name="seri_ID" ColumnName="seri_ID" />
                 <ScalarProperty Name="bok_Volume" ColumnName="bok_Volume" />
                 <ScalarProperty Name="bok_Location" ColumnName="bok_Location" />

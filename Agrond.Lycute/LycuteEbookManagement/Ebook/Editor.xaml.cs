@@ -47,6 +47,7 @@ namespace LycuteEbookManagement.Ebook
             ucComBoxVolume.setText(_book.bok_Volume.ToString());
             ucComBoxYear.setText(_book.bok_Year.ToString());
             rankComponent1.setText(Rank.RankNumber(_book.bok_Rank));
+            txtReview.AppendText(_book.bok_Review);
             SetPic(_book.bok_ImageURl);
 
         }
@@ -81,8 +82,13 @@ namespace LycuteEbookManagement.Ebook
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
             string strAuthor=txtAuthor.Text;
+            TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
+            
             Book editedBook = AddData(_book);
             bus_book.Edit(editedBook,strAuthor);
+            //save review
+            bus_book.EditReview(LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title, "review.xml"), textRange.Text);
+
         }
         //private void GetPic(string pStrPicURI)
         //{
