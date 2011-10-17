@@ -33,6 +33,7 @@ namespace LycuteEbookManagement.Ebook
             //ucComBoxYear.setText("1990");
         }
         BookLib bus_book = new BookLib();
+        private string _imageSource = "";
         private void load() {
             ObservableCollection<Author> _authors = bus_book.ShowAuthorByBookID(_book.bok_ID);
             string strAuthor="";
@@ -58,7 +59,6 @@ namespace LycuteEbookManagement.Ebook
             pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.getText());
             pbook.bok_Year=Convert.ToInt32(ucComBoxYear.getText());
             pbook.bok_Rank=rankComponent1.getText().ToString();
-            pbook.bok_ImageURl=img_Cover.Source.ToString();
             return pbook;
         }
         private void btnLoadPicture_Click(object sender, RoutedEventArgs e)
@@ -69,6 +69,7 @@ namespace LycuteEbookManagement.Ebook
             if (dlg.FileName != "")
             {
                 SetPic(dlg.FileName);
+                _imageSource = dlg.FileName;
             }
         }
         private void SetPic(string pStrPicURI) {
@@ -85,10 +86,9 @@ namespace LycuteEbookManagement.Ebook
             TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
             
             Book editedBook = AddData(_book);
-            bus_book.Edit(editedBook,strAuthor);
+            bus_book.Edit(editedBook,strAuthor,_imageSource);
             //save review
             bus_book.EditReview(LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title, "review.xml"), textRange.Text);
-
         }
         //private void GetPic(string pStrPicURI)
         //{

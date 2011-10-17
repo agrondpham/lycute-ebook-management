@@ -106,6 +106,7 @@
     <Compile Include="Components\RankComponent.xaml.cs">
       <DependentUpon>RankComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DBHelper.cs" />
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
     </Compile>

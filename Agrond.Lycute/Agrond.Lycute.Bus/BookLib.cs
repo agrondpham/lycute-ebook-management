@@ -155,25 +155,32 @@ namespace Agrond.Lycute.Bus
             return _books;
         }
         /*Edit ebook*/
-        public void Edit(Book pEbook,string pAuthor)
+        public void Edit(Book pEbook,string pAuthor,string pImageSourceURL)
         {
-            LibraryEntities mainDB = new LibraryEntities();
-            var ebooks = from ebook in mainDB.Books where ebook.bok_ID == pEbook.bok_ID
-                         select ebook;
-            foreach (var b in ebooks)
-            {
-                b.bok_Edition = pEbook.bok_Edition;
-                b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0],pEbook.bok_Title,"cover.jpg");
-                b.bok_ISBN = pEbook.bok_ISBN;
-                b.bok_Location = pEbook.bok_Location;
-                b.bok_Modified = pEbook.bok_Modified;
-                b.bok_Rank = pEbook.bok_Rank;
-                b.bok_Title = pEbook.bok_Title;
-                b.bok_Volume = pEbook.bok_Volume;
-                b.bok_Year = pEbook.bok_Year;
-                b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.jpg");
-            }
-            mainDB.SaveChanges();
+                string[] FileNameArray = pImageSourceURL.Split('.');
+                string strFileType = FileNameArray[FileNameArray.Count() - 1];
+                string strImageURL=LycuteApplication.GetLocationString()+NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover."+strFileType);
+                LibraryEntities mainDB = new LibraryEntities();
+                var ebooks = from ebook in mainDB.Books
+                             where ebook.bok_ID == pEbook.bok_ID
+                             select ebook;
+                foreach (var b in ebooks)
+                {
+                    b.bok_Edition = pEbook.bok_Edition;
+                    b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
+                    b.bok_ISBN = pEbook.bok_ISBN;
+                    b.bok_Location = pEbook.bok_Location;
+                    b.bok_Modified = pEbook.bok_Modified;
+                    b.bok_Rank = pEbook.bok_Rank;
+                    b.bok_Title = pEbook.bok_Title;
+                    b.bok_Volume = pEbook.bok_Volume;
+                    b.bok_Year = pEbook.bok_Year;
+                    b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.xml");
+                }
+                mainDB.SaveChanges();
+                //copy image
+                CopyFile.FileCopy fileCopy=new CopyFile.FileCopy();
+                string result=fileCopy.Copy(pImageSourceURL,strImageURL);
         }
         public void EditReview(string pStrXMLURL,string pStrReview) {
             XmlTextWriter xmlWriter = new XmlTextWriter(pStrXMLURL,null);

@@ -11,19 +11,21 @@ namespace LycuteEbookManagement
     public partial class MainWindow : Window
     {
         
-        private static int oldSelectedIndex = 0;
+        //private static int oldSelectedIndex = 0;
         public MainWindow()
         {
             InitializeComponent();
             Agrond.Lycute.Bus.StoreLocation store=new Agrond.Lycute.Bus.StoreLocation();
             string strLocation = Agrond.Lycute.Bus.LycuteApplication.GetLocationString();
-            if (store.CheckDatabase(strLocation)==false)
-            { 
+            if (store.CheckDatabase(strLocation) == false)
+            {
                 //alert direct wrong
                 //choice new location
                 //update databse
-                
+                //update connectionstring
             }
+            //update connection string
+            DBHelper.ConfigDatabase();
 
         }
 
