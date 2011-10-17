@@ -2,21 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Security.Permissions;
+using System.Security;
+using System.Security.AccessControl;
 
 namespace Agrond.CopyFile
 {
     public class FileCopy
     {
         protected bool CopyFile(string pStrSourceFile, string pStrTargetFile) {
+            FileStream fsIn;
+            FileStream fsOut;
             try
             {
-                System.IO.File.Copy(pStrSourceFile, pStrTargetFile, true);
+                fsIn = new FileStream(pStrSourceFile, FileMode.Open, FileAccess.Read);
+                fsOut = new FileStream(pStrTargetFile, FileMode.Create);
+                fsIn.CopyTo(fsOut);
+                fsIn.Close();
+                fsOut.Close();
                 return true;
             }
             catch(Exception e) { 
                 Console.WriteLine(e.Message);
                 return false;
-
             }
         }
         protected bool DeleteFile(string pStrDeleteFile) {
@@ -44,12 +53,11 @@ namespace Agrond.CopyFile
                 }
         }
         //public function
-        public string Copy(string pStrSourcePath, string pStrTargetPath, string pStrFileName)
+        public string Copy(string pStrSourcePath, string pStrTargetPath)
         {
             if (System.IO.Directory.Exists(pStrTargetPath))
                 System.IO.Directory.CreateDirectory(pStrTargetPath);
-            if (CopyFile(System.IO.Path.Combine(pStrSourcePath, pStrFileName),
-                    System.IO.Path.Combine(pStrTargetPath, pStrFileName)))
+            if (CopyFile(pStrSourcePath,pStrTargetPath))
                 return "successful";
             else return "There is/are errors when copy file";
         }
