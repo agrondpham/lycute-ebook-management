@@ -8,14 +8,28 @@
 			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
              Height="800" Width="1280">
     <UserControl.Resources>
-    	<Style x:Key="SearchingBoxStyle" TargetType="{x:Type TextBox}">
-    		<Setter Property="FontSize" Value="20" />
-    		<Setter Property="FontFamily" Value="Segoe UI"/>
-    		<Setter Property="Background" Value="#AA4E4D4D"/>
-    		<Setter Property="Foreground" Value="#FFFFFF" />
-    		<Setter Property="BorderBrush" Value="#99FFFFFF"/>
-    		<Setter Property="BorderThickness" Value="5"/>
-    	</Style>
+
+        <!-- Show Properties Area Animation  -->
+        <Storyboard x:Key="OnShowPropertiesArea">
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                              Storyboard.TargetName="properties" 
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="10000,0,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="1000,0,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="894,0,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <!-- Hide Properties Area Animation  -->
+        <Storyboard x:Key="OnHidePropertiesArea">
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                              Storyboard.TargetName="properties" 
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="894,0,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="1000,0,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="10000,0,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
         <!--properties style-->
         <Style x:Key="LaybelEBookInforStyle" TargetType="Label">
             <Setter Property="FontSize" Value="20"/>
@@ -99,76 +113,55 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-	<Grid Margin="-15,0,0,0">
+    <Grid>
         <StackPanel>
-                <!--Holder child layout-->
-                <Grid>
-                    <Border x:Name="bordervisual" Width="1280">
-                        <Rectangle x:Name="rectanglevisual"/>
-                        <Border.RenderTransform>
-                            <TranslateTransform/>
-                        </Border.RenderTransform>
-                    </Border>
-                    <ItemsControl x:Name="viewer" DataContext="{Binding Path=SelectedItem, ElementName=viewList}"
-                            ItemsSource="{Binding XPath=Page}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Frame x:Name="frame" Source="{Binding XPath=@Source}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.RenderTransform>
-                            <TranslateTransform/>
-                        </ItemsControl.RenderTransform>
-                    </ItemsControl>
-                </Grid>
                 <StackPanel>
                     <Grid>
                         <!--Search result-->
-                        <Border Style="{StaticResource canvas_border}" Height="700" Width="860" >
-                    <Canvas Background="#000000">
-                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588" Canvas.Left="4" Canvas.Top="93" Width="835.5" SelectionChanged="listview_Result_SelectionChanged" >
-                            <ListView.View>
-                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
-                                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
-                                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
-                                    <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>
-                                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding bok_Year}" Width="55"/>
-                                    <GridViewColumn Header="Cover" CellTemplate="{StaticResource CoverItemTemplate}"  Width="120"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
-                        <TextBox Name="txt_Search" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="23.332" Style="{StaticResource SearchingBoxStyle}" Width="357.26"/>
-                    </Canvas>
-                </Border>
+                        <Border Style="{StaticResource canvas_border}" Height="700" Width="860" Margin="-12,0,0,0">
+		                    <Canvas Background="#000000">
+		                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588" Canvas.Left="4" Canvas.Top="93" Width="835.5" SelectionChanged="listview_Result_SelectionChanged" >
+		                            <ListView.View>
+		                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
+		                                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
+		                                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
+		                                    <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>
+		                                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding bok_Year}" Width="55"/>
+		                                    <GridViewColumn Header="Cover" CellTemplate="{StaticResource CoverItemTemplate}"  Width="120"/>
+		                                </GridView>
+		                            </ListView.View>
+		                        </ListView>
+		                        <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
+		                            <TextBox Name="tbx_Search" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="23.332" Style="{StaticResource textBoxStyle}" Width="357.26"/>
+		                    </Canvas>
+		                </Border>
                         <!--properties Panel-->
-                        <Border Style="{StaticResource canvas_border}" Height="0" Width="0" Margin="894,0,0,0" Name="properties">
-                        <Canvas Background="#000000">
-                            <Image Name="img_Cover" Height="320.701" Margin="80,30,80,30" Source="/LycuteEbookManagement;component/Images/Temp/Sisterskeeper.jpg" Stretch="Fill" Width="212">
-                                <i:Interaction.Behaviors>
-                                    <local:ReflectionBehavior />
-                                </i:Interaction.Behaviors>
-                            </Image>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Title:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="386.4"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Year:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="462.6"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Publisher:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="536.2"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Edition:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="212.92" Canvas.Top="462.6"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Volume:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="499.2"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Author:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="426"/>
-                            <Label Content="My sister's keeper" Name="lbl_Title" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="381.4"/>
-                            <Label Content="Jodi Picoult" Name="lbl_Author" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="416"/>
-                            <Label Content="Newyork Time" Name="lbl_Publisher" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="531.2"/>
-                            <Label Content="2009" Name="lbl_Year" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="111" Canvas.Top="457.6"/>
-                            <Label Content="first" Name="lbl_Edition" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="288.88" Canvas.Top="457.6"/>
-                            <Label Content="one" Name="lbl_Volume" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="494.2"/>
-
-                            <Button Content="Edit" Name="btn_Edit" Canvas.Left="226" Canvas.Top="582" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
-                            <Button Content="Read" Name="btn_Read" Canvas.Left="39.443" Canvas.Top="582" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
-                            <Image Canvas.Left="328" Canvas.Top="6" Height="32" Name="image1" Stretch="Fill" Width="32" Source="/LycuteEbookManagement;component/Images/Components/cancel_wc.png" />
-                        </Canvas>
-                    </Border>
-                    </Grid>
+                	</Grid>
                 </StackPanel>
         </StackPanel>
+        <Border Style="{StaticResource canvas_border}" Height="700" Width="375" Margin="10000,0,0,0" Name="properties">
+            <Canvas Background="#000000">
+                <Image Name="img_Cover" Height="320.701" Margin="80,30,80,30" Source="/LycuteEbookManagement;component/Images/Temp/Sisterskeeper.jpg" Stretch="Fill" Width="212">
+                    <i:Interaction.Behaviors>
+                        <local:ReflectionBehavior />
+                    </i:Interaction.Behaviors>
+                </Image>
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Title:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="386.4" />
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Year:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="462.6" />
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Publisher:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="536.2" />
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Edition:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="212.92" Canvas.Top="462.6" />
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Volume:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="499.2" />
+                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="Author:" VerticalAlignment="Bottom" Style="{StaticResource defautText}" Canvas.Left="39.443" Canvas.Top="426" />
+                <Label Content="My sister's keeper" Name="lbl_Title" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="381.4" />
+                <Label Content="Jodi Picoult" Name="lbl_Author" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="416" />
+                <Label Content="Newyork Time" Name="lbl_Publisher" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="531.2" />
+                <Label Content="2009" Name="lbl_Year" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="111" Canvas.Top="457.6" />
+                <Label Content="first" Name="lbl_Edition" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="288.88" Canvas.Top="457.6" />
+                <Label Content="one" Name="lbl_Volume" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="494.2" />
+                <Button Content="Edit" Name="btn_Edit" Canvas.Left="226" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
+                <Button Content="Read" Name="btn_Read" Canvas.Left="39.443" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
+                <Image Canvas.Left="316" Canvas.Top="6" Height="32" Name="btn_CloseProperties" Stretch="Fill" Width="32" Source="/LycuteEbookManagement;component/Images/Components/cancel_wc.png" MouseDown="btn_CloseProperties_MouseDown" />
+            </Canvas>
+        </Border>
     </Grid>
 </UserControl>

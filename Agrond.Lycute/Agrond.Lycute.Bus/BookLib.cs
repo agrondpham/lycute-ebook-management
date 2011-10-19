@@ -157,30 +157,39 @@ namespace Agrond.Lycute.Bus
         /*Edit ebook*/
         public void Edit(Book pEbook,string pAuthor,string pImageSourceURL)
         {
+            string strFileType="";
+            string strImageURL="";
+            if (pImageSourceURL != "")
+            {
                 string[] FileNameArray = pImageSourceURL.Split('.');
-                string strFileType = FileNameArray[FileNameArray.Count() - 1];
-                string strImageURL=LycuteApplication.GetLocationString()+NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover."+strFileType);
-                LibraryEntities mainDB = new LibraryEntities();
-                var ebooks = from ebook in mainDB.Books
-                             where ebook.bok_ID == pEbook.bok_ID
-                             select ebook;
-                foreach (var b in ebooks)
-                {
-                    b.bok_Edition = pEbook.bok_Edition;
-                    b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
-                    b.bok_ISBN = pEbook.bok_ISBN;
-                    b.bok_Location = pEbook.bok_Location;
-                    b.bok_Modified = pEbook.bok_Modified;
-                    b.bok_Rank = pEbook.bok_Rank;
-                    b.bok_Title = pEbook.bok_Title;
-                    b.bok_Volume = pEbook.bok_Volume;
-                    b.bok_Year = pEbook.bok_Year;
-                    b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.xml");
-                }
-                mainDB.SaveChanges();
+                strFileType = FileNameArray[FileNameArray.Count() - 1];
+                strImageURL = LycuteApplication.GetLocationString() + NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
                 //copy image
-                CopyFile.FileCopy fileCopy=new CopyFile.FileCopy();
-                string result=fileCopy.Copy(pImageSourceURL,strImageURL);
+                CopyFile.FileCopy fileCopy = new CopyFile.FileCopy();
+                string result = fileCopy.Copy(pImageSourceURL, strImageURL);
+            }
+            LibraryEntities mainDB = new LibraryEntities();
+            var ebooks = from ebook in mainDB.Books
+                            where ebook.bok_ID == pEbook.bok_ID
+                            select ebook;
+            foreach (var b in ebooks)
+            {
+                b.bok_Edition = pEbook.bok_Edition;
+                if (pImageSourceURL != "")
+                {
+                    b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
+                }
+                b.bok_ISBN = pEbook.bok_ISBN;
+                b.bok_Location = pEbook.bok_Location;
+                b.bok_Modified = pEbook.bok_Modified;
+                b.bok_Rank = pEbook.bok_Rank;
+                b.bok_Title = pEbook.bok_Title;
+                b.bok_Volume = pEbook.bok_Volume;
+                b.bok_Year = pEbook.bok_Year;
+                b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.xml");
+            }
+            mainDB.SaveChanges();
+            
         }
         public void EditReview(string pStrXMLURL,string pStrReview) {
             XmlTextWriter xmlWriter = new XmlTextWriter(pStrXMLURL,null);
@@ -205,14 +214,23 @@ namespace Agrond.Lycute.Bus
             }
             return strReview;
         }
-        /*Show all information ebook*/
-        public ObservableCollection<Author> ShowAuthorByBookID(int pId) {
+        /*Show author by id*/
+        public ObservableCollection<Author> ShowAuthor(int pId) {
             _authors.Clear();
+
             LibraryEntities mainDB = new LibraryEntities();
             var authors = from ebook in mainDB.Books
-                         from author in ebook.Authors where ebook.bok_ID==pId
-                         select author;
-                         //select author
+                      from author in ebook.Authors
+                      where ebook.bok_ID == pId
+                      select author;
+             
+            if (pId == 0)
+            {
+                authors= from ebook in mainDB.Books
+                          from author in ebook.Authors
+                          select author;
+                //select author
+            }
             foreach (var a in authors)
             {
                 _authors.Add(new Author()
@@ -223,6 +241,26 @@ namespace Agrond.Lycute.Bus
 
             }
             return _authors;
+        }
+        public string ConvertAuthorObservableToString(ObservableCollection<Author> pAuthors)
+        {
+            string strAuthor = "";
+
+            foreach (var a in pAuthors)
+            {
+                strAuthor = a.ath_Name + ";" + strAuthor;
+            }
+            return strAuthor;
+        }
+        public string ConvertPublisherObservableToString(ObservableCollection<Publisher> pPublishers)
+        {
+            string strPublisher = "";
+
+            foreach (var p in pPublishers)
+            {
+                strPublisher= p.pbl_Name + ";" + strPublisher;
+            }
+            return strPublisher;
         }
         /*Edit author*/
         //public void EditAuthorByBookID(int pId)
