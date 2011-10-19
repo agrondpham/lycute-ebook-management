@@ -26,37 +26,37 @@ namespace LycuteEbookManagement.Search
     /// </summary>
     public partial class SearchResult : UserControl
     {
-        BookLib bus_book = new BookLib();
+        #region variable
         Book _bookValue;
         string _strAuthor="";
         string _strTitle = "";
         string _strFileType = "";
+        public static string _strKeyword;
+        bool IsPropertiesAreaShown = false;
+        Window parentWindow = null;
+        MainWindow m;
+        BookLib bus_book = new BookLib();
+        #endregion
+
+        #region constructor
         public SearchResult()
         {
             InitializeComponent();
+            if (_strKeyword != null) {
+                loadData(_strKeyword);
+                tbx_Search.Text = _strKeyword;
+            }
+            this.Loaded += new RoutedEventHandler(loadParent);
         }
-        //Change slide
-        public void chanceSlide(string pData)
-        {
-            string data = pData;
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(data);
-            XmlElement root = (XmlElement)xdoc.ChildNodes[0];
-            XmlNodeList xnl = root.SelectNodes("Page");
-            viewer.ItemsSource = xnl;
-            viewer.BeginStoryboard((Storyboard)App.Current.Resources["slideRightToLeft"]);
-        }
-        public void closeSide() {
-            viewer.ItemsSource = null;
-            //viewer.BeginStoryboard((Storyboard)this.Resources["slideLeftToRight"]);
-        }
+        #endregion
+
         #region Event
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<Book> _book = bus_book.Search(txt_Search.Text);
-            listview_Result.DataContext = _book;
+            loadData(tbx_Search.Text);
             closeBookProperties();
         }
+
         private void listview_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _bookValue= (Book)listview_Result.SelectedValue;
@@ -68,43 +68,57 @@ namespace LycuteEbookManagement.Search
         }
         private void btn_Edit_Click(object sender, RoutedEventArgs e)
         {
-            showEditor();
+            closeBookProperties();
             LycuteEbookManagement.Ebook.Editor._book = _bookValue;
+            m.loadMain(new Ebook.Editor());
+
         }
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
             string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
             Process.Start(url);
-        }        
+        }
+        private void btn_CloseProperties_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            closeBookProperties();
+        }
         #endregion
+
+        #region function
+        private void loadData(string pStrKeyword) {
+            ObservableCollection<Book> _book = bus_book.Search(pStrKeyword);
+            listview_Result.DataContext = _book;
+        }
         /// <summary>
         /// show Properties windown
         /// </summary>
         private void showBookProperties() {
 
-            properties.Width = 386;
-            properties.Height = 680;
+            if (IsPropertiesAreaShown == false)
+            {
+                Storyboard HidePropertiesArea =
+                    this.TryFindResource("OnShowPropertiesArea") as Storyboard;
+                if (HidePropertiesArea != null)
+                    HidePropertiesArea.Begin(properties);
+            }
         }
         private void closeBookProperties() {
-            properties.Width = 0;
-            properties.Height = 0;
+            if (IsPropertiesAreaShown == false)
+            {
+                Storyboard HidePropertiesArea =
+                    this.TryFindResource("OnHidePropertiesArea") as Storyboard;
+                if (HidePropertiesArea != null)
+                    HidePropertiesArea.Begin(properties);
+            }
         }
-        private void showEditor() {
-            string strSearchResult = @"<root>
-                <Page Source='../Ebook/Editor.xaml'/>
-            </root>";
-            chanceSlide(strSearchResult);
+        private void loadParent(object sender, RoutedEventArgs e)
+        {
+            parentWindow = Window.GetWindow(this);
+            m = (MainWindow)parentWindow;
         }
         private void setData(Book pBook)
         {
-
-            ObservableCollection<Author> _authors = bus_book.ShowAuthorByBookID(pBook.bok_ID);
-            string strAuthor = "";
-            
-            foreach (var a in _authors)
-            {
-                strAuthor = a.ath_Name + ";" + strAuthor;
-            }
+            string strAuthor= bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(pBook.bok_ID));
             lbl_Author.Content = strAuthor;
 
             lbl_Title.Content = pBook.bok_Title;
@@ -123,6 +137,7 @@ namespace LycuteEbookManagement.Search
                     BitmapImage bi = new BitmapImage();
                     bi.BeginInit();
                     bi.UriSource = new Uri(pBook.bok_ImageURl, UriKind.RelativeOrAbsolute);
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
                     bi.EndInit();
                     img_Cover.Source = bi;
                 }
@@ -139,6 +154,8 @@ namespace LycuteEbookManagement.Search
                 }
             }
         }
+        #endregion
+
 
     }
 }

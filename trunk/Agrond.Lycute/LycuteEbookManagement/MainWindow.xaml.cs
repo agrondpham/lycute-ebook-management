@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml;
 using System.Windows.Media.Animation;
+using System.Windows.Controls;
 namespace LycuteEbookManagement
 {
     /// <summary>
@@ -10,8 +11,13 @@ namespace LycuteEbookManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        #region variable
+        bool IsQuickMenuShow = false;
+        bool IsBodyShow = false;
         //private static int oldSelectedIndex = 0;
+        public static UIElement _Element=null;
+        #endregion
+        #region constructor
         public MainWindow()
         {
             InitializeComponent();
@@ -26,14 +32,9 @@ namespace LycuteEbookManagement
             }
             //update connection string
             DBHelper.ConfigDatabase();
+            loadMain(_Element);
 
         }
-
-        //private void button1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var findBookInfo = new BookSearch.FindBookInformation();
-        //    findBookInfo.ShowDialog();
-        //}
         protected override void  OnStateChanged(EventArgs e)
         {
             if (WindowState == WindowState.Maximized)
@@ -41,85 +42,107 @@ namespace LycuteEbookManagement
                 this.WindowStyle = WindowStyle.None; 
                 this.Topmost = true;
                 //btn_minimize.Visibility = Visibility.Visible;
+                closeMenu();
             }
             base.OnStateChanged(e);
         }
-
+        #endregion
+        //private void button1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var findBookInfo = new BookSearch.FindBookInformation();
+        //    findBookInfo.ShowDialog();
+        //}
+        #region event
         private void btn_minimize_Click(object sender, MouseButtonEventArgs e)
         {
             this.WindowState = WindowState.Normal;
             this.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            this.Topmost = false;
             this.Height = 500;
             this.Width = 1000;
-        }
-
-        private void btn_ManagerPanel(object sender, MouseButtonEventArgs e)
+            closeMenu();
+        }       
+        private void btn_home_Click(object sender, MouseButtonEventArgs e)
         {
-            //Common.Window1 alert = new Common.Window1();
-            //alert.ShowActivated = false;
-            //alert.ShowInTaskbar = false;
-            //alert.ShowDialog();
-            ////MainWindow mn = new MainWindow();
-            //alert.Owner = this;
-
-
-
-            string strSearchResult = @"<root>
-                <Page Source='Ebook/3DWall.xaml'/>
-            </root>";
-            chanceSlide(strSearchResult);
+            loadMain(new Home());
+            closeMenu();
         }
-        public void chanceSlide(string pData){
-            string data = pData;
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(data);
-            XmlElement root = (XmlElement)xdoc.ChildNodes[0];
-            XmlNodeList xnl = root.SelectNodes("Page");
-            viewer.ItemsSource = xnl;
-            viewer.BeginStoryboard((Storyboard)Application.Current.Resources["slideRightToLeft"]);
-        }
-        private void btn_Search_Click(object sender, RoutedEventArgs e)
+        private void btn_CloseQuickMenu_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string strSearchResult=@"<root>
-                <Page Source='Search/SearchResult.xaml'/>
-            </root>";
-            chanceSlide(strSearchResult);
+            if (IsQuickMenuShow)
+            {
+                closeMenu();
+            }
+            else
+            {
+                openMenu();
+            }
         }
-        public void moveout()
+        private void btn_close_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            viewer.ItemsSource = null;
-            viewer.BeginStoryboard((Storyboard)Application.Current.Resources["slideRightToLeft"]);
+            this.Close();
         }
+        #endregion
+        #region function
+        //event open and close menu
+        private void closeMenu() {
+            if (IsQuickMenuShow)
+            {
+                Storyboard HideMenuArea =
+                this.TryFindResource("OnHideMenuArea") as Storyboard;
+                if (HideMenuArea != null)
+                    HideMenuArea.Begin(quickMenu);
+                IsQuickMenuShow = false;
+            }
+        }
+        private void openMenu() {
+            if (IsQuickMenuShow==false)
+            {
+                Storyboard ShowMenuArea =
+                this.TryFindResource("OnShowMenuArea") as Storyboard;
+                if (ShowMenuArea != null)
+                    ShowMenuArea.Begin(quickMenu);
+                IsQuickMenuShow = true;
+            }
 
-        private void btn_back(object sender, MouseButtonEventArgs e)
+        }
+        public void loadMain(UIElement pElement) {
+            if (pElement == null)
+            {
+                pElement = new Home();
+            }
+            closeBody();
+            bodyArea.Children.Clear();
+            bodyArea.Children.Add(pElement);
+            Canvas.SetLeft(pElement, 0);
+            Canvas.SetTop(pElement, -120);
+            openBody();
+        }
+        private void closeBody()
         {
-            moveout();
+            if (IsBodyShow)
+            {
+                Storyboard HideBodyArea =
+                this.TryFindResource("OnHideBodyArea") as Storyboard;
+                if (HideBodyArea != null)
+                    HideBodyArea.Begin(quickMenu);
+                IsBodyShow = false;
+            }
         }
-
-        private void btn_SettingPanel(object sender, MouseButtonEventArgs e)
+        private void openBody()
         {
-            //Common.Window1 alert = new Common.Window1();
-            //alert.ShowActivated = false;
-            //alert.ShowInTaskbar = false;
-            //alert.ShowDialog();
-            ////MainWindow mn = new MainWindow();
-            //alert.Owner = this;
+            if (IsBodyShow == false)
+            {
+                Storyboard ShowBodyArea =
+                this.TryFindResource("OnShowBodyArea") as Storyboard;
+                if (ShowBodyArea != null)
+                    ShowBodyArea.Begin(quickMenu);
+                IsBodyShow = true;
+            }
 
-
-
-            string strSearchResult = @"<root>
-                <Page Source='Setting/SettingPanel.xaml'/>
-            </root>";
-            chanceSlide(strSearchResult);
         }
+        #endregion
 
-        private void btn_AddEbook(object sender, MouseButtonEventArgs e)
-        {
-            string strSearchResult = @"<root>
-                <Page Source='Ebook/Editor.xaml'/>
-            </root>";
-            chanceSlide(strSearchResult);
-        }
 
-   }
+    }
 }

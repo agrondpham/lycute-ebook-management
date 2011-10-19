@@ -6,31 +6,31 @@
 			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
              Height="750" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Components">
     <Grid>
-        <Border Style="{StaticResource canvas_border}" Width="1280" Height="750">
+        <Border Style="{StaticResource canvas_border}" Width="1280" Height="680" Margin="-12,0,0,0">
             <Canvas>
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1176,709" Style="{StaticResource defautText}" Text="Title:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="40" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1175,385" Style="{StaticResource defautText}" Text="Year:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="365" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1132,449" Style="{StaticResource defautText}" Text="Publisher:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="300" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1152,579" Style="{StaticResource defautText}" Text="Edition:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="170" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1146,513" Style="{StaticResource defautText}" Text="Volume:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="235" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1153,644" Style="{StaticResource defautText}" Text="Author:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="105" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,1153,644" Style="{StaticResource defautText}" Text="ISBN:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="440" />
-                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,122,0,0" Name="txtISBN" VerticalAlignment="Top" Width="300" Canvas.Left="0" Canvas.Top="310" />
-                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,187,0,0" Name="txtEdition" VerticalAlignment="Top" Width="300" Canvas.Top="-25" />
-                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,57,0,0"  Name="txtTitle" VerticalAlignment="Top"  Width="300" Canvas.Top="-25" />
-                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,317,0,0" Name="txtPublisher" VerticalAlignment="Top" Width="300" Canvas.Top="-25" />
-                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,122,0,0" Name="txtAuthor" VerticalAlignment="Top" Width="300" Canvas.Top="-25" />
-                <Button Style="{StaticResource btnGlass}" Content="Get Info" HorizontalAlignment="Left" Margin="1148,68,0,0" Name="button1" VerticalAlignment="Top"  Width="100" Canvas.Left="-35" Canvas.Top="36" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1176,709" Style="{StaticResource defautText}" Text="Title:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="33" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1175,385" Style="{StaticResource defautText}" Text="Year:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="285" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1132,449" Style="{StaticResource defautText}" Text="Publisher:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="43" Canvas.Top="362" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1152,579" Style="{StaticResource defautText}" Text="Edition:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="44" Canvas.Top="90" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1146,513" Style="{StaticResource defautText}" Text="Volume:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="155" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1153,644" Style="{StaticResource defautText}" Text="Author:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="651" Canvas.Top="365" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,1153,644" Style="{StaticResource defautText}" Text="ISBN:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="45" Canvas.Top="220" />
+                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,122,0,0" Name="txtISBN" VerticalAlignment="Top" Width="300" Canvas.Left="0" Canvas.Top="90" />
+                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,187,0,0" Name="txtEdition" VerticalAlignment="Top" Width="300" Canvas.Top="-105" Canvas.Left="-1" />
+                <TextBox Style="{StaticResource textBoxStyle}" HorizontalAlignment="Left" Margin="243,57,0,0"  Name="txtTitle" VerticalAlignment="Top"  Width="300" Canvas.Top="-32" />
+                <Button Style="{StaticResource btnGlass}" Content="Get Info" HorizontalAlignment="Left" Margin="1148,68,0,0" Name="button1" VerticalAlignment="Top"  Width="100" Canvas.Left="-35" Canvas.Top="36" Click="button1_Click" />
                 <Button Style="{StaticResource btnGlass}" Content="Save" HorizontalAlignment="Left" Margin="1148,146,0,0" Name="btn_save" VerticalAlignment="Top" Width="100" Canvas.Left="-35" Canvas.Top="36" Click="btn_save_Click" />
-                <Button Style="{StaticResource btnGlass}" Content="Cancel" HorizontalAlignment="Left" Margin="1148,226,0,0" Name="button3" VerticalAlignment="Top" Width="100" Canvas.Left="-35" Canvas.Top="36" />
+                <Button Style="{StaticResource btnGlass}" Content="Cancel" HorizontalAlignment="Left" Margin="1148,226,0,0" Name="btnCancel" VerticalAlignment="Top" Width="100" Canvas.Left="-35" Canvas.Top="36" Click="btnCancel_Click" />
                 <Image Height="213" HorizontalAlignment="Left" Margin="686,57,0,0" Name="img_Cover" Stretch="Fill" VerticalAlignment="Top" Width="143" Source="/LycuteEbookManagement;component/Images/Temp/PeterPanFinal.jpg" Canvas.Top="-25" Canvas.Left="-113" />
-                <my:ComboBox Canvas.Left="243" Canvas.Top="337" x:Name="ucComBoxYear" Height="90" Width="300" />
-                <my:ComboBox Canvas.Left="242" Canvas.Top="203" Height="90" x:Name="ucComBoxVolume" Width="300" />
+                <my:ComboBox Canvas.Left="243" Canvas.Top="252" x:Name="ucComBoxYear" Height="90" Width="300" />
+                <my:ComboBox Canvas.Left="242" Canvas.Top="123" Height="90" x:Name="ucComBoxVolume" Width="300" />
                 <TextBlock Canvas.Left="45" Canvas.Top="513" Style="{StaticResource defautText}" Text="Review:" TextWrapping="Wrap" />
                 <RichTextBox Canvas.Left="242" Canvas.Top="518" Height="128" Name="txtReview" Style="{StaticResource richTextBoxStyle}" Width="753"/>
                 <Button Canvas.Left="765" Canvas.Top="36" Content="Browser from PC" Name="btnLoadPicture" Style="{StaticResource btnGlass}" Width="230" Height="55" Click="btnLoadPicture_Click" />
                 <my:RankComponent Canvas.Left="765" Canvas.Top="110" x:Name="rankComponent1" Height="152" Width="173" />
                 <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="730" Width="1260"  Visibility="Hidden"/>
+                <my:AutoCompleteBox Canvas.Left="765" Canvas.Top="355" x:Name="autoCompleteBox_Author" Height="155" Width="305" />
+                <my:AutoCompleteBox Canvas.Left="242" Canvas.Top="353" Height="155" x:Name="autoCompleteBox_Publisher" Width="305" />
             </Canvas>
         </Border>
     </Grid>
