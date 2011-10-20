@@ -94,6 +94,21 @@
     <Compile Include="Common\LoadingWait.xaml.cs">
       <DependentUpon>LoadingWait.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\AutoCompleteBox.xaml.cs">
+      <DependentUpon>AutoCompleteBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ComboBox.xaml.cs">
+      <DependentUpon>ComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\FileLocation.xaml.cs">
+      <DependentUpon>FileLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ImageBox.xaml.cs">
+      <DependentUpon>ImageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\RankComponent.xaml.cs">
+      <DependentUpon>RankComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DBHelper.cs" />
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
@@ -118,6 +133,26 @@
       <DependentUpon>StructureStore.xaml</DependentUpon>
     </Compile>
     <Page Include="Common\LoadingWait.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\AutoCompleteBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\FileLocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\ImageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\RankComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -330,7 +365,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
-    <Folder Include="Components\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\no_picture_available.png" />
