@@ -49,6 +49,7 @@ namespace LycuteEbookManagement
 
         private void btn_AddEbook(object sender, MouseButtonEventArgs e)
         {
+            LycuteEbookManagement.Ebook.Editor._book = null;
             m.loadMain(new Ebook.Editor());
         }
 	}

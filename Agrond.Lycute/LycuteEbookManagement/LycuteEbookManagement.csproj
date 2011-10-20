@@ -94,24 +94,12 @@
     <Compile Include="Common\LoadingWait.xaml.cs">
       <DependentUpon>LoadingWait.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\AutoCompleteBox.xaml.cs">
-      <DependentUpon>AutoCompleteBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\ComboBox.xaml.cs">
-      <DependentUpon>ComboBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\FileLocation.xaml.cs">
-      <DependentUpon>FileLocation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\ImageBox.xaml.cs">
-      <DependentUpon>ImageBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Components\RankComponent.xaml.cs">
-      <DependentUpon>RankComponent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DBHelper.cs" />
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ebook\Detail.xaml.cs">
+      <DependentUpon>Detail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ebook\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
@@ -133,27 +121,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\AutoCompleteBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\ComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\FileLocation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\ImageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\RankComponent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ebook\3DWall.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ebook\Detail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -367,6 +339,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Components\navigate-down-icon_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Components\navigate-up-icon_1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
