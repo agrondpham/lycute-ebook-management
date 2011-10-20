@@ -156,6 +156,13 @@ namespace LycuteEbookManagement.Search
         }
         #endregion
 
+        private void btn_Detail_MouseDown(object sender, RoutedEventArgs e)
+        {
+            closeBookProperties();
+            //LycuteEbookManagement.Ebook.Editor._book = _bookValue;
+            m.loadMain(new Ebook.Detail());
+        }
+
 
     }
 }

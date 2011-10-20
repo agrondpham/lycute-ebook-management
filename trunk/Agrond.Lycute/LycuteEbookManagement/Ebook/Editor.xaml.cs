@@ -37,7 +37,12 @@ namespace LycuteEbookManagement.Ebook
             {
                 load();
             }
+            else { 
+                SetAuthor("");
+                SetPublisher("");
+            }
             this.Loaded += new RoutedEventHandler(loadParent);
+
             //ucComBoxYear.setText("1990");
         }
         #endregion
@@ -79,8 +84,8 @@ namespace LycuteEbookManagement.Ebook
         }
 
         private void load() {
-            string strAuthor = bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(_book.bok_ID));
-            
+            //string strAuthor = bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(_book.bok_ID));
+            string strAuthor = bus_book.ConvertAuthorObservableToString(_book.Authors);
             //txtAuthor.Text = strAuthor;
             txtISBN.Text = _book.bok_ISBN;
             txtTitle.Text = _book.bok_Title;

@@ -21,7 +21,7 @@
                 <Button Style="{StaticResource btnGlass}" Content="Get Info" HorizontalAlignment="Left" Margin="1148,68,0,0" Name="button1" VerticalAlignment="Top"  Width="100" Canvas.Left="-35" Canvas.Top="36" Click="button1_Click" />
                 <Button Style="{StaticResource btnGlass}" Content="Save" HorizontalAlignment="Left" Margin="1148,146,0,0" Name="btn_save" VerticalAlignment="Top" Width="100" Canvas.Left="-35" Canvas.Top="36" Click="btn_save_Click" />
                 <Button Style="{StaticResource btnGlass}" Content="Cancel" HorizontalAlignment="Left" Margin="1148,226,0,0" Name="btnCancel" VerticalAlignment="Top" Width="100" Canvas.Left="-35" Canvas.Top="36" Click="btnCancel_Click" />
-                <Image Height="213" HorizontalAlignment="Left" Margin="686,57,0,0" Name="img_Cover" Stretch="Fill" VerticalAlignment="Top" Width="143" Source="/LycuteEbookManagement;component/Images/Temp/PeterPanFinal.jpg" Canvas.Top="-25" Canvas.Left="-113" />
+                <Image Height="213" HorizontalAlignment="Left" Margin="686,57,0,0" Name="img_Cover" Stretch="Fill" VerticalAlignment="Top" Width="143" Source="/LycuteEbookManagement;component/Images/no_picture_available.png" Canvas.Top="-25" Canvas.Left="-113" />
                 <my:ComboBox Canvas.Left="243" Canvas.Top="252" x:Name="ucComBoxYear" Height="90" Width="300" />
                 <my:ComboBox Canvas.Left="242" Canvas.Top="123" Height="90" x:Name="ucComBoxVolume" Width="300" />
                 <TextBlock Canvas.Left="45" Canvas.Top="513" Style="{StaticResource defautText}" Text="Review:" TextWrapping="Wrap" />

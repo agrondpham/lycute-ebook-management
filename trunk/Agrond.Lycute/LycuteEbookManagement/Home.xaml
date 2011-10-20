@@ -50,7 +50,7 @@
                             <Label Canvas.Left="61" Canvas.Top="14" Content="Managerment" x:Name="label6" Style="{StaticResource textStyle_brown}" Width="140" />
                         </Canvas>
                     </Border>
-                    <Border  Style="{StaticResource canvas_border}" Margin="298,387,0,0" Cursor="Hand">
+                    <Border  Style="{StaticResource canvas_border}" Margin="297,381,0,0" Cursor="Hand">
                         <Canvas Background="#FDFCFC03" Height="200" HorizontalAlignment="Left"  x:Name="canvas4" VerticalAlignment="Top" Width="200" MouseDown="btn_AddEbook">
                             <Image Canvas.Left="1" Canvas.Top="56" Height="132" x:Name="image4" Source="/LycuteEbookManagement;component/Images/book.png" Stretch="Uniform" Width="78" />
                             <Label Canvas.Left="99" Canvas.Top="6" Content="Ebook" Height="48" x:Name="label7" Style="{StaticResource textStyle_white}" Width="95" />

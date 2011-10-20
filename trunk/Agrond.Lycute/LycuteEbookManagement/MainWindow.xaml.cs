@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Windows.Media.Animation;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 namespace LycuteEbookManagement
 {
     /// <summary>
@@ -93,6 +94,7 @@ namespace LycuteEbookManagement
                 if (HideMenuArea != null)
                     HideMenuArea.Begin(quickMenu);
                 IsQuickMenuShow = false;
+                changeIconCloseMenu("pack://application:,,,/LycuteEbookManagement;component/Images/Components/navigate-down-icon_1.png");
             }
         }
         private void openMenu() {
@@ -103,6 +105,8 @@ namespace LycuteEbookManagement
                 if (ShowMenuArea != null)
                     ShowMenuArea.Begin(quickMenu);
                 IsQuickMenuShow = true;
+                changeIconCloseMenu("pack://application:,,,/LycuteEbookManagement;component/Images/Components/navigate-up-icon_1.png");
+            
             }
 
         }
@@ -140,6 +144,13 @@ namespace LycuteEbookManagement
                 IsBodyShow = true;
             }
 
+        }
+        private void changeIconCloseMenu(string url) {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(url, UriKind.RelativeOrAbsolute);
+            bi.EndInit();
+            btn_CloseQuickMenu.Source = bi;
         }
         #endregion
 

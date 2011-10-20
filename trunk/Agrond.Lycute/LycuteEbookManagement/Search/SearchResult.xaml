@@ -40,6 +40,7 @@
         <Style x:Key="ListviewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
         </Style>
         <Style TargetType="{x:Type ListViewItem}" x:Key="ListViewItemStyleBase">
             <Setter Property="Template">
@@ -120,11 +121,11 @@
                         <!--Search result-->
                         <Border Style="{StaticResource canvas_border}" Height="700" Width="860" Margin="-12,0,0,0">
 		                    <Canvas Background="#000000">
-		                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="588" Canvas.Left="4" Canvas.Top="93" Width="835.5" SelectionChanged="listview_Result_SelectionChanged" >
+		                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="550" Canvas.Left="2" Canvas.Top="132" Width="838" SelectionChanged="listview_Result_SelectionChanged" >
 		                            <ListView.View>
 		                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
 		                                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
-		                                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
+		                                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
 		                                    <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>
 		                                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding bok_Year}" Width="55"/>
 		                                    <GridViewColumn Header="Cover" CellTemplate="{StaticResource CoverItemTemplate}"  Width="120"/>
@@ -133,7 +134,11 @@
 		                        </ListView>
 		                        <Button Content="Search" Canvas.Left="501.333" Canvas.Top="23.332" Width="105" Style="{StaticResource btnGlass}"  Click="btnSearch_Click" />
 		                            <TextBox Name="tbx_Search" Canvas.Left="125" TextWrapping="Wrap" Canvas.Top="23.332" Style="{StaticResource textBoxStyle}" Width="357.26"/>
-		                    </Canvas>
+                            <TextBlock Canvas.Left="53" Canvas.Top="93" Height="33" Name="txt_Author_Name" Text="Author :" Style="{StaticResource defautText}" Width="92" />
+                            <TextBlock Canvas.Left="152" Canvas.Top="93" Height="29" Name="txt_Author_Value" Text="All" Style="{StaticResource defautText}" Width="188" />
+                            <TextBlock Canvas.Left="420" Canvas.Top="89" Height="33" Name="txt_Tag_Name" Style="{StaticResource defautText}" Text="Tag :" Width="92" />
+                            <TextBlock Canvas.Left="518" Canvas.Top="89" Height="29" Name="txt_Tag_Value" Style="{StaticResource defautText}" Text="All" Width="188" />
+                        </Canvas>
 		                </Border>
                         <!--properties Panel-->
                 	</Grid>
@@ -141,7 +146,7 @@
         </StackPanel>
         <Border Style="{StaticResource canvas_border}" Height="700" Width="375" Margin="10000,0,0,0" Name="properties">
             <Canvas Background="#000000">
-                <Image Name="img_Cover" Height="320.701" Margin="80,30,80,30" Source="/LycuteEbookManagement;component/Images/Temp/Sisterskeeper.jpg" Stretch="Fill" Width="212">
+                <Image Name="img_Cover" Height="320" Margin="80,30,80,30" Source="/LycuteEbookManagement;component/Images/Temp/Sisterskeeper.jpg" Stretch="Fill" Width="212">
                     <i:Interaction.Behaviors>
                         <local:ReflectionBehavior />
                     </i:Interaction.Behaviors>
@@ -158,9 +163,10 @@
                 <Label Content="2009" Name="lbl_Year" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="111" Canvas.Top="457.6" />
                 <Label Content="first" Name="lbl_Edition" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="288.88" Canvas.Top="457.6" />
                 <Label Content="one" Name="lbl_Volume" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource LaybelEBookInforStyle}" Canvas.Left="153" Canvas.Top="494.2" />
-                <Button Content="Edit" Name="btn_Edit" Canvas.Left="226" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
-                <Button Content="Read" Name="btn_Read" Canvas.Left="39.443" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
+                <Button Content="Edit" Name="btn_Edit" Canvas.Left="128" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
+                <Button Content="Read" Name="btn_Read" Canvas.Left="17" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
                 <Image Canvas.Left="316" Canvas.Top="6" Height="32" Name="btn_CloseProperties" Stretch="Fill" Width="32" Source="/LycuteEbookManagement;component/Images/Components/cancel_wc.png" MouseDown="btn_CloseProperties_MouseDown" />
+                <Button Canvas.Left="242" Canvas.Top="600" Content="Detail" Height="50" Name="btn_Detail" Style="{StaticResource btnGlass}" Width="100" Click="btn_Detail_MouseDown" />
             </Canvas>
         </Border>
     </Grid>
