@@ -330,6 +330,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
+    <Folder Include="Components\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\no_picture_available.png" />
