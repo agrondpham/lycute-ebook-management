@@ -94,26 +94,6 @@
     <Compile Include="Common\LoadingWait.xaml.cs">
       <DependentUpon>LoadingWait.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\AutoCompleteBox.xaml.cs">
-      <DependentUpon>AutoCompleteBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\ComboBox.xaml.cs">
-      <DependentUpon>ComboBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\FileLocation.xaml.cs">
-      <DependentUpon>FileLocation.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\ImageBox.xaml.cs">
-      <DependentUpon>ImageBox.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\RankComponent.xaml.cs">
-      <DependentUpon>RankComponent.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DBHelper.cs" />
     <Compile Include="Ebook\3DWall.xaml.cs">
       <DependentUpon>3DWall.xaml</DependentUpon>
@@ -140,26 +120,6 @@
     <Page Include="Common\LoadingWait.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Components\AutoCompleteBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\ComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\FileLocation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\ImageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\RankComponent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ebook\3DWall.xaml">
       <SubType>Designer</SubType>
@@ -248,8 +208,6 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Components\.svn\all-wcprops" />
-    <None Include="Components\.svn\entries" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -372,10 +330,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
-    <Folder Include="Components\.svn\prop-base\" />
-    <Folder Include="Components\.svn\props\" />
-    <Folder Include="Components\.svn\text-base\" />
-    <Folder Include="Components\.svn\tmp\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\no_picture_available.png" />
