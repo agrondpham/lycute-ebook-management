@@ -122,37 +122,64 @@ namespace Agrond.Lycute.Bus
             return _books;
         }
         /*Search ebook*/
+        //public ObservableCollection<Book> Search(string pKeywords)
+        //{
+        //    LibraryEntities mainDB = new LibraryEntities();
+        //    var ebooks = from ebook in mainDB.Books
+        //                 join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+        //                 select ebook;
+        //    if (pKeywords != null && pKeywords != "")
+        //    {
+        //        ebooks = from ebook in mainDB.Books
+        //                 join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+        //                 where ebook.bok_Title.Contains(pKeywords)
+        //                 select ebook;
+        //    }
+        //    _books.Clear();
+        //    foreach (var b in ebooks)
+        //    {
+        //        _books.Add(new Book()
+        //        {
+        //            bok_Title = b.bok_Title,
+        //            bok_ISBN = b.bok_ISBN,
+        //            bok_ImageURl = LycuteApplication.GetLocationString() + b.bok_ImageURl,
+        //            bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
+        //            bok_Year = b.bok_Year,
+        //            bok_Edition = b.bok_Edition,
+        //            bok_Location = b.bok_Location,
+        //            bok_Modified = b.bok_Modified,
+        //            bok_Volume = b.bok_Volume,
+        //            bok_ID = b.bok_ID,
+        //            bok_Review = GetReview(LycuteApplication.GetLocationString() + b.bok_Review),
+        //            Publisher = b.Publisher
+        //        });
+        //    }
+        //    return _books;
+        //}
         public ObservableCollection<Book> Search(string pKeywords)
         {
             LibraryEntities mainDB = new LibraryEntities();
-            var ebooks=from ebook in mainDB.Books
-                              select ebook;
+            var ebooks = from ebook in mainDB.Books
+                         join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+                         from author in ebook.Authors
+                         select ebook;
             if (pKeywords != null && pKeywords != "")
             {
-                ebooks = from ebook in mainDB.Books join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
-                             where ebook.bok_Title.Contains(pKeywords)
-                             select ebook;
+                ebooks = from ebook in mainDB.Books
+                         join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+                         where ebook.bok_Title.Contains(pKeywords)
+                         select ebook;
             }
-            _books.Clear();
-            foreach (var b in ebooks)
+            ObservableCollection<Book> obserCollectionBook=new ObservableCollection<Book>(ebooks);
+
+            foreach (var b in obserCollectionBook)
             {
-                _books.Add(new Book()
-                {
-                    bok_Title = b.bok_Title,
-                    bok_ISBN = b.bok_ISBN,
-                    bok_ImageURl = LycuteApplication.GetLocationString() + b.bok_ImageURl,
-                    bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
-                    bok_Year = b.bok_Year,
-                    bok_Edition = b.bok_Edition,
-                    bok_Location = b.bok_Location,
-                    bok_Modified = b.bok_Modified,
-                    bok_Volume = b.bok_Volume,
-                    bok_ID = b.bok_ID,
-                    bok_Review = GetReview(LycuteApplication.GetLocationString() + b.bok_Review),
-                    Publisher=b.Publisher
-                });
+                b.bok_ImageURl = LycuteApplication.GetLocationString() + b.bok_ImageURl;
+                b.bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank));
+                b.bok_Review = GetReview(LycuteApplication.GetLocationString() + b.bok_Review);
+
             }
-            return _books;
+            return obserCollectionBook;
         }
         /*Edit ebook*/
         public void Edit(Book pEbook,string pAuthor,string pImageSourceURL)
@@ -242,7 +269,17 @@ namespace Agrond.Lycute.Bus
             }
             return _authors;
         }
-        public string ConvertAuthorObservableToString(ObservableCollection<Author> pAuthors)
+        //public string ConvertAuthorObservableToString(ObservableCollection<Author> pAuthors)
+        //{
+        //    string strAuthor = "";
+
+        //    foreach (var a in pAuthors)
+        //    {
+        //        strAuthor = a.ath_Name + ";" + strAuthor;
+        //    }
+        //    return strAuthor;
+        //}
+        public string ConvertAuthorObservableToString(ICollection<Author> pAuthors)
         {
             string strAuthor = "";
 
@@ -284,5 +321,22 @@ namespace Agrond.Lycute.Bus
         //    return _authors;
         //}
         /*Show publisher*/
+        public ObservableCollection<Publisher> ShowPublisher()
+        {
+            ObservableCollection<Publisher> _publisher = new ObservableCollection<Publisher>();
+            LibraryEntities mainDB = new LibraryEntities();
+            var publishers = from publisher in mainDB.Publishers
+                          select publisher;
+            foreach (var p in publishers)
+            {
+                _publisher.Add(new Publisher()
+                {
+                    pbl_ID = p.pbl_ID,
+                    pbl_Name = p.pbl_Name
+                });
+
+            }
+            return _publisher;
+        }
     }
 }
