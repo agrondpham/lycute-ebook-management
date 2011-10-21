@@ -166,7 +166,7 @@
                 <Button Content="Edit" Name="btn_Edit" Canvas.Left="128" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Edit_Click" />
                 <Button Content="Read" Name="btn_Read" Canvas.Left="17" Canvas.Top="600" Style="{StaticResource btnGlass}" Height="50" Width="100" Click="btn_Read_Click" />
                 <Image Canvas.Left="316" Canvas.Top="6" Height="32" Name="btn_CloseProperties" Stretch="Fill" Width="32" Source="/LycuteEbookManagement;component/Images/Components/cancel_wc.png" MouseDown="btn_CloseProperties_MouseDown" />
-                <Button Canvas.Left="242" Canvas.Top="600" Content="Detail" Height="50" Name="btn_Detail" Style="{StaticResource btnGlass}" Width="100" Click="btn_Detail_MouseDown" />
+                <Button Canvas.Left="242" Canvas.Top="600" Content="Detail" Height="50" Name="btn_Detail" Style="{StaticResource btnGlass}" Width="100" Click="btn_Detail_Click" />
             </Canvas>
         </Border>
     </Grid>

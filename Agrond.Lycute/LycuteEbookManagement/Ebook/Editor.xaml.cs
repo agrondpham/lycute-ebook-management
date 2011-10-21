@@ -24,7 +24,7 @@ namespace LycuteEbookManagement.Ebook
     {
         #region variable
         public static Book _book { set; get; }
-        BookLib bus_book = new BookLib();
+        BookLib booklib = new BookLib();
         private string _imageSource = "";
         MainWindow m;
         #endregion
@@ -65,12 +65,15 @@ namespace LycuteEbookManagement.Ebook
             TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
             
             Book editedBook = AddData(_book);
-            bus_book.Edit(editedBook,strAuthor,_imageSource);
+            booklib.Edit(editedBook,strAuthor,_imageSource);
             //save review
-            bus_book.EditReview(LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title, "review.xml"), textRange.Text);
+            booklib.EditReview(LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title, "review.xml"), textRange.Text);
             m.loadMain(new Home());
         }
+        private void btn_getInfo_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             m.loadMain(new Home());
@@ -84,21 +87,27 @@ namespace LycuteEbookManagement.Ebook
         }
 
         private void load() {
-            //string strAuthor = bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(_book.bok_ID));
-            string strAuthor = bus_book.ConvertAuthorObservableToString(_book.Authors);
-            //txtAuthor.Text = strAuthor;
+            //string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor(_book.bok_ID));
+            string strAuthor = booklib.ConvertAuthorObservableToString(_book.Authors);
+            autoCompleteBox_Author.SetText(strAuthor);
+            autoCompleteBox_Publisher.SetText(_book.Publisher.pbl_Name);
+
             txtISBN.Text = _book.bok_ISBN;
             txtTitle.Text = _book.bok_Title;
             txtEdition.Text = _book.bok_Edition.ToString();
-            //txtPublisher.Text = _book.Publisher.pbl_Name;
+
             ucComBoxVolume.setText(_book.bok_Volume.ToString());
             ucComBoxYear.setText(_book.bok_Year.ToString());
+
             rankComponent1.setText(Rank.RankNumber(_book.bok_Rank));
+
             txtReview.AppendText(_book.bok_Review);
+
             SetPic(_book.bok_ImageURl);
             SetAuthor(strAuthor);
             SetPublisher(_book.Publisher.pbl_Name);
         }
+
         private Book AddData(Book pbook) {
             pbook.bok_ISBN = txtISBN.Text;
             pbook.bok_Title = txtTitle.Text;
@@ -121,18 +130,15 @@ namespace LycuteEbookManagement.Ebook
         }
         private void SetAuthor(string pStrAuthor) { 
             //get list from database
-            autoCompleteBox_Author.SetText(pStrAuthor);
-            string strAuthor = bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(0));
+            string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor());
             autoCompleteBox_Author.SetData(strAuthor);
         }
         private void SetPublisher(string pStrPublisher)
         {
             //get list from database           
-            autoCompleteBox_Publisher.SetText(pStrPublisher);
-            //string strPublisher = bus_book.ConvertPublisherObservableToString(bus_book.ShowAuthor(0));
-            autoCompleteBox_Publisher.SetData(pStrPublisher);
+            string strPublisher = booklib.ConvertPublisherObservableToString(booklib.ShowPublisher());
+            autoCompleteBox_Publisher.SetData(strPublisher);
         }
-
         /// <summary>
         /// same function on SearchResult
         /// </summary>
@@ -140,11 +146,5 @@ namespace LycuteEbookManagement.Ebook
         /// <returns></returns>
 
         #endregion
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

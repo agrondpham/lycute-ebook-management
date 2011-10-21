@@ -101,7 +101,7 @@ namespace LycuteEbookManagement.Ebook
         private ObservableCollection<Book> GetQueryResults()
         {
             Agrond.Lycute.Bus.BookLib bokLib = new Agrond.Lycute.Bus.BookLib();
-            return bokLib.ShowAll();
+            return bokLib.Search("");
         }
         private void CreateModelsForImages(ObservableCollection<Book> photos)
         {

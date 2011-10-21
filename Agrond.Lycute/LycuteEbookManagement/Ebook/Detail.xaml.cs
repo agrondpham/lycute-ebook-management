@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Agrond.Lycute.DAO;
+using Agrond.Lycute.Bus;
+using System.Diagnostics;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -20,22 +22,67 @@ namespace LycuteEbookManagement.Ebook
     /// </summary>
     public partial class Detail : UserControl
     {
+        #region Variable
+        Agrond.Lycute.Bus.BookLib booklib=new Agrond.Lycute.Bus.BookLib();
+        public static Book _book{ set; get; }
+        MainWindow m;
+        #endregion
+
+        #region construction
         public Detail()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(loadParent);
+            LoadData();
         }
-        private void LoadData(Book pBook) { 
-            //txt_Author.Text=pBook.;
-            txt_Edition.Text=pBook.bok_Edition.ToString();
-            txt_ISBN.Text=pBook.bok_ISBN;
-            txt_Language.Text=pBook.Language.lng_Name;
-            txt_Publisher.Text=pBook.Publisher.pbl_Name;
-            //txt_Review.=;
-            //txt_Tag.Text=;
-            txt_Title.Text=pBook.bok_Title;
-            txt_Volume.Text=pBook.bok_Volume.ToString();
-            //img_Cover=;
-            //img_Rank=;
+        #endregion
+        private void loadParent(object sender, RoutedEventArgs e)
+        {
+            m = (MainWindow)Window.GetWindow(this);
         }
+        private void LoadData() {
+            txt_Author.Text=booklib.ConvertAuthorObservableToString(_book.Authors);;
+            txt_Edition.Text=_book.bok_Edition.ToString();
+            txt_ISBN.Text=_book.bok_ISBN;
+            txt_Language.Text=_book.Language.lng_Name;
+            txt_Publisher.Text=_book.Publisher.pbl_Name;
+            txt_Year.Text = _book.bok_Year.ToString();
+            txt_Review.AppendText(_book.bok_Review);
+            txt_Tag.Text=booklib.ConvertTagObservableToString(_book.Tags);
+            txt_Title.Text=_book.bok_Title;
+            txt_Volume.Text=_book.bok_Volume.ToString();
+
+            SetPic(img_Rank, _book.bok_Rank);
+            SetPic(img_Cover, _book.bok_ImageURl);
+        }
+        private void SetPic(Image img,string pStrPicURI)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(pStrPicURI, UriKind.RelativeOrAbsolute);
+            //this code load image to cach for delete image.
+            bi.CacheOption = BitmapCacheOption.OnLoad;
+            bi.EndInit();
+            img.Source = bi;
+        }
+        #region event
+        private void btn_Edit_Click(object sender, RoutedEventArgs e)
+        {
+            //closeBookProperties();
+            LycuteEbookManagement.Ebook.Editor._book = _book;
+            m.loadMain(new Ebook.Editor());
+        }
+
+        private void btn_Read_Click(object sender, RoutedEventArgs e)
+        {
+            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
+            Process.Start(url);
+        }
+
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
