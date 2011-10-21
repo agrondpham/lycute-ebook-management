@@ -27,15 +27,17 @@ namespace LycuteEbookManagement.Search
     public partial class SearchResult : UserControl
     {
         #region variable
+        
         Book _bookValue;
         string _strAuthor="";
         string _strTitle = "";
         string _strFileType = "";
+        int _intBookSelectedID;
         public static string _strKeyword;
         bool IsPropertiesAreaShown = false;
-        Window parentWindow = null;
         MainWindow m;
-        BookLib bus_book = new BookLib();
+        BookLib booklib = new BookLib();
+        
         #endregion
 
         #region constructor
@@ -60,6 +62,7 @@ namespace LycuteEbookManagement.Search
         private void listview_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _bookValue= (Book)listview_Result.SelectedValue;
+            _intBookSelectedID = _bookValue.bok_ID;
             if (_bookValue != null)
             {
                 showBookProperties();
@@ -73,6 +76,12 @@ namespace LycuteEbookManagement.Search
             m.loadMain(new Ebook.Editor());
 
         }
+        private void btn_Detail_Click(object sender, RoutedEventArgs e)
+        {
+            closeBookProperties();
+            LycuteEbookManagement.Ebook.Detail._book = _bookValue;
+            m.loadMain(new Ebook.Detail());
+        }
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
             string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
@@ -82,11 +91,12 @@ namespace LycuteEbookManagement.Search
         {
             closeBookProperties();
         }
+
         #endregion
 
         #region function
         private void loadData(string pStrKeyword) {
-            ObservableCollection<Book> _book = bus_book.Search(pStrKeyword);
+            ObservableCollection<Book> _book = booklib.Search(pStrKeyword);
             listview_Result.DataContext = _book;
         }
         /// <summary>
@@ -113,12 +123,11 @@ namespace LycuteEbookManagement.Search
         }
         private void loadParent(object sender, RoutedEventArgs e)
         {
-            parentWindow = Window.GetWindow(this);
-            m = (MainWindow)parentWindow;
+            m = (MainWindow)Window.GetWindow(this);
         }
         private void setData(Book pBook)
         {
-            string strAuthor= bus_book.ConvertAuthorObservableToString(bus_book.ShowAuthor(pBook.bok_ID));
+            string strAuthor= booklib.ConvertAuthorObservableToString(pBook.Authors);
             lbl_Author.Content = strAuthor;
 
             lbl_Title.Content = pBook.bok_Title;
@@ -156,12 +165,7 @@ namespace LycuteEbookManagement.Search
         }
         #endregion
 
-        private void btn_Detail_MouseDown(object sender, RoutedEventArgs e)
-        {
-            closeBookProperties();
-            //LycuteEbookManagement.Ebook.Editor._book = _bookValue;
-            m.loadMain(new Ebook.Detail());
-        }
+
 
 
     }

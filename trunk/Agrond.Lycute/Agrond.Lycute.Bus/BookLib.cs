@@ -16,7 +16,7 @@ namespace Agrond.Lycute.Bus
     {
         BookInfo bookinfo = new BookInfo();
         private ObservableCollection<Book> _books = new ObservableCollection<Book>();
-        private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
+        //private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
         public ObservableCollection<Book> GetAuthor()
         {
             XmlDocument xdoc = bookinfo.GetCover(false, false, "keyword", "", "peterpan");
@@ -89,38 +89,26 @@ namespace Agrond.Lycute.Bus
         //    }
         //}
         /*Show all ebook*/
-        public ObservableCollection<Book> ShowAll() { 
-            LibraryEntities mainDB=new LibraryEntities();
-            var ebooks = from ebook in mainDB.Books
-                         select ebook;
-                             //select new 
-                         //{ 
-                         //    bok_Title= ebook.bok_Title,
-                         //    bok_ISBN=ebook.bok_ISBN,
-                         //    bok_ImageURl=ebook.bok_ImageURl,
-                         //    bok_Rank=ebook.bok_Rank,
-                         //    bok_Year = ebook.bok_Year//,
-                         //    //bok_Edition = ebook.bok_Year,
-                         //    //bok_Volumn=ebook.bok_Year
-                         //};
-            _books.Clear();
-            foreach( var b in ebooks)
-            {
-                _books.Add(new Book(){
-                    bok_Title=b.bok_Title,
-                    bok_ISBN = b.bok_ISBN,
-                    bok_ImageURl = LycuteApplication.GetLocationString()+b.bok_ImageURl,
-                    bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank)),
-                    bok_Year=b.bok_Year,
-                    bok_Edition=b.bok_Edition,
-                    bok_Location=b.bok_Location,
-                    bok_Modified=b.bok_Modified,
-                    bok_Volume=b.bok_Volume,
-                    bok_ID=b.bok_ID
-                });
-            }
-            return _books;
-        }
+        //public Book ShowBookDetail(int id)
+        //{
+        //    LibraryEntities mainDB = new LibraryEntities();
+        //    var ebooks = from ebook in mainDB.Books
+        //                 from author in ebook.Authors
+        //                 from tag in ebook.Tags
+        //                 join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
+        //                 join lang in mainDB.Languages on ebook.lng_ID equals lang.lng_ID
+        //                 where ebook.bok_ID == id
+        //                 select ebook;
+
+        //    foreach (var b in ebooks)
+        //    {
+        //        b.bok_ImageURl = LycuteApplication.GetLocationString() + b.bok_ImageURl;
+        //        b.bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank));
+        //        b.bok_Review = GetReview(LycuteApplication.GetLocationString() + b.bok_Review);
+
+        //    }
+        //    return ebooks.ElementAt(0);
+        //}
         /*Search ebook*/
         //public ObservableCollection<Book> Search(string pKeywords)
         //{
@@ -160,15 +148,13 @@ namespace Agrond.Lycute.Bus
         {
             LibraryEntities mainDB = new LibraryEntities();
             var ebooks = from ebook in mainDB.Books
-                         join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
-                         from author in ebook.Authors
                          select ebook;
             if (pKeywords != null && pKeywords != "")
             {
                 ebooks = from ebook in mainDB.Books
-                         join publ in mainDB.Publishers on ebook.pbl_ID equals publ.pbl_ID
                          where ebook.bok_Title.Contains(pKeywords)
-                         select ebook;
+                         select ebook ;
+
             }
             ObservableCollection<Book> obserCollectionBook=new ObservableCollection<Book>(ebooks);
 
@@ -241,44 +227,24 @@ namespace Agrond.Lycute.Bus
             }
             return strReview;
         }
-        /*Show author by id*/
-        public ObservableCollection<Author> ShowAuthor(int pId) {
-            _authors.Clear();
-
+        /*Show all author*/
+        public ObservableCollection<Author> ShowAuthor() {
             LibraryEntities mainDB = new LibraryEntities();
-            var authors = from ebook in mainDB.Books
-                      from author in ebook.Authors
-                      where ebook.bok_ID == pId
-                      select author;
-             
-            if (pId == 0)
-            {
-                authors= from ebook in mainDB.Books
-                          from author in ebook.Authors
+            var authors= from author in mainDB.Authors
                           select author;
-                //select author
-            }
-            foreach (var a in authors)
-            {
-                _authors.Add(new Author()
-                {
-                    ath_ID=a.ath_ID,
-                    ath_Name=a.ath_Name
-                });
-
-            }
+            ObservableCollection<Author> _authors = new ObservableCollection<DAO.Author>(authors);    
             return _authors;
         }
-        //public string ConvertAuthorObservableToString(ObservableCollection<Author> pAuthors)
-        //{
-        //    string strAuthor = "";
-
-        //    foreach (var a in pAuthors)
-        //    {
-        //        strAuthor = a.ath_Name + ";" + strAuthor;
-        //    }
-        //    return strAuthor;
-        //}
+        /*Show all publisher*/
+        public ObservableCollection<Publisher> ShowPublisher()
+        {
+            
+            LibraryEntities mainDB = new LibraryEntities();
+            var publishers = from publisher in mainDB.Publishers
+                          select publisher;
+            ObservableCollection<Publisher> _publisher = new ObservableCollection<Publisher>(publishers);
+            return _publisher;
+        }
         public string ConvertAuthorObservableToString(ICollection<Author> pAuthors)
         {
             string strAuthor = "";
@@ -289,13 +255,23 @@ namespace Agrond.Lycute.Bus
             }
             return strAuthor;
         }
+        public string ConvertTagObservableToString(ICollection<Tag> pTags)
+        {
+            string strTarget = "";
+
+            foreach (var t in pTags)
+            {
+                strTarget= t.tag_Name + ";" + strTarget;
+            }
+            return strTarget;
+        }
         public string ConvertPublisherObservableToString(ObservableCollection<Publisher> pPublishers)
         {
             string strPublisher = "";
 
             foreach (var p in pPublishers)
             {
-                strPublisher= p.pbl_Name + ";" + strPublisher;
+                strPublisher = p.pbl_Name + ";" + strPublisher;
             }
             return strPublisher;
         }
@@ -321,22 +297,6 @@ namespace Agrond.Lycute.Bus
         //    return _authors;
         //}
         /*Show publisher*/
-        public ObservableCollection<Publisher> ShowPublisher()
-        {
-            ObservableCollection<Publisher> _publisher = new ObservableCollection<Publisher>();
-            LibraryEntities mainDB = new LibraryEntities();
-            var publishers = from publisher in mainDB.Publishers
-                          select publisher;
-            foreach (var p in publishers)
-            {
-                _publisher.Add(new Publisher()
-                {
-                    pbl_ID = p.pbl_ID,
-                    pbl_Name = p.pbl_Name
-                });
 
-            }
-            return _publisher;
-        }
     }
 }

@@ -28,8 +28,8 @@ namespace LycuteEbookManagement.BookSearch
 
         private void btn_SearchInfo_Click(object sender, RoutedEventArgs e)
         {
-            BookLib bus_book = new BookLib();
-            ObservableCollection<Book> _book = bus_book.GetAuthor();
+            BookLib booklib = new BookLib();
+            ObservableCollection<Book> _book = booklib.GetAuthor();
 
             //Binding bind = new Binding();
             listView1.DataContext = _book;

@@ -10,38 +10,40 @@
     <Grid>
         <Border Style="{StaticResource canvas_border}" Width="1280" Height="680" Margin="-12,0,0,0">
             <Canvas>
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,703,1210" Style="{StaticResource defautText}" Text="Title:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="377" Canvas.Top="62" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,702,958" Style="{StaticResource defautText}" Text="Year:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="36" Canvas.Top="240" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,661,881" Style="{StaticResource defautText}" Text="Publisher:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="36" Canvas.Top="62" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,680,1153" Style="{StaticResource defautText}" Text="Edition:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="36" Canvas.Top="115" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,673,1088" Style="{StaticResource defautText}" Text="Volume:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="36" Canvas.Top="178" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,74,878" Style="{StaticResource defautText}" Text="Author:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="377" Canvas.Top="115" />
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,698,1023" Style="{StaticResource defautText}" Text="ISBN:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="377" Canvas.Top="174" />
-                <Button Content="Edit" HorizontalAlignment="Left" Margin="1123,114,0,0" Name="button1" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-1065" Canvas.Top="463" />
-                <Button Content="Read" HorizontalAlignment="Left" Margin="1123,192,0,0" Name="btn_save" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-922" Canvas.Top="385" />
-                <Button Content="Cancel" HorizontalAlignment="Left" Margin="1123,272,0,0" Name="btnCancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-781" Canvas.Top="305" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,703,1210" Style="{StaticResource defautText}" Text="Title:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="24" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,702,958" Style="{StaticResource defautText}" Text="Year:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="384" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,661,881" Style="{StaticResource defautText}" Text="Publisher:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="192" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,680,1153" Style="{StaticResource defautText}" Text="Edition:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="258" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,673,1088" Style="{StaticResource defautText}" Text="Volume:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="322" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,74,878" Style="{StaticResource defautText}" Text="Author:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="76" />
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,698,1023" Style="{StaticResource defautText}" Text="ISBN:" TextWrapping="Wrap" VerticalAlignment="Bottom" Canvas.Left="38" Canvas.Top="136" />
+                <TextBlock Canvas.Left="38" Canvas.Top="452" Style="{StaticResource defautText}" Text="Language:" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="38" Canvas.Top="514" Style="{StaticResource defautText}" Text="Target:" TextWrapping="Wrap" />
+                <Button Content="Edit" HorizontalAlignment="Left" Margin="1123,114,0,0" Name="btn_Edit" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-1065" Canvas.Top="463" Click="btn_Edit_Click" />
+                <Button Content="Read" HorizontalAlignment="Left" Margin="1123,192,0,0" Name="btn_Read" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-922" Canvas.Top="385" Click="btn_Read_Click" />
+                <Button Content="Cancel" HorizontalAlignment="Left" Margin="1123,272,0,0" Name="btn_Cancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-781" Canvas.Top="305" Click="btn_Cancel_Click" />
                 
                 <TextBlock Margin="55,523,679,730" Style="{StaticResource defautText}" Text="Review:" TextWrapping="Wrap" Canvas.Left="935" Canvas.Top="-497" />
                 <RichTextBox Height="564" Margin="252,528,-205,624" Name="txt_Review" Style="{StaticResource richTextBoxStyle}" Width="388" Canvas.Top="-466" Canvas.Left="580" />
                 <my:FileLocation Height="730" Margin="10,10,-470,540" x:Name="fileLocation1" Visibility="Hidden" Width="1260" />
-                <Image Canvas.Left="712" Canvas.Top="178" Height="23" Name="img_Rank" Stretch="Uniform" Width="92" Source="/LycuteEbookManagement;component/Images/Components/5stars.png" />
-                <Canvas Margin="583,42,0,0" Canvas.Left="-89" Canvas.Top="198"><Image Height="320" Name="img_Cover" Source="/LycuteEbookManagement;component/Images/no_picture_available.png" Stretch="Fill" Width="212" >
+                <Image Canvas.Left="416" Canvas.Top="40" Height="23" Name="img_Rank" Stretch="Uniform" Width="92" Source="/LycuteEbookManagement;component/Images/Components/5stars.png" />
+                
+                
+                <TextBlock Canvas.Left="100" Canvas.Top="384" Style="{StaticResource defautText}" Text="Year:" Name ="txt_Year" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="146" Canvas.Top="192" Style="{StaticResource defautText}" Text="Publisher:" Name="txt_Publisher" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="122" Canvas.Top="258" Style="{StaticResource defautText}" Text="Edition:" Name="txt_Edition"  TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="130" Canvas.Top="322" Style="{StaticResource defautText}" Text="Volume:" Name="txt_Volume" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="156" Canvas.Top="452" Style="{StaticResource defautText}" Text="Language:" Name="txt_Language" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="128" Canvas.Top="514" Style="{StaticResource defautText}" Text="Target:" Name="txt_Tag" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="98" Canvas.Top="24" Style="{StaticResource defautText}" Text="Title:" Name="txt_Title" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="120" Canvas.Top="76" Style="{StaticResource defautText}" Text="Author:" Name="txt_Author" TextWrapping="Wrap" />
+                <TextBlock Canvas.Left="108" Canvas.Top="136" Style="{StaticResource defautText}" Text="ISBN:" Name="txt_ISBN" TextWrapping="Wrap" />
+                <Canvas Canvas.Left="546" Canvas.Top="26"><Image Height="320" Name="img_Cover" Source="/LycuteEbookManagement;component/Images/no_picture_available.png" Stretch="Fill" Width="212" >
                     <i:Interaction.Behaviors>
                         <local:ReflectionBehavior />
                     </i:Interaction.Behaviors>
                 </Image>
                 </Canvas>
-                <TextBlock Canvas.Left="36" Canvas.Top="308" Style="{StaticResource defautText}" Text="Language:" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="36" Canvas.Top="370" Style="{StaticResource defautText}" Text="Target:" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="294" Canvas.Top="240" Style="{StaticResource defautText}" Text="Year:" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="252" Canvas.Top="62" Style="{StaticResource defautText}" Text="Publisher:" Name="txt_Publisher" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="272" Canvas.Top="115" Style="{StaticResource defautText}" Text="Edition:" Name="txt_Edition"  TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="265" Canvas.Top="174" Style="{StaticResource defautText}" Text="Volume:" Name="txt_Volume" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="246" Canvas.Top="308" Style="{StaticResource defautText}" Text="Language:" Name="txt_Language" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="277" Canvas.Top="370" Style="{StaticResource defautText}" Text="Target:" Name="txt_Tag" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="615" Canvas.Top="62" Style="{StaticResource defautText}" Text="Title:" Name="txt_Title" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="592" Canvas.Top="115" Style="{StaticResource defautText}" Text="Author:" Name="txt_Author" TextWrapping="Wrap" />
-                <TextBlock Canvas.Left="610" Canvas.Top="174" Style="{StaticResource defautText}" Text="ISBN:" Name="txt_ISBN" TextWrapping="Wrap" />
             </Canvas>
         </Border>
     </Grid>
