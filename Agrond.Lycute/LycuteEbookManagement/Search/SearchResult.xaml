@@ -125,7 +125,7 @@
 		                            <ListView.View>
 		                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
 		                                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
-		                                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding bok_Author}" Width="240"/>
+		                                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding ath_Name}" Width="240"/>
 		                                    <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>
 		                                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding bok_Year}" Width="55"/>
 		                                    <GridViewColumn Header="Cover" CellTemplate="{StaticResource CoverItemTemplate}"  Width="120"/>

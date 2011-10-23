@@ -23,10 +23,12 @@ namespace LycuteEbookManagement.Ebook
     {
         #region Data
         public bool Focused { get; set; }
-        private Dictionary<ModelUIElement3D, string> modelToImageLookUp = new Dictionary<ModelUIElement3D, string>();
+        private Dictionary<ModelUIElement3D, Book> modelToImageLookUp = new Dictionary<ModelUIElement3D, Book>();
+        public Book CurrentObject { get; private set; }
         private const double MODEL_OFFSET = 1.05;
         private DispatcherTimer angleAnimationTimer = new DispatcherTimer();
         private DispatcherTimer loadTimer = new DispatcherTimer();
+        MainWindow m;
         //private SearchTypes currentSearchtype = SearchTypes.FlickrLatest;
         #endregion
 
@@ -57,6 +59,17 @@ namespace LycuteEbookManagement.Ebook
             loadTimer.Interval = TimeSpan.FromSeconds(2);
             loadTimer.IsEnabled = false;
             loadTimer.Tick += loadTimer_Tick;
+
+            this.Loaded += new RoutedEventHandler(loadParent);
+        }
+        /// <summary>
+        /// Load Parent control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void loadParent(object sender, RoutedEventArgs e)
+        {
+            m = (MainWindow)Window.GetWindow(this);
         }
         /// <summary>
         /// load Conduct function
@@ -103,9 +116,9 @@ namespace LycuteEbookManagement.Ebook
             Agrond.Lycute.Bus.BookLib bokLib = new Agrond.Lycute.Bus.BookLib();
             return bokLib.Search("");
         }
-        private void CreateModelsForImages(ObservableCollection<Book> photos)
+        private void CreateModelsForImages(ObservableCollection<Book> pBookObj)
         {
-            int photoNum = 0;
+            int bookNum = 0;
             IsVisible = false;
             container.Children.Clear();
             modelToImageLookUp.Clear();
@@ -114,19 +127,19 @@ namespace LycuteEbookManagement.Ebook
             {
                 for (int col = 0; col < Wall3dHelper.COLUMNS; col++)
                 {
-                    if (photoNum < photos.Count)
+                    if (bookNum < pBookObj.Count)
                     {
-                        container.Children.Add(CreateModel(photos[photoNum].bok_ImageURl, rows, col));
-                        photoNum++;
+                        container.Children.Add(CreateModel(pBookObj[bookNum], rows, col));
+                        bookNum++;
                     }
                     else { break; }
                 }
             }
         }
-        private ModelUIElement3D CreateModel(string imageUri, int row, int col)
+        private ModelUIElement3D CreateModel(Book pBookObj, int row, int col)
         {
             //Get a VisualBrush for the Url
-            VisualBrush vBrush = GetVisualBrush(imageUri);
+            VisualBrush vBrush = GetVisualBrush(pBookObj.bok_ImageURl);
 
             //Create the model
             ModelUIElement3D model3D = new ModelUIElement3D
@@ -166,11 +179,26 @@ namespace LycuteEbookManagement.Ebook
                 }
             };
             //hook up mouse events, and add to lookup and return the ModelUIElement3D
-            //model3D.MouseEnter += ModelUIElement3D_MouseEnter;
-            //model3D.MouseDown += model3D_MouseDown;
-            modelToImageLookUp.Add(model3D, imageUri);
+            model3D.MouseEnter += ModelUIElement3D_MouseEnter;
+            model3D.MouseDown += model3D_MouseDown;
+            modelToImageLookUp.Add(model3D, pBookObj);
             return model3D;
         }
+        private void model3D_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CurrentObject = modelToImageLookUp[sender as ModelUIElement3D];
+
+            //raise our custom CustomClickWithCustomArgs event
+            LycuteEbookManagement.Ebook.Detail._book = CurrentObject;
+            m.loadMain(new Ebook.Detail());
+
+
+        }
+        private void ModelUIElement3D_MouseEnter(object sender, MouseEventArgs e)
+        {
+//do some thig when mouse moveover
+        }
+
         private VisualBrush GetVisualBrush(string url)
         {
             Border bord = new Border();
@@ -274,15 +302,10 @@ namespace LycuteEbookManagement.Ebook
         {
             double value = Math.Max(0, e.Delta / 10);//divide the value by 10 so that it is more smooth
             value = Math.Min(e.Delta, Wall3dHelper.COLUMNSTOSHOW);
-            slideZoom.Value = value;
+            //slideZoom.Value = value;
         }
         #endregion
         #region Public Properties
-
-        /// <summary>
-        /// The currently clicked Image
-        /// </summary>
-        public string CurrentImage { get; private set; }
 
         /// <summary>
         /// True if there is current an Animation in progress

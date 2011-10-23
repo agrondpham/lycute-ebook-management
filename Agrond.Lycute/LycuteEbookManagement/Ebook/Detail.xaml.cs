@@ -75,13 +75,13 @@ namespace LycuteEbookManagement.Ebook
 
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
-            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
-            Process.Start(url);
+            //string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
+            //Process.Start(url);
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
-
+            m.loadMain(new Home());
         }
         #endregion
     }
