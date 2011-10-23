@@ -2,161 +2,211 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Height="740" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Common">
-    <Border Style="{StaticResource canvas_border}" Height="740" Width="1280" >
-        <Grid Background="{StaticResource backgroundBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="461*"/>
-                <RowDefinition Height="219"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="1" Grid.Column="0" x:Name="mainGrid">
-
-                <!-- Viewport3D -->
-                <Viewport3D x:Name="vp">
-                    <!-- Camera -->
-                    <Viewport3D.Camera>
-                        <PerspectiveCamera x:Name="camera" Position="3,-0.5,4" LookDirection="0,0,-1" FieldOfView="90" />
-                    </Viewport3D.Camera>
-                    <!-- Lights -->
-                    <ModelVisual3D>
-                        <ModelVisual3D.Content>
-                            <Model3DGroup>
-                                <DirectionalLight Color="#444" Direction="0,0,-1" />
-                                <AmbientLight Color="#BBB" />
-                            </Model3DGroup>
-                        </ModelVisual3D.Content>
-                    </ModelVisual3D>
-                    <!-- Container to hold child models -->
-                    <ContainerUIElement3D x:Name="container">
-                        <ContainerUIElement3D.Transform>
-                            <Transform3DGroup>
-                                <TranslateTransform3D x:Name="contTrans" OffsetX="0" OffsetY="0" OffsetZ="0"/>
-                                <ScaleTransform3D ScaleX="1" ScaleY="1" ScaleZ="1"/>
-                                <RotateTransform3D>
-                                    <RotateTransform3D.Rotation>
-                                        <AxisAngleRotation3D x:Name="contAngle" Angle="0" Axis="0,1,0"/>
-                                    </RotateTransform3D.Rotation>
-                                </RotateTransform3D>
-                            </Transform3DGroup>
-                        </ContainerUIElement3D.Transform>
-                        
-                    </ContainerUIElement3D>
-                </Viewport3D>
-                <my:LoadingWait Height="142" HorizontalAlignment="Left" Margin="332,151,0,0" x:Name="loadingWait1" VerticalAlignment="Top" Width="469" />
-            </Grid>
-            <StackPanel x:Name="controlsArea" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="388,149,462,31">
-                <!-- SLIDE AREA -->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Slide To Position" Foreground="White" FontFamily="Arial Rounded MT" FontSize="10" 
-                       FontWeight="Bold"
-                       VerticalAlignment="Center" Margin="10,0,0,0"/>
-
-                    <!-- Slider to move ContainerUIElement3D -->
-                    <Slider x:Name="slideImages" Minimum="0" Maximum="25" 
-                        Background="Black" ValueChanged="slideImages_ValueChanged" Width="200" 
-                        Height="20" Margin="10,0,0,0"  >
-                        <Slider.Template>
-                            <ControlTemplate TargetType="Slider">
-                                <Grid>
-                                    <Grid.Background>
-                                        <!-- Tile background to show the boxes -->
-                                        <DrawingBrush
-				                Viewport="0,0,5,5"
-				                ViewportUnits="Absolute"
-				                TileMode="Tile">
-                                            <DrawingBrush.Drawing>
-                                                <DrawingGroup>
-                                                    <GeometryDrawing Brush="{StaticResource backgroundBrush}">
-                                                        <GeometryDrawing.Geometry>
-                                                            <RectangleGeometry Rect="0,0,100,100" />
-                                                        </GeometryDrawing.Geometry>
-                                                    </GeometryDrawing>
-
-                                                    <GeometryDrawing Brush="White">
-                                                        <GeometryDrawing.Geometry>
-                                                            <GeometryGroup>
-                                                                <RectangleGeometry Rect="50,50,50,50" />
-                                                            </GeometryGroup>
-                                                        </GeometryDrawing.Geometry>
-
-                                                    </GeometryDrawing>
-
-                                                </DrawingGroup>
-                                            </DrawingBrush.Drawing>
-                                        </DrawingBrush>
-                                    </Grid.Background>
-
-                                    <Track Name="PART_Track">
-                                        <Track.Resources>
-                                            <Style TargetType="RepeatButton">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="RepeatButton">
-                                                            <Border Background="{TemplateBinding Background}" />
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Track.Resources>
-                                        <Track.DecreaseRepeatButton>
-                                            <RepeatButton Background="Transparent"
-                              Command="Slider.DecreaseLarge" />
-                                        </Track.DecreaseRepeatButton>
-                                        <Track.Thumb>
-                                            <Thumb Width="20" Background="DarkGray" Opacity="0.7" />
-                                        </Track.Thumb>
-                                        <Track.IncreaseRepeatButton>
-                                            <RepeatButton 
+    <UserControl.Resources>
+        <!-- Begin Slider style-->
+        <Style x:Key="SliderTrackStyle" TargetType="Rectangle">
+            <Setter Property="RadiusY" Value="3" />
+            <Setter Property="RadiusX" Value="3" />
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Stroke">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF202020" Offset="0"/>
+                        <GradientStop Color="#FF404040" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF202020" Offset="0.4"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderThumb" TargetType="Rectangle">
+            <Setter Property="RadiusY" Value="3" />
+            <Setter Property="RadiusX" Value="3" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="Stroke" Value="#FF4B4B4B"/>
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.43,-0.02">
+                        <GradientStop Color="#FF252525" Offset="1"/>
+                        <GradientStop Color="#FF787878" Offset="0"/>
+                        <GradientStop Color="#FF424242" Offset="0.622"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderThumbCover" TargetType="Rectangle">
+            <Setter Property="RadiusY" Value="2" />
+            <Setter Property="RadiusX" Value="2" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="Fill" Value="#FF404040" />
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style x:Key="ThumbStyle" TargetType="Thumb">
+            <Setter Property="Margin" Value="0,2" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid Margin="2,0">
+                            <Rectangle x:Name="Thumb" Style="{StaticResource SliderThumb}"/>
+                            <Rectangle x:Name="ThumbCover" Style="{StaticResource SliderThumbCover}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Direction="360" Opacity="0.5" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="RepeatButtonStyle" TargetType="RepeatButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Grid>
+                            <Rectangle RadiusY="0" RadiusX="0" StrokeThickness="0" Fill="Transparent"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderStyle" TargetType="Slider">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid x:Name="HorizontalTemplate">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="2"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle x:Name="Track" Grid.ColumnSpan="3" Style="{StaticResource SliderTrackStyle}"/>
+                            <RepeatButton x:Name="HorizontalTrackLargeChangeDecreaseRepeatButton" Grid.Column="0" Style="{StaticResource RepeatButtonStyle}"/>
+                            <Track Name="PART_Track" Grid.Column="1">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Background="Transparent"
+                              Command="Slider.DecreaseLarge" Style="{StaticResource RepeatButtonStyle}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Name="Part_Thumb" Style="{StaticResource ThumbStyle}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton 
                                Background="Transparent"
-                              Command="Slider.IncreaseLarge" />
-                                        </Track.IncreaseRepeatButton>
-                                    </Track>
-                                </Grid>
-                            </ControlTemplate>
-                        </Slider.Template>
-                    </Slider>
-                </StackPanel>
-                <!-- ZOOM AREA -->
-                <StackPanel Orientation="Horizontal" Height="27" Width="100">
-                    <Label Content="Zoom" Foreground="White" FontFamily="Arial Rounded MT" FontSize="10" FontWeight="Bold" />
-                    <!-- Slider to Zoom -->
-                    <Slider x:Name="slideZoom" Minimum="4" Maximum="10" Background="Black" Orientation="Vertical"
-                  Width="20" Height="20" Margin="10,0,0,0" ValueChanged="slideZoom_ValueChanged"  >
-                        <Slider.Template>
-                            <ControlTemplate TargetType="Slider">
-                                <Grid Background="{StaticResource backgroundBrush}">
-                                    <Track Name="PART_Track">
-                                        <Track.Resources>
-                                            <Style TargetType="RepeatButton">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="RepeatButton">
-                                                            <Border Background="{TemplateBinding Background}" />
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Track.Resources>
-                                        <Track.DecreaseRepeatButton>
-                                            <RepeatButton Background="White" Width="6" HorizontalAlignment="Center"
-                              Command="Slider.DecreaseLarge" />
-                                        </Track.DecreaseRepeatButton>
-                                        <Track.Thumb>
-                                            <Thumb Width="12" Height="6" Background="White" Opacity="1.0" />
-                                        </Track.Thumb>
-                                        <Track.IncreaseRepeatButton>
-                                            <RepeatButton 
-                               Background="White" Width="6" HorizontalAlignment="Center"
-                              Command="Slider.IncreaseLarge" />
-                                        </Track.IncreaseRepeatButton>
-                                    </Track>
-                                </Grid>
-                            </ControlTemplate>
-                        </Slider.Template>
-                    </Slider>
-                </StackPanel>
-            </StackPanel>
+                              Command="Slider.IncreaseLarge" Style="{StaticResource RepeatButtonStyle}"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                            <RepeatButton x:Name="HorizontalTrackLargeChangeIncreaseRepeatButton" Grid.Column="2" Style="{StaticResource RepeatButtonStyle}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!---End Slider style-->
+    </UserControl.Resources>
+    <Grid Background="{StaticResource backgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="461*"/>
+            <RowDefinition Height="219"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="0" x:Name="mainGrid">
+
+            <!-- Viewport3D -->
+            <Viewport3D x:Name="vp">
+                <!-- Camera -->
+                <Viewport3D.Camera>
+                    <PerspectiveCamera x:Name="camera" Position="3,-0.5,4" LookDirection="0,0,-1" FieldOfView="90" />
+                </Viewport3D.Camera>
+                <!-- Lights -->
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <DirectionalLight Color="#444" Direction="0,0,-1" />
+                            <AmbientLight Color="#BBB" />
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <!-- Container to hold child models -->
+                <ContainerUIElement3D x:Name="container">
+                    <ContainerUIElement3D.Transform>
+                        <Transform3DGroup>
+                            <TranslateTransform3D x:Name="contTrans" OffsetX="0" OffsetY="0" OffsetZ="0"/>
+                            <ScaleTransform3D ScaleX="1" ScaleY="1" ScaleZ="1"/>
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D x:Name="contAngle" Angle="0" Axis="0,1,0"/>
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                        </Transform3DGroup>
+                    </ContainerUIElement3D.Transform>
+                        
+                </ContainerUIElement3D>
+            </Viewport3D>
+            <my:LoadingWait Height="142" HorizontalAlignment="Left" Margin="382,151,0,0" x:Name="loadingWait1" VerticalAlignment="Top" Width="469" />
         </Grid>
-    </Border>
+        <StackPanel x:Name="controlsArea" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="388,149,462,31">
+            <!-- SLIDE AREA -->
+            <StackPanel Orientation="Horizontal" Width="386">
+                <Label Content="Slide To Position" Foreground="White" FontFamily="Arial Rounded MT" FontSize="10" 
+                    FontWeight="Bold"
+                    VerticalAlignment="Center" Margin="10,0,0,0" Width="125" />
+
+                <!-- Slider to move ContainerUIElement3D -->
+                <Slider  x:Name="slideImages" Minimum="0" Maximum="25" 
+                    Background="Black" ValueChanged="slideImages_ValueChanged" Width="206" 
+                    Height="20" Margin="10,0,0,0" Style="{StaticResource SliderStyle}"/>
+
+            </StackPanel>
+            <!-- ZOOM AREA -->
+            <StackPanel Orientation="Horizontal" Height="27" Width="100">
+                <Label Content="Zoom" Foreground="White" FontFamily="Arial Rounded MT" FontSize="10" FontWeight="Bold" />
+                <!-- Slider to Zoom -->
+                <Slider x:Name="slideZoom" Minimum="4" Maximum="10" Background="Black" Orientation="Vertical"
+                Width="20" Height="20" Margin="10,0,0,0" ValueChanged="slideZoom_ValueChanged"  >
+                    <Slider.Template>
+                        <ControlTemplate TargetType="Slider">
+                            <Grid Background="{StaticResource backgroundBrush}">
+                                <Track Name="PART_Track">
+                                    <Track.Resources>
+                                        <Style TargetType="RepeatButton">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="RepeatButton">
+                                                        <Border Background="{TemplateBinding Background}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Track.Resources>
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Background="White" Width="6" HorizontalAlignment="Center"
+                            Command="Slider.DecreaseLarge" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Width="12" Height="6" Background="White" Opacity="1.0" />
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton 
+                            Background="White" Width="6" HorizontalAlignment="Center"
+                            Command="Slider.IncreaseLarge" />
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Slider.Template>
+                </Slider>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
 </UserControl>
