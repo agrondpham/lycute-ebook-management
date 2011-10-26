@@ -4,7 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
 			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
-             Height="750" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Components">
+             Height="750" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Components" xmlns:my1="clr-namespace:LycuteEbookManagement.Search">
+    <UserControl.Resources>
+        <!-- Show Search Area Animation  -->
+        <Storyboard x:Key="OnShowMenuArea">
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                              Storyboard.TargetName="InternetData" 
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="11340,-117,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="1134,117,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="-12,-20,-12,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01.5000000" Value="0,0,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <!-- Hide Search Area Animation  -->
+        <Storyboard x:Key="OnHideMenuArea">
+            <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" 
+                                              Storyboard.TargetName="InternetData" 
+                                              Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="-12,-60,-12,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="1134,117,0,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:01.5000000" Value="11340,-117,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
         <Border Style="{StaticResource canvas_border}" Width="1280" Height="680" Margin="-12,0,0,0">
             <Canvas>
@@ -31,6 +55,8 @@
                 <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="730" Width="1260"  Visibility="Hidden"/>
                 <my:AutoCompleteBox Canvas.Left="765" Canvas.Top="355" x:Name="autoCompleteBox_Author" Height="155" Width="305" />
                 <my:AutoCompleteBox Canvas.Left="242" Canvas.Top="353" Height="155" x:Name="autoCompleteBox_Publisher" Width="305" />
+                <Canvas  Margin="11340,-117,0,0" x:Name="InternetData">
+                </Canvas>
             </Canvas>
         </Border>
     </Grid>

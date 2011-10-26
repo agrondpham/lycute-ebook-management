@@ -123,6 +123,16 @@
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Search\CoverAndReview.xaml.cs">
+      <DependentUpon>CoverAndReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Search\FindBookInformation.xaml.cs">
+      <DependentUpon>FindBookInformation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Search\InternetSearch.xaml.cs">
+      <DependentUpon>InternetSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Setting\ConfigStructure.xaml.cs">
       <DependentUpon>ConfigStructure.xaml</DependentUpon>
     </Compile>
@@ -172,7 +182,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Search\CoverAndReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Search\FindBookInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Search\InternetSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,9 +221,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Search\FindBookInformation.xaml.cs">
-      <DependentUpon>FindBookInformation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Search\SearchResult.xaml.cs">
       <DependentUpon>SearchResult.xaml</DependentUpon>

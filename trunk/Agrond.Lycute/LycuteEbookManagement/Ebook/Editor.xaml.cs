@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Agrond.Lycute.DAO;
 using Agrond.Lycute.Bus;
+using System.Windows.Media.Animation;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -27,6 +28,8 @@ namespace LycuteEbookManagement.Ebook
         BookLib booklib = new BookLib();
         private string _imageSource = "";
         MainWindow m;
+        //bool IsInternetDataOpen;
+        bool IsISBN;
         #endregion
         
         #region Constructor
@@ -73,6 +76,9 @@ namespace LycuteEbookManagement.Ebook
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
 
+                Search.InternetSearch._IsISBN = IsISBN;
+                Search.InternetSearch._keyword = GetDataToSearch();
+                m.loadMain(new Search.InternetSearch()) ;
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -88,9 +94,17 @@ namespace LycuteEbookManagement.Ebook
 
         private void load() {
             //string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor(_book.bok_ID));
-            string strAuthor = booklib.ConvertAuthorObservableToString(_book.Authors);
-            autoCompleteBox_Author.SetText(strAuthor);
-            autoCompleteBox_Publisher.SetText(_book.Publisher.pbl_Name);
+            if (_book.Authors != null)
+            {
+                string strAuthor = booklib.ConvertAuthorObservableToString(_book.Authors);
+                autoCompleteBox_Author.SetText(strAuthor);
+                SetAuthor(strAuthor);
+            }
+            if (_book.Publisher != null)
+            {
+                autoCompleteBox_Publisher.SetText(_book.Publisher.pbl_Name);
+                SetPublisher(_book.Publisher.pbl_Name);
+            }
 
             txtISBN.Text = _book.bok_ISBN;
             txtTitle.Text = _book.bok_Title;
@@ -102,10 +116,10 @@ namespace LycuteEbookManagement.Ebook
             rankComponent1.setText(Rank.RankNumber(_book.bok_Rank));
 
             txtReview.AppendText(_book.bok_Review);
-
-            SetPic(_book.bok_ImageURl);
-            SetAuthor(strAuthor);
-            SetPublisher(_book.Publisher.pbl_Name);
+            if (_book.bok_ImageURl != ""&& _book.bok_ImageURl!=null)
+                SetPic(_book.bok_ImageURl);
+            else
+                SetPic("pack://application:,,,/Images/no_picture_available.png");
         }
 
         private Book AddData(Book pbook) {
@@ -139,12 +153,45 @@ namespace LycuteEbookManagement.Ebook
             string strPublisher = booklib.ConvertPublisherObservableToString(booklib.ShowPublisher());
             autoCompleteBox_Publisher.SetData(strPublisher);
         }
-        /// <summary>
-        /// same function on SearchResult
-        /// </summary>
-        /// <param name="pAuthors"></param>
-        /// <returns></returns>
+        //private void closeMenu()
+        //{
+        //    if (IsInternetDataOpen)
+        //    {
+        //        Storyboard HideMenuArea =
+        //        this.TryFindResource("OnHideMenuArea") as Storyboard;
+        //        if (HideMenuArea != null)
+        //            HideMenuArea.Begin(InternetData);
+        //        IsInternetDataOpen = false;
+        //    }
+        //}
+        //private void openMenu()
+        //{
+        //    //if (IsInternetDataOpen == false)
+        //    //{
+        //        //internetSearch1.Visibility = Visibility.Visible;
+        //        Storyboard ShowMenuArea =
+        //        this.TryFindResource("OnShowMenuArea") as Storyboard;
+        //        if (ShowMenuArea != null)
+        //            ShowMenuArea.Begin(InternetData);
+        //    //    IsInternetDataOpen= true;
+        //    //}
 
+        //}
+        private string GetDataToSearch() {
+            string keyword = "";
+            if (txtISBN.Text != "")
+            {
+                keyword = txtISBN.Text;
+                IsISBN = true;
+            }
+            else { 
+                keyword=txtTitle.Text;
+                keyword = keyword + " " + autoCompleteBox_Author.GetText();
+                keyword = keyword + " " + txtEdition.Text;
+                IsISBN = false;
+            }
+            return keyword;
+        }
         #endregion
     }
 }

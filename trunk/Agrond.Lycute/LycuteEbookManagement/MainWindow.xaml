@@ -16,7 +16,7 @@
                                               Storyboard.TargetName="quickMenu" 
                                               Storyboard.TargetProperty="(FrameworkElement.Margin)">
                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="-12,-70,-12,0"/>
-                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="-12,-40,-12,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="-12,-20,-12,0"/>
                 <SplineThicknessKeyFrame KeyTime="00:00:01" Value="-12,-12,-12,0"/>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
@@ -26,7 +26,7 @@
                                               Storyboard.TargetName="quickMenu" 
                                               Storyboard.TargetProperty="(FrameworkElement.Margin)">
                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="-12,-12,-12,0"/>
-                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="-12,-40,-12,0"/>
+                <SplineThicknessKeyFrame KeyTime="00:00:00.5000000" Value="-12,-60,-12,0"/>
                 <SplineThicknessKeyFrame KeyTime="00:00:01" Value="-12,-70,-12,0"/>
             </ThicknessAnimationUsingKeyFrames>
         </Storyboard>

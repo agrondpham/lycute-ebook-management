@@ -39,12 +39,15 @@ namespace LycuteEbookManagement.Components
             return textBox1.Text;
         }
         public void SetData(string pStrData) {
-            string[] str = pStrData.Split(';');
-            List<string> list = str.ToList<string>();
-            _ListData = list;
-            ICollectionView filtedView = CollectionViewSource.GetDefaultView(_ListData);
-            listBox1.DataContext = filtedView;
-            listBox1.Visibility = Visibility.Hidden;
+            if (pStrData != "")
+            {
+                string[] str = pStrData.Split(';');
+                List<string> list = str.ToList<string>();
+                _ListData = list;
+                ICollectionView filtedView = CollectionViewSource.GetDefaultView(_ListData);
+                listBox1.DataContext = filtedView;
+                listBox1.Visibility = Visibility.Hidden;
+            }
         }
         #endregion
 
