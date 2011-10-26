@@ -32,7 +32,7 @@ namespace LycuteEbookManagement.Search
         string _strAuthor="";
         string _strTitle = "";
         string _strFileType = "";
-        int _intBookSelectedID;
+        //int _intBookSelectedID;
         public static string _strKeyword;
         bool IsPropertiesAreaShown = false;
         MainWindow m;
@@ -62,7 +62,7 @@ namespace LycuteEbookManagement.Search
         private void listview_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _bookValue= (Book)listview_Result.SelectedValue;
-            _intBookSelectedID = _bookValue.bok_ID;
+            //_intBookSelectedID = _bookValue.bok_ID;
             if (_bookValue != null)
             {
                 showBookProperties();

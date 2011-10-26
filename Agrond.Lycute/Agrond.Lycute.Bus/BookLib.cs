@@ -8,6 +8,7 @@ using Agrond.Lycute.DAO;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using System.Xml;
+using System.Data.Objects.DataClasses;
 //using System.Linq;
 
 namespace Agrond.Lycute.Bus
@@ -17,23 +18,29 @@ namespace Agrond.Lycute.Bus
         BookInfo bookinfo = new BookInfo();
         private ObservableCollection<Book> _books = new ObservableCollection<Book>();
         //private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
-        public ObservableCollection<Book> GetAuthor()
+        public ObservableCollection<Book> GetInformation(string pKeyword, bool pIsISBN)
         {
-            XmlDocument xdoc = bookinfo.GetCover(false, false, "keyword", "", "peterpan");
+            XmlDocument xdoc;
+            if (pIsISBN)
+            {
+                xdoc = bookinfo.GetData(false, false, pKeyword, "");
+            }
+            else
+            {
+                xdoc = bookinfo.GetData(false, false, "", pKeyword);
+            }
             XDocument xBookInfo;
             xBookInfo = XDocument.Load(new XmlNodeReader(xdoc));
             XNamespace ns = "http://webservices.amazon.com/AWSECommerceService/2011-04-01";
-            var items = from item in xBookInfo.Descendants(ns + "ItemAttributes")
+            var items = from item in xBookInfo.Descendants(ns + "Item")
+                        from detail in item.Descendants(ns + "ItemAttributes")
                         select
                             new Book()
                             {
-                                //Author = item.Element(ns + "Author").Value,
-                                bok_Title = item.Element(ns + "Title").Value,
-                                //Manufacturer = item.Element(ns+"Manufacturer").Value
-                                //Author = "def",
-                                //Title = "abc",
-                                //Manufacturer = "123"
-
+                                Authors = GetInternetAuthor(detail.Element(ns + "Author").Value),
+                                bok_Title = detail.Element(ns + "Title").Value,
+                                Publisher = GetInternetPulisher(detail.Element(ns + "Manufacturer").Value),
+                                bok_ISBN = item.Element(ns + "ASIN").Value
                             };
             foreach (Book b in items)
             {
@@ -42,6 +49,91 @@ namespace Agrond.Lycute.Bus
             }
             return _books;
         }
+        public string GetInternetReview(string pISBN)
+        {
+            string review="";
+            XmlDocument  xdoc = bookinfo.GetData(false, true, pISBN, "");
+            XDocument xBookInfo;
+            xBookInfo = XDocument.Load(new XmlNodeReader(xdoc));
+            XNamespace ns = "http://webservices.amazon.com/AWSECommerceService/2011-04-01";
+            var items = from item in xBookInfo.Descendants(ns + "EditorialReview")
+                        select item.Element(ns + "Content").Value;
+            foreach (string re in items) {
+                review = re;
+            }
+            return review;
+        }
+        public string GetInternetCover(string pISBN)
+        {
+            string url = "";
+            XmlDocument xdoc = bookinfo.GetData(true, false, pISBN, "");
+            XDocument xBookInfo;
+            xBookInfo = XDocument.Load(new XmlNodeReader(xdoc));
+            XNamespace ns = "http://webservices.amazon.com/AWSECommerceService/2011-04-01";
+            var items = from item in xBookInfo.Descendants(ns + "LargeImage")
+                        select item.Element(ns + "URL").Value;
+            foreach (string re in items)
+            {
+                url = re;
+            }
+            return url;
+        }
+
+        
+        //public ObservableCollection<Book> GetAuthor(string pKeyword, bool pIsISBN)
+        //{
+        //    XmlDocument xdoc;
+        //    if (pIsISBN)
+        //    {
+        //        xdoc = bookinfo.GetCover(false, false, pKeyword, "");
+        //    }
+        //    else
+        //    {
+        //        xdoc = bookinfo.GetCover(false, false, "", pKeyword);
+        //    }
+        //    //XDocument xBookInfo;
+        //    //xBookInfo = XDocument.Load(new XmlNodeReader(xdoc));
+        //    XmlNodeReader r = new XmlNodeReader(xdoc);
+        //    while (r.Read())
+        //    {
+        //        if (r.NodeType == XmlNodeType.Element)
+        //        {
+        //            Console.WriteLine("<" + r.Name + ">");
+        //            if (r.HasAttributes)
+        //            {
+        //                for (int i = 0; i < r.AttributeCount; i++)
+        //                {
+        //                    Console.WriteLine("\tATTRIBUTE: " +
+        //                      r.GetAttribute(i));
+        //                }
+        //            }
+        //        }
+        //        else if (r.NodeType == XmlNodeType.Text)
+        //        {
+        //            Console.WriteLine("\tVALUE: " + r.Value);
+        //        }
+        //    }
+        //    //foreach (Book b in items)
+        //    //{
+        //    //    _books.Add(b);
+        //    //    //return b;
+        //    //}
+        //    return _books;
+        //}
+        private EntityCollection<Author> GetInternetAuthor(string pAuthor) {
+            EntityCollection<Author> collectAu=new EntityCollection<Author>();
+            Author au=new Author();
+            au.ath_Name = pAuthor;
+            collectAu.Add(au);
+            return collectAu;
+        }
+        private Publisher GetInternetPulisher(string pPulisher)
+        {
+            Publisher pb = new Publisher();
+            pb.pbl_Name = pPulisher;
+            return pb;
+        }
+        
         //public void GetCover()
         //{
         //    XmlDocument xdoc = bookinfo.GetCover(true, false, "keyword", "", "peterpan");

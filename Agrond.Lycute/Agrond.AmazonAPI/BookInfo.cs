@@ -14,7 +14,7 @@ namespace Agrond.AmazonAPI
 {
     public class BookInfo
     {
-        public XmlDocument GetCover(Boolean pImage,Boolean pReview,string pStrType,string ISBN,string keyword) {
+        public XmlDocument GetData(Boolean pImage,Boolean pReview,string pISBN,string keyword) {
             try{
                 AmazonBookAPI.SetSerConfig("AKIAJ5DRZQZOCAF5O4HQ", "SgWiKs444qY3i+7jQ1j/tUdsc6J/cnauAKUy5Z1m");
                 AmazonBookAPI._strVersion = "2011-04-01";
@@ -23,12 +23,12 @@ namespace Agrond.AmazonAPI
 
                 Uri serviceEndPoint = new Uri(AmazonBookAPI._strServiceEndPoint);
                 IDictionary<String, String> parameters = AmazonBookAPI.getFPSDefaultParams();
-                if (pImage == true) AmazonBookAPI.SetResponseGroup(parameters, "image");
+                if (pImage == true) AmazonBookAPI.SetResponseGroup(parameters, "Images");
                 else if (pReview == true) AmazonBookAPI.SetResponseGroup(parameters, "EditorialReview");
                 parameters.Add("SearchIndex", "Books");
-                if (pStrType == "ISBN")
+                if (pISBN != "")
                 {
-                    parameters.Add("ItemId", ISBN);
+                    parameters.Add("ItemId", pISBN);
                     parameters.Add("IdType", "ISBN");
                     parameters.Add("Operation", "ItemLookup");
                 }

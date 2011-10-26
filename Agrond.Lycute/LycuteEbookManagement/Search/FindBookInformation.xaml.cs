@@ -29,8 +29,7 @@ namespace LycuteEbookManagement.BookSearch
         private void btn_SearchInfo_Click(object sender, RoutedEventArgs e)
         {
             BookLib booklib = new BookLib();
-            ObservableCollection<Book> _book = booklib.GetAuthor();
-
+            ObservableCollection<Book> _book = booklib.GetInformation("Computer network",false);
             //Binding bind = new Binding();
             listView1.DataContext = _book;
         }
