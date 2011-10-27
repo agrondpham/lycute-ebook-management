@@ -3,10 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1145">
+             d:DesignHeight="600" d:DesignWidth="1145" xmlns:my="clr-namespace:LycuteEbookManagement.Common">
     <Grid>
-        <Image Height="496" HorizontalAlignment="Left" Margin="361,12,0,0" Name="img_Cover" Stretch="Fill" VerticalAlignment="Top" Width="313" />
-        <RichTextBox Height="466" HorizontalAlignment="Left" Margin="791,12,0,0" Name="txtReview" VerticalAlignment="Top" Width="342" />
+        <Image Height="496" Margin="252,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="img_Cover" Stretch="Fill" Width="313"/>
+
+        <RichTextBox Height="496" Style="{StaticResource richTextBoxStyle}"  HorizontalAlignment="Left" Margin="626,30,0,0" Name="txtReview" VerticalAlignment="Top" Width="342" />
+        <Button Content="Finish" HorizontalAlignment="Left" Margin="1010,36,0,0" Name="btn_getInfo" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Click="btn_Ok_Click" />
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="1010,108,0,0" Name="btnCancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Click="btnCancel_Click" />
+        <CheckBox Content="Cover Image" Style="{StaticResource CheckboxStyle}" Height="44" HorizontalAlignment="Left" Margin="342,544,0,0" Name="cbx_Cover" VerticalAlignment="Top" Width="162" IsChecked="True"/>
+        <CheckBox Content="Description" Style="{StaticResource CheckboxStyle}" Height="44" HorizontalAlignment="Left" Margin="728,544,0,0" Name="cbx_Description" VerticalAlignment="Top" Width="147" IsChecked="True"/>
+        <my:LoadingWait Height="600" HorizontalAlignment="Left" x:Name="loadingWait1" VerticalAlignment="Top" Width="1146" />
     </Grid>
 </UserControl>

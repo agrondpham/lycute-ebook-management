@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Agrond.Lycute.Bus;
 using Agrond.Lycute.DAO;
+using System.Windows.Threading;
 
 namespace LycuteEbookManagement.Search
 {
@@ -24,25 +25,63 @@ namespace LycuteEbookManagement.Search
         BookLib booklib = new BookLib();
         public static Book _SelectedBook;
         public static string _isbn;
+        private string _imageURL;
+        private string _review;
+        MainWindow m;
+        private DispatcherTimer loadTimer = new DispatcherTimer();
         public CoverAndReview()
         {
             InitializeComponent();
-            loadCover();
-            loadRevew();
+            this.Loaded += new RoutedEventHandler(loadParent);
+            this.Loaded += new RoutedEventHandler(loadCover);
+            this.Loaded += new RoutedEventHandler(loadRevew);
+            loadTimer.Interval = TimeSpan.FromSeconds(2);
+            loadTimer.IsEnabled = false;
+            loadTimer.Tick += loadTimer_Tick;
         }
-        private void loadCover() {
-            string imageURL = booklib.GetInternetCover(_isbn);
-
+        private void loadParent(object sender, RoutedEventArgs e)
+        {
+            m = (MainWindow)Window.GetWindow(this);
+        }
+        private void loadTimer_Tick(object sender, EventArgs e)
+        {
+            loadingWait1.Visibility = Visibility.Hidden;
+            loadTimer.IsEnabled = false;
+        }
+        private void loadCover(object sender, RoutedEventArgs e)
+        {
+            loadingWait1.Visibility = Visibility.Visible;
+            loadTimer.IsEnabled = true;
+            _imageURL = booklib.GetInternetCover(_isbn);
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
-            bi.UriSource = new Uri(imageURL, UriKind.RelativeOrAbsolute);
+            bi.UriSource = new Uri(_imageURL, UriKind.RelativeOrAbsolute);
             bi.CacheOption = BitmapCacheOption.OnLoad;
             bi.EndInit();
             img_Cover.Source = bi;
         }
-        private void loadRevew() {
-            string review = booklib.GetInternetReview(_isbn);
-            txtReview.AppendText(review);
+        private void loadRevew(object sender, RoutedEventArgs e)
+        {
+            loadingWait1.Visibility = Visibility.Visible;
+            loadTimer.IsEnabled = true;
+            _review = booklib.GetInternetReview(_isbn);
+            txtReview.AppendText(_review);
+        }
+
+        private void btn_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            if(cbx_Cover.IsChecked==true)
+                _SelectedBook.bok_ImageURl = _imageURL;
+            if(cbx_Description.IsChecked==true)
+                _SelectedBook.bok_Review = _review;
+
+            Ebook.Editor._book = _SelectedBook;
+            m.loadMain(new Ebook.Editor());
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

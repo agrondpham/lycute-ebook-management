@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
 			 xmlns:local="clr-namespace:WpfReflectionBehaviorDemo"
-             Height="750" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Components" xmlns:my1="clr-namespace:LycuteEbookManagement.Search">
+             Height="750" Width="1280" xmlns:my="clr-namespace:LycuteEbookManagement.Components" xmlns:my1="clr-namespace:LycuteEbookManagement.Search" xmlns:my2="clr-namespace:LycuteEbookManagement.Common">
     <UserControl.Resources>
         <!-- Show Search Area Animation  -->
         <Storyboard x:Key="OnShowMenuArea">
