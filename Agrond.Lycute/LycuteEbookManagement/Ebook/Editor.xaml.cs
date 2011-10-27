@@ -45,7 +45,6 @@ namespace LycuteEbookManagement.Ebook
                 SetPublisher("");
             }
             this.Loaded += new RoutedEventHandler(loadParent);
-
             //ucComBoxYear.setText("1990");
         }
         #endregion
@@ -75,7 +74,6 @@ namespace LycuteEbookManagement.Ebook
         }
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
-
                 Search.InternetSearch._IsISBN = IsISBN;
                 Search.InternetSearch._keyword = GetDataToSearch();
                 m.loadMain(new Search.InternetSearch()) ;

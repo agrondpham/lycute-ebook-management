@@ -153,7 +153,7 @@
                         
                 </ContainerUIElement3D>
             </Viewport3D>
-            <my:LoadingWait Height="142" HorizontalAlignment="Left" Margin="382,151,0,0" x:Name="loadingWait1" VerticalAlignment="Top" Width="469" />
+            <my:LoadingWait Height="401" HorizontalAlignment="Left" x:Name="loadingWait1" VerticalAlignment="Top" Width="1280" />
         </Grid>
         <StackPanel x:Name="controlsArea" Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="388,149,462,31">
             <!-- SLIDE AREA -->

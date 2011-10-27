@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Agrond.Lycute.Bus;
 using System.Collections.ObjectModel;
 using Agrond.Lycute.DAO;
+using System.Windows.Threading;
 
 namespace LycuteEbookManagement.Search
 {
@@ -27,16 +28,29 @@ namespace LycuteEbookManagement.Search
         public static string _keyword;
         public static bool _IsISBN;
         MainWindow m;
+        private DispatcherTimer loadTimer = new DispatcherTimer();
         public InternetSearch()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(loadParent);
-            FindData();
+            this.Loaded += new RoutedEventHandler(FindData);
+            loadTimer.Interval = TimeSpan.FromSeconds(2);
+            loadTimer.IsEnabled = false;
+            loadTimer.Tick += loadTimer_Tick;
         }
-        private void FindData() {
+        private void loadTimer_Tick(object sender, EventArgs e)
+        {
+            loadingWait1.Visibility = Visibility.Hidden;
+            loadTimer.IsEnabled = false;
+        }
+        private void FindData(object sender, RoutedEventArgs e)
+        {
+            loadTimer.IsEnabled = true;
+            loadingWait1.Visibility = Visibility.Visible;
             ObservableCollection<Book> _book = null;
             _book = booklib.GetInformation(_keyword, _IsISBN);
             listview_Result.DataContext = _book;
+            txt_KeywordValue.Text = _keyword;
         }
         private void loadParent(object sender, RoutedEventArgs e)
         {
@@ -50,15 +64,15 @@ namespace LycuteEbookManagement.Search
 
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
-            Ebook.Editor._book = SelectedBook;
             Search.CoverAndReview._isbn = SelectedBook.bok_ISBN;
+            Search.CoverAndReview._SelectedBook=SelectedBook;
             m.loadMain(new Search.CoverAndReview());
         }
 
         private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedBook = (Book)listview_Result.SelectedValue;
-            //Ebook.Editor._book = SelectedBook;
+            
         }
     }
 }

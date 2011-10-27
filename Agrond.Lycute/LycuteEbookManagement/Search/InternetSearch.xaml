@@ -4,17 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="654" d:DesignWidth="1254" Background="White">
+             d:DesignHeight="654" d:DesignWidth="1254" Background="SeaGreen" Opacity=".80" xmlns:my="clr-namespace:LycuteEbookManagement.Common">
     <UserControl.Resources>
         <Style x:Key="ListviewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="#ffffff"/>
             <Setter Property="Foreground" Value="#000000"/>
-        </Style>
-        <Style x:Key="CheckboxStyle" TargetType="{x:Type CheckBox}">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Foreground" Value="#000000"/>
-            <Setter Property="Background" Value="Black"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -27,7 +22,10 @@
             </ListView.View>
         </ListView>
         <CheckBox Content="Get Cover" Style="{StaticResource CheckboxStyle}" HorizontalAlignment="Left" Margin="12,554,0,0" Name="cbx_GetCove" VerticalAlignment="Top" IsChecked="True"/>
-        <Button Content="Get Cover And Review" HorizontalAlignment="Left" Margin="992,36,0,0" Name="btn_getInfo" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="250" Click="btn_getInfo_Click" />
+        <Button Content="Next" HorizontalAlignment="Left" Margin="1058,36,0,0" Name="btn_getInfo" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Click="btn_getInfo_Click" />
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="1058,108,0,0" Name="btnCancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Click="btnCancel_Click" />
+        <TextBlock  Style="{StaticResource defautText}" Height="23" HorizontalAlignment="Left" Margin="463,554,0,0" Name="textBlock1" Text="Keywords:" VerticalAlignment="Top" />
+        <TextBlock  Style="{StaticResource defautText}" Height="23" HorizontalAlignment="Left" Margin="574,554,0,0" Name="txt_KeywordValue" Text="TextBlock" VerticalAlignment="Top" />
+        <my:LoadingWait Height="654" HorizontalAlignment="Left" x:Name="loadingWait1" VerticalAlignment="Top" Width="1254" />
     </Grid>
 </UserControl>
