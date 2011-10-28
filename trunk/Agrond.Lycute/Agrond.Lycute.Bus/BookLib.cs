@@ -269,12 +269,8 @@ namespace Agrond.Lycute.Bus
             if (!DirectoryIsExist(newDirectory))
             {
                 Directory.CreateDirectory(newDirectory);
-                //CopyFile.FileCopy copy = new CopyFile.FileCopy();
                 copy.Copy(pOldDirectory, newDirectory,"folder");
-                copy.Delete(pOldDirectory, "folder");
-                //copy file from olddirec to new one
-                //CopyFile.FileCopy
-            
+                copy.Delete(pOldDirectory, "folder");            
             }
             string strFileType="";
             string strImageURL="";
@@ -330,16 +326,22 @@ namespace Agrond.Lycute.Bus
             xmlWriter.Close();
         }
         public string GetReview(string pFileURL) {
-            XmlTextReader xmlReader = new XmlTextReader(pFileURL);
-            string strReview="";
-            while (xmlReader.Read())
+            try
             {
-                if(xmlReader.NodeType==XmlNodeType.Text)
+                XmlTextReader xmlReader = new XmlTextReader(pFileURL);
+                string strReview = "";
+                while (xmlReader.Read())
                 {
-                        strReview= xmlReader.Value;
+                    if (xmlReader.NodeType == XmlNodeType.Text)
+                    {
+                        strReview = xmlReader.Value;
+                    }
                 }
+                return strReview;
             }
-            return strReview;
+            catch (Exception e) {
+                return "Can not load Review";
+            }
         }
         /*Show all author*/
         public ObservableCollection<Author> ShowAuthor() {

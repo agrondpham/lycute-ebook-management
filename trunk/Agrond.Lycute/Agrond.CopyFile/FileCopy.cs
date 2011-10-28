@@ -109,7 +109,8 @@ namespace Agrond.CopyFile
                 if (pStrSourcePath.StartsWith("http://"))
                     DownloadImage(pStrSourcePath, pStrTargetPath);
                 else
-                    CopyFile(pStrSourcePath, pStrTargetPath);
+                    if(pStrSourcePath!=pStrTargetPath)
+                        CopyFile(pStrSourcePath, pStrTargetPath);
             }
             else CopyFolder(pStrSourcePath, pStrTargetPath);
         }
