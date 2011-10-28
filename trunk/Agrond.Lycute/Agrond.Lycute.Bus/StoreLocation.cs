@@ -33,7 +33,7 @@ namespace Agrond.Lycute.Bus
         }
         private void CreateDB(string pStrLocation,string pStrFileName) {
             Agrond.CopyFile.FileCopy CopyLib = new FileCopy();
-            CopyLib.Copy(@"D:\Projects\Agrond.Lycute\Agrond.Lycute.DAO\Database\"+pStrFileName, pStrLocation+"\\"+pStrFileName);
+            CopyLib.Copy(@"D:\Projects\Agrond.Lycute\Agrond.Lycute.DAO\Database\"+pStrFileName, pStrLocation+"\\"+pStrFileName,"file");
         }
     }
 }

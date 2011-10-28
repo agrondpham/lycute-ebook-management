@@ -32,12 +32,7 @@ namespace LycuteEbookManagement.Components
 
         #region set get
         //this function not used now
-        public void SetText(string pStrText) {
-            textBox1.Text = pStrText;
-        }
-        public string GetText() {
-            return textBox1.Text;
-        }
+        public string Text { get { return textBox1.Text; } set { textBox1.Text = value; } }
         public void SetData(string pStrData) {
             if (pStrData != "")
             {
