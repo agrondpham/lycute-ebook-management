@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Data.Objects.DataClasses;
+using System.IO;
 //using System.Linq;
 
 namespace Agrond.Lycute.Bus
@@ -16,6 +17,7 @@ namespace Agrond.Lycute.Bus
     public class BookLib
     {
         BookInfo bookinfo = new BookInfo();
+        CopyFile.FileCopy copy = new CopyFile.FileCopy();
         private ObservableCollection<Book> _books = new ObservableCollection<Book>();
         //private ObservableCollection<Author> _authors = new ObservableCollection<Author>();
         public ObservableCollection<Book> GetInformation(string pKeyword, bool pIsISBN)
@@ -260,18 +262,32 @@ namespace Agrond.Lycute.Bus
             return obserCollectionBook;
         }
         /*Edit ebook*/
-        public void Edit(Book pEbook,string pAuthor,string pImageSourceURL)
+        public void Edit(Book pEbook,string pAuthor,string pOldDirectory,string pReview)
         {
+            string newDirectory=LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title+"/");
+            //booklib.EditReview(newDirectory+"review.xml", textRange.Text);
+            if (!DirectoryIsExist(newDirectory))
+            {
+                Directory.CreateDirectory(newDirectory);
+                //CopyFile.FileCopy copy = new CopyFile.FileCopy();
+                copy.Copy(pOldDirectory, newDirectory,"folder");
+                copy.Delete(pOldDirectory, "folder");
+                //copy file from olddirec to new one
+                //CopyFile.FileCopy
+            
+            }
             string strFileType="";
             string strImageURL="";
-            if (pImageSourceURL != "")
+            if (pEbook.bok_ImageURl != "")
             {
+                string[] arrayImageSourceURL = pEbook.bok_ImageURl.Split(new string[]{"///"},StringSplitOptions.None);
+                string pImageSourceURL = arrayImageSourceURL[arrayImageSourceURL.Count()-1];
                 string[] FileNameArray = pImageSourceURL.Split('.');
                 strFileType = FileNameArray[FileNameArray.Count() - 1];
                 strImageURL = LycuteApplication.GetLocationString() + NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
                 //copy image
-                CopyFile.FileCopy fileCopy = new CopyFile.FileCopy();
-                string result = fileCopy.Copy(pImageSourceURL, strImageURL);
+                
+                copy.Copy(pImageSourceURL, strImageURL,"file");
             }
             LibraryEntities mainDB = new LibraryEntities();
             var ebooks = from ebook in mainDB.Books
@@ -280,7 +296,7 @@ namespace Agrond.Lycute.Bus
             foreach (var b in ebooks)
             {
                 b.bok_Edition = pEbook.bok_Edition;
-                if (pImageSourceURL != "")
+                if (pEbook.bok_ImageURl != "")
                 {
                     b.bok_ImageURl = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "cover." + strFileType);
                 }
@@ -294,7 +310,13 @@ namespace Agrond.Lycute.Bus
                 b.bok_Review = NameCreater.CreateLocation(NameCreater.AuthorStringToList(pAuthor)[0], pEbook.bok_Title, "review.xml");
             }
             mainDB.SaveChanges();
+            EditReview(newDirectory+"review.xml", pReview);
             
+        }
+        public bool DirectoryIsExist(string pNewDirectory) {
+            if(Directory.Exists(pNewDirectory))
+                return true;
+            else return false;
         }
         public void EditReview(string pStrXMLURL,string pStrReview) {
             XmlTextWriter xmlWriter = new XmlTextWriter(pStrXMLURL,null);

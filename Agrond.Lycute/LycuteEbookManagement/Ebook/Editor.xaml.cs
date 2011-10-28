@@ -25,9 +25,11 @@ namespace LycuteEbookManagement.Ebook
     {
         #region variable
         public static Book _book { set; get; }
+        public static Book _Internetbook { set; get; }
         BookLib booklib = new BookLib();
-        private string _imageSource = "";
+        private string _BookID = "";
         MainWindow m;
+        private string _oldDirectory="";
         //bool IsInternetDataOpen;
         bool IsISBN;
         #endregion
@@ -38,9 +40,18 @@ namespace LycuteEbookManagement.Ebook
             InitializeComponent();
             if (_book != null)
             {
-                load();
+                _BookID = _book.bok_ID.ToString();
+                Load(_book);
             }
-            else { 
+            if (_Internetbook != null)
+            {
+                _oldDirectory = LycuteApplication.GetLocationString() + NameCreater.CreateLocation(NameCreater.AuthorStringToList(booklib.ConvertAuthorObservableToString(_book.Authors))[0], _book.bok_Title);
+                _BookID = _book.bok_ID.ToString();
+                _book = _Internetbook;
+                Load(_Internetbook);
+            }
+            else
+            {
                 SetAuthor("");
                 SetPublisher("");
             }
@@ -58,18 +69,20 @@ namespace LycuteEbookManagement.Ebook
             if (dlg.FileName != "")
             {
                 SetPic(dlg.FileName);
-                _imageSource = dlg.FileName;
+                //_imageSource = dlg.FileName;
             }
         }
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            string strAuthor=autoCompleteBox_Author.GetText();
+            string strAuthor=autoCompleteBox_Author.Text;
             TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
             
             Book editedBook = AddData(_book);
-            booklib.Edit(editedBook,strAuthor,_imageSource);
+            //booklib.Edit(editedBook, strAuthor, _imageSource, _oldDirectory, textRange.Text);
+            booklib.Edit(editedBook, strAuthor, _oldDirectory, textRange.Text);
             //save review
-            booklib.EditReview(LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title, "review.xml"), textRange.Text);
+            //string newDirectory=LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title);
+            //booklib.EditReview(newDirectory+"review.xml", textRange.Text);
             m.loadMain(new Home());
         }
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
@@ -90,39 +103,42 @@ namespace LycuteEbookManagement.Ebook
             m = (MainWindow)Window.GetWindow(this);
         }
 
-        private void load() {
+        private void Load(Book pBook) {
             //string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor(_book.bok_ID));
-            if (_book.Authors != null)
+            string strAuthor="AgrondPham;";
+            if (pBook.Authors != null)
             {
-                string strAuthor = booklib.ConvertAuthorObservableToString(_book.Authors);
-                autoCompleteBox_Author.SetText(strAuthor);
+                strAuthor = booklib.ConvertAuthorObservableToString(pBook.Authors);
+                autoCompleteBox_Author.Text= strAuthor;
                 SetAuthor(strAuthor);
             }
-            if (_book.Publisher != null)
+            if (pBook.Publisher != null)
             {
-                autoCompleteBox_Publisher.SetText(_book.Publisher.pbl_Name);
-                SetPublisher(_book.Publisher.pbl_Name);
+                autoCompleteBox_Publisher.Text=pBook.Publisher.pbl_Name;
+                SetPublisher(pBook.Publisher.pbl_Name);
             }
 
-            txtISBN.Text = _book.bok_ISBN;
-            txtTitle.Text = _book.bok_Title;
-            txtEdition.Text = _book.bok_Edition.ToString();
+            txtISBN.Text = pBook.bok_ISBN;
+            txtTitle.Text = pBook.bok_Title;
+            txtEdition.Text = pBook.bok_Edition.ToString();
 
-            ucComBoxVolume.setText(_book.bok_Volume.ToString());
-            ucComBoxYear.setText(_book.bok_Year.ToString());
+            ucComBoxVolume.setText(pBook.bok_Volume.ToString());
+            ucComBoxYear.setText(pBook.bok_Year.ToString());
+            rankComponent1.setText(Rank.RankNumber(pBook.bok_Rank));
 
-            rankComponent1.setText(Rank.RankNumber(_book.bok_Rank));
-
-            txtReview.AppendText(_book.bok_Review);
-            if (_book.bok_ImageURl != ""&& _book.bok_ImageURl!=null)
-                SetPic(_book.bok_ImageURl);
+            txtReview.AppendText(pBook.bok_Review);
+            if (pBook.bok_ImageURl != ""&& pBook.bok_ImageURl!=null)
+                SetPic(pBook.bok_ImageURl);
             else
                 SetPic("pack://application:,,,/Images/no_picture_available.png");
         }
 
         private Book AddData(Book pbook) {
+            pbook.bok_ImageURl = img_Cover.Source.ToString();
+            pbook.bok_ID = Convert.ToInt32(_BookID);
             pbook.bok_ISBN = txtISBN.Text;
             pbook.bok_Title = txtTitle.Text;
+            //error if textbox has not data
             pbook.bok_Edition= Convert.ToInt32(txtEdition.Text);
             pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.getText());
             pbook.bok_Year=Convert.ToInt32(ucComBoxYear.getText());
@@ -151,30 +167,6 @@ namespace LycuteEbookManagement.Ebook
             string strPublisher = booklib.ConvertPublisherObservableToString(booklib.ShowPublisher());
             autoCompleteBox_Publisher.SetData(strPublisher);
         }
-        //private void closeMenu()
-        //{
-        //    if (IsInternetDataOpen)
-        //    {
-        //        Storyboard HideMenuArea =
-        //        this.TryFindResource("OnHideMenuArea") as Storyboard;
-        //        if (HideMenuArea != null)
-        //            HideMenuArea.Begin(InternetData);
-        //        IsInternetDataOpen = false;
-        //    }
-        //}
-        //private void openMenu()
-        //{
-        //    //if (IsInternetDataOpen == false)
-        //    //{
-        //        //internetSearch1.Visibility = Visibility.Visible;
-        //        Storyboard ShowMenuArea =
-        //        this.TryFindResource("OnShowMenuArea") as Storyboard;
-        //        if (ShowMenuArea != null)
-        //            ShowMenuArea.Begin(InternetData);
-        //    //    IsInternetDataOpen= true;
-        //    //}
-
-        //}
         private string GetDataToSearch() {
             string keyword = "";
             if (txtISBN.Text != "")
@@ -184,7 +176,7 @@ namespace LycuteEbookManagement.Ebook
             }
             else { 
                 keyword=txtTitle.Text;
-                keyword = keyword + " " + autoCompleteBox_Author.GetText();
+                keyword = keyword + " " + autoCompleteBox_Author.Text;
                 keyword = keyword + " " + txtEdition.Text;
                 IsISBN = false;
             }
