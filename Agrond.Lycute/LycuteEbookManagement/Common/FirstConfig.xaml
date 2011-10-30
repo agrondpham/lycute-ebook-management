@@ -1,0 +1,9 @@
+﻿<Window x:Class="LycuteEbookManagement.Common.FirstConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FirstConfig" Height="600" Width="800">
+    <Grid>
+        <Button Content="Search" Margin="453,120,220,385" Style="{StaticResource btnGlass}" Width="105" />
+        <TextBox Margin="57,120,364,388" Name="tbx_Search" Style="{StaticResource textBoxStyle}" TextWrapping="Wrap" Width="357.26" />
+    </Grid>
+</Window>

@@ -39,17 +39,16 @@ namespace LycuteEbookManagement
         {
             Search.SearchResult._strKeyword = tbx_Search.Text;
             m.loadMain(new Search.SearchResult());
-
         }
 
         private void btn_SettingPanel(object sender, MouseButtonEventArgs e)
         {
             m.loadMain(new Setting.SettingPanel());
         }
-
         private void btn_AddEbook(object sender, MouseButtonEventArgs e)
         {
             LycuteEbookManagement.Ebook.Editor._book = null;
+            LycuteEbookManagement.Ebook.Editor.IsAddnewMode = true;
             m.loadMain(new Ebook.Editor());
         }
 	}

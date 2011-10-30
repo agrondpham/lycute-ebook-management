@@ -27,6 +27,7 @@ namespace LycuteEbookManagement.Search
         BookLib booklib = new BookLib();
         public static string _keyword;
         public static bool _IsISBN;
+        public static string _bookID;
         MainWindow m;
         private DispatcherTimer loadTimer = new DispatcherTimer();
         public InternetSearch()
@@ -65,6 +66,8 @@ namespace LycuteEbookManagement.Search
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
             Search.CoverAndReview._isbn = SelectedBook.bok_ISBN;
+            //add real id to book
+            SelectedBook.bok_ID = Convert.ToInt32(_bookID);
             Search.CoverAndReview._SelectedBook=SelectedBook;
             m.loadMain(new Search.CoverAndReview());
         }

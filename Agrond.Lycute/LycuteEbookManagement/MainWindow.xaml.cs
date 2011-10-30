@@ -5,6 +5,7 @@ using System.Xml;
 using System.Windows.Media.Animation;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Agrond.Lycute.Bus;
 namespace LycuteEbookManagement
 {
     /// <summary>
@@ -23,18 +24,17 @@ namespace LycuteEbookManagement
         {
             InitializeComponent();
             Agrond.Lycute.Bus.StoreLocation store=new Agrond.Lycute.Bus.StoreLocation();
-            string strLocation = Agrond.Lycute.Bus.LycuteApplication.GetLocationString();
-            if (store.CheckDatabase(strLocation) == false)
+            if (!StoreLocation.IsDBConfiged())
             {
-                //alert direct wrong
-                //choice new location
-                //update databse
-                //update connectionstring
+                //load config forms
+                loadMain(new Setting.ConfigLocation());
             }
-            //update connection string
-            DBHelper.ConfigDatabase();
-            loadMain(_Element);
-
+            else
+            {
+                store.CheckDatabase(LycuteOption._RootFolderDrection);
+                DBHelper.ConfigDatabase();
+                loadMain(_Element);
+            }
         }
         protected override void  OnStateChanged(EventArgs e)
         {

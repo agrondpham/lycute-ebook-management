@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConvertData.cs" />
+    <Compile Include="FileCopy.cs" />
     <Compile Include="LycuteApplication.cs" />
     <Compile Include="BookLib.cs" />
     <Compile Include="Edition.cs" />
@@ -66,10 +68,6 @@
     <ProjectReference Include="..\Agrond.AmazonAPI\Agrond.AmazonAPI.csproj">
       <Project>{33501FEE-7573-4ACE-8BC8-8280F321D486}</Project>
       <Name>Agrond.AmazonAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Agrond.CopyFile\Agrond.CopyFile.csproj">
-      <Project>{7B46FCCA-A639-4357-9C50-12151667A3B3}</Project>
-      <Name>Agrond.CopyFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\Agrond.Lycute.DAO\Agrond.Lycute.DAO.csproj">
       <Project>{D1733DCF-A8FC-483F-8368-97BDFBCA8840}</Project>

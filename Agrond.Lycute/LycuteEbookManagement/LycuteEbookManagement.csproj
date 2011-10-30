@@ -91,6 +91,9 @@
     <Compile Include="Common\AlertDiag.xaml.cs">
       <DependentUpon>AlertDiag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\FirstConfig.xaml.cs">
+      <DependentUpon>FirstConfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\LoadingWait.xaml.cs">
       <DependentUpon>LoadingWait.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
     <Compile Include="Setting\StructureStore.xaml.cs">
       <DependentUpon>StructureStore.xaml</DependentUpon>
     </Compile>
+    <Page Include="Common\FirstConfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Common\LoadingWait.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

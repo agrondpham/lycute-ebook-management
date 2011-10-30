@@ -26,8 +26,13 @@ namespace LycuteEbookManagement.Ebook
         #region variable
         public static Book _book { set; get; }
         public static Book _Internetbook { set; get; }
+        public static bool _IsReload { get; set; }
+        private static string _OldAuthor { get; set; }
+        private static string _OldTitle { get; set; }
+        private static string _OldEbookFile { get; set; }
         BookLib booklib = new BookLib();
-        private static string _BookID = "";
+        public static Boolean IsAddnewMode{get;set;}
+        //private static string _BookID = "";
         MainWindow m;
         private static string _oldDirectory="";
         //bool IsInternetDataOpen;
@@ -38,29 +43,18 @@ namespace LycuteEbookManagement.Ebook
         public Editor()
         {
             InitializeComponent();
-            if (_book != null)
+            if (IsAddnewMode)
             {
-                //if (_BookID != "" && _oldDirectory != "")
-                //{
-
-                //}
-                Load(_book);
-                _BookID = _book.bok_ID.ToString();
-            }
-            //if (_Internetbook != null)
-            //{
-            //    _oldDirectory = LycuteApplication.GetLocationString() + NameCreater.CreateLocation(NameCreater.AuthorStringToList(booklib.ConvertAuthorObservableToString(_book.Authors))[0], _book.bok_Title);
-            //    _BookID = _book.bok_ID.ToString();
-            //    _book = _Internetbook;
-            //    Load(_Internetbook);
-            //}
-            else
-            {
+                fileLocation1.Visibility = Visibility.Visible;
                 SetAuthor("");
                 SetPublisher("");
             }
+            else
+            {
+                fileLocation1.Visibility = Visibility.Hidden;
+                Load(_book);
+            }
             this.Loaded += new RoutedEventHandler(loadParent);
-            //ucComBoxYear.setText("1990");
         }
         #endregion
 
@@ -78,26 +72,31 @@ namespace LycuteEbookManagement.Ebook
         }
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            string strAuthor=autoCompleteBox_Author.Text;
+            string strAuthor = autoCompleteBox_Author.Text;
             TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
-            
             Book editedBook = AddData(_book);
-            //booklib.Edit(editedBook, strAuthor, _imageSource, _oldDirectory, textRange.Text);
-            booklib.Edit(editedBook, strAuthor, _oldDirectory, textRange.Text);
-            //save review
-            //string newDirectory=LycuteApplication.GetLocationString()+ NameCreater.CreateLocation(NameCreater.AuthorStringToList(strAuthor)[0], editedBook.bok_Title);
-            //booklib.EditReview(newDirectory+"review.xml", textRange.Text);
-            m.loadMain(new Home());
-            //ResetData();
+            if (IsAddnewMode)
+            {
+                
+                //booklib.Add(editedBook, strAuthor, textRange.Text);
+            }
+            else
+            {
+                string oldDri = CreateOldDirectory(_OldAuthor, _OldTitle);
+                booklib.Edit(editedBook, strAuthor, oldDri, textRange.Text,_OldEbookFile);
+            } m.loadMain(new Home());
+            //Save Author
+            //Save Publisher
         }
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
             //setdata to pass
-            _BookID = _book.bok_ID.ToString();
-            _oldDirectory = LycuteApplication.GetLocationString() + NameCreater.CreateLocation(NameCreater.AuthorStringToList(booklib.ConvertAuthorObservableToString(_book.Authors))[0], _book.bok_Title);
-            
+            //_BookID = _book.bok_ID.ToString();
+            //_oldDirectory = LycuteApplication.GetLocationString() + "\\" + NameCreater.CreateLocation(ConvertData.ToList(ConvertData.ToString(pBook.Authors))[0], NameCreater.CreateName(pBook.bok_Title));
+            _OldEbookFile = _book.bok_Location;
             Search.InternetSearch._IsISBN = IsISBN;
             Search.InternetSearch._keyword = GetDataToSearch();
+            Search.InternetSearch._bookID = _book.bok_ID.ToString();
             m.loadMain(new Search.InternetSearch()) ;
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -115,10 +114,11 @@ namespace LycuteEbookManagement.Ebook
 
         private void Load(Book pBook) {
             //string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor(_book.bok_ID));
+            //_oldDirectory = LycuteApplication.GetLocationString() + "\\" + NameCreater.CreateLocation(ConvertData.ToList(ConvertData.ToString(pBook.Authors))[0], NameCreater.CreateName(pBook.bok_Title));
             string strAuthor="AgrondPham;";
             if (pBook.Authors != null)
             {
-                strAuthor = booklib.ConvertAuthorObservableToString(pBook.Authors);
+                strAuthor = ConvertData.ToString(pBook.Authors);
                 autoCompleteBox_Author.Text= strAuthor;
                 SetAuthor(strAuthor);
             }
@@ -141,16 +141,26 @@ namespace LycuteEbookManagement.Ebook
                 SetPic(pBook.bok_ImageURl);
             else
                 SetPic("pack://application:,,,/Images/no_picture_available.png");
+            //set old for edit
+            if (!_IsReload)
+            {
+                _OldAuthor = ConvertData.ToList(strAuthor)[0];
+                _OldTitle = pBook.bok_Title;
+                _OldEbookFile = pBook.bok_Location;
+            }
+        
         }
 
         private Book AddData(Book pbook) {
             pbook.bok_ImageURl = img_Cover.Source.ToString();
-            pbook.bok_ID = Convert.ToInt32(_BookID);
+            pbook.bok_ID = Convert.ToInt32(pbook.bok_ID);
             pbook.bok_ISBN = txtISBN.Text;
             pbook.bok_Title = txtTitle.Text;
             //error if textbox has not data
             pbook.bok_Edition= Convert.ToInt32(txtEdition.Text);
             pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.getText());
+            //
+            //error not content location of file
             pbook.bok_Year=Convert.ToInt32(ucComBoxYear.getText());
             pbook.bok_Rank=rankComponent1.getText().ToString();
             // lost publisher
@@ -168,13 +178,13 @@ namespace LycuteEbookManagement.Ebook
         }
         private void SetAuthor(string pStrAuthor) { 
             //get list from database
-            string strAuthor = booklib.ConvertAuthorObservableToString(booklib.ShowAuthor());
+            string strAuthor = ConvertData.ToString(booklib.ShowAuthor());
             autoCompleteBox_Author.SetData(strAuthor);
         }
         private void SetPublisher(string pStrPublisher)
         {
             //get list from database           
-            string strPublisher = booklib.ConvertPublisherObservableToString(booklib.ShowPublisher());
+            string strPublisher = ConvertData.ToString(booklib.ShowPublisher());
             autoCompleteBox_Publisher.SetData(strPublisher);
         }
         private string GetDataToSearch() {
@@ -192,9 +202,9 @@ namespace LycuteEbookManagement.Ebook
             }
             return keyword;
         }
-        private void ResetData() {
-            _BookID = "";
-            _oldDirectory = "";
+        private string CreateOldDirectory(string oldAuhthor, string oldTitle) {
+            string oldDirectory = LycuteApplication.GetLocationString() + "\\" + NameCreater.CreateLocation(oldAuhthor, NameCreater.CreateName(oldTitle));
+            return oldDirectory;
         }
         #endregion
     }

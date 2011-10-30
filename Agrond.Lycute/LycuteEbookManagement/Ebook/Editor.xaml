@@ -52,11 +52,11 @@
                 <RichTextBox Canvas.Left="242" Canvas.Top="518" Height="128" Name="txtReview" Style="{StaticResource richTextBoxStyle}" Width="753"/>
                 <Button Canvas.Left="765" Canvas.Top="36" Content="Browser from PC" Name="btnLoadPicture" Style="{StaticResource btnGlass}" Width="230" Height="55" Click="btnLoadPicture_Click" />
                 <my:RankComponent Canvas.Left="765" Canvas.Top="110" x:Name="rankComponent1" Height="152" Width="173" />
-                <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="730" Width="1260"  Visibility="Hidden"/>
                 <my:AutoCompleteBox Canvas.Left="765" Canvas.Top="355" x:Name="autoCompleteBox_Author" Height="155" Width="305" />
                 <my:AutoCompleteBox Canvas.Left="242" Canvas.Top="353" Height="155" x:Name="autoCompleteBox_Publisher" Width="305" />
                 <Canvas  Margin="11340,-117,0,0" x:Name="InternetData">
                 </Canvas>
+                <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="730" Width="1260"/>
             </Canvas>
         </Border>
     </Grid>

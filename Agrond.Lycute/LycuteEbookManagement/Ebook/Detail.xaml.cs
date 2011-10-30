@@ -36,19 +36,20 @@ namespace LycuteEbookManagement.Ebook
             LoadData();
         }
         #endregion
+
         private void loadParent(object sender, RoutedEventArgs e)
         {
             m = (MainWindow)Window.GetWindow(this);
         }
         private void LoadData() {
-            txt_Author.Text=booklib.ConvertAuthorObservableToString(_book.Authors);;
+            txt_Author.Text=ConvertData.ToString(_book.Authors);
             txt_Edition.Text=_book.bok_Edition.ToString();
             txt_ISBN.Text=_book.bok_ISBN;
             txt_Language.Text=_book.Language.lng_Name;
             txt_Publisher.Text=_book.Publisher.pbl_Name;
             txt_Year.Text = _book.bok_Year.ToString();
             txt_Review.AppendText(_book.bok_Review);
-            txt_Tag.Text=booklib.ConvertTagObservableToString(_book.Tags);
+            txt_Tag.Text = ConvertData.ToString(_book.Tags);
             txt_Title.Text=_book.bok_Title;
             txt_Volume.Text=_book.bok_Volume.ToString();
 
@@ -65,18 +66,19 @@ namespace LycuteEbookManagement.Ebook
             bi.EndInit();
             img.Source = bi;
         }
+
         #region event
         private void btn_Edit_Click(object sender, RoutedEventArgs e)
         {
-            //closeBookProperties();
             LycuteEbookManagement.Ebook.Editor._book = _book;
+            LycuteEbookManagement.Ebook.Editor.IsAddnewMode = false;
             m.loadMain(new Ebook.Editor());
         }
 
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
-            //string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
-            //Process.Start(url);
+            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(ConvertData.ToString(_book.Authors)), _book.bok_Title, _book.bok_Location);
+            Process.Start(url);
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
