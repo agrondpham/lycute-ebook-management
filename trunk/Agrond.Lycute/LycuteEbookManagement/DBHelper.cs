@@ -13,7 +13,7 @@ namespace LycuteEbookManagement
             string strLocation = LycuteApplication.GetLocationString();
             if (strLocation != "" && strLocation != null)
             {
-                string strConnection = "metadata=res://*/LibraryModel.csdl|res://*/LibraryModel.ssdl|res://*/LibraryModel.msl;provider=System.Data.SqlServerCe.3.5;provider connection string=\"Data Source=" + strLocation + "Library.sdf\";";
+                string strConnection = "metadata=res://*/LibraryModel.csdl|res://*/LibraryModel.ssdl|res://*/LibraryModel.msl;provider=System.Data.SqlServerCe.3.5;provider connection string=\"Data Source=" + strLocation + "\\Library.sdf\";";
                 var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 
                 config.ConnectionStrings.ConnectionStrings["LibraryEntities"].ConnectionString=strConnection;;

@@ -7,7 +7,7 @@ namespace Agrond.Lycute.Bus
 {
     public class LycuteOption
     {
-        public static string _FolderDrection { get; set; }
+        public static string _RootFolderDrection { get; set; }
 
     }
 }

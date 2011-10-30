@@ -31,7 +31,7 @@ namespace LycuteEbookManagement.Search
         Book _bookValue;
         string _strAuthor="";
         string _strTitle = "";
-        string _strFileType = "";
+        string _strFileType = "pdf";
         //int _intBookSelectedID;
         public static string _strKeyword;
         bool IsPropertiesAreaShown = false;
@@ -73,6 +73,7 @@ namespace LycuteEbookManagement.Search
         {
             closeBookProperties();
             LycuteEbookManagement.Ebook.Editor._book = _bookValue;
+            LycuteEbookManagement.Ebook.Editor.IsAddnewMode = false;
             m.loadMain(new Ebook.Editor());
 
         }
@@ -127,7 +128,7 @@ namespace LycuteEbookManagement.Search
         }
         private void setData(Book pBook)
         {
-            string strAuthor= booklib.ConvertAuthorObservableToString(pBook.Authors);
+            string strAuthor = ConvertData.ToString(pBook.Authors);
             lbl_Author.Content = strAuthor;
 
             lbl_Title.Content = pBook.bok_Title;

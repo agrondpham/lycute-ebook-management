@@ -23,5 +23,7 @@
         <Label Content="Ebook Store Area" HorizontalAlignment="Left" Margin="36,66,0,0" Name="label1" VerticalAlignment="Top" Style="{StaticResource labelStyle}"/>
         <Button Content="Browse" HorizontalAlignment="Left" Margin="703,54,0,679" Name="btn_BrowserFolder" Style="{StaticResource btnGlass}" Width="150" Click="btn_BrowserFolder_Click"/>
         <Image Height="48" HorizontalAlignment="Left" Margin="794,64,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="48" Source="/LycuteEbookManagement;component/Images/Components/folder.png" />
+        <Button Content="Ok" Margin="68,478,1106,266" Style="{StaticResource btnGlass}" Width="105" Name="btn_ok" Click="btn_ok_Click" />
+        <Button Content="Cancel" Margin="228,478,948,266" Style="{StaticResource btnGlass}" Width="105" Name="btn_Cancel" Click="btn_Cancel_Click" />
     </Grid>
 </UserControl>

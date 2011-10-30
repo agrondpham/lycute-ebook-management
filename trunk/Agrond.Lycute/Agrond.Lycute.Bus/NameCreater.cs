@@ -8,8 +8,21 @@ namespace Agrond.Lycute.Bus
     public class NameCreater
     {
         public static string CreateName(string pBookName,string pVolume) {
-            string strFileName="";
+            string strFileName = "";
+            char[] exceptChar = { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+            foreach (char c in exceptChar)
+            {
+                strFileName = pBookName.Replace(c, ' ');
+            } 
             strFileName = pBookName + "(" + pVolume + ")";
+            return strFileName;
+        }
+        public static string CreateName(string pBookName){
+            string strFileName=pBookName;
+            char[] exceptChar = { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+            foreach (char c in exceptChar){
+                strFileName = strFileName.Replace(c, ' ');
+            }
             return strFileName;
         }
         //public static string CreateNameManyAuthors(ICollection<String> pAuthors) {
@@ -19,38 +32,22 @@ namespace Agrond.Lycute.Bus
         //    }
         //    return strFileName;
         //}
-        public static string CreateName(string pBookName) {
-            return pBookName;
-        }
-        public static string CreateLocation(string pAuthor, string pBookName, string pFileType) { 
+        public static string FileLocation(string pLocation, string pFileName) { 
             string strFileLocation="";
-            Dictionary<string, string> partOfLocation=new Dictionary<string,string>();;
-            string strStructureFolder= LycuteApplication.GetStructureFolderString();
-            switch (strStructureFolder) { 
-                case "AE":
-                    strFileLocation=pAuthor+"/"+pBookName+"/"+pFileType;
-                    break;
-                case "EA":
-                    strFileLocation = pBookName + "/" + pAuthor + "/" + pFileType;
-                    break;
-                case "E":
-                    strFileLocation = pBookName + "/" + pFileType;
-                    break;
-            }
+                strFileLocation = pLocation + "\\" + pFileName;
             return strFileLocation;
         }
         public static string CreateLocation(string pAuthor, string pBookName)
         {
             string strFileLocation = "";
-            Dictionary<string, string> partOfLocation = new Dictionary<string, string>(); ;
             string strStructureFolder = LycuteApplication.GetStructureFolderString();
             switch (strStructureFolder)
             {
                 case "AE":
-                    strFileLocation = pAuthor + "/" + pBookName;
+                    strFileLocation = pAuthor + "\\" + pBookName;
                     break;
                 case "EA":
-                    strFileLocation = pBookName + "/" + pAuthor;
+                    strFileLocation = pBookName + "\\" + pAuthor;
                     break;
                 case "E":
                     strFileLocation = pBookName;
@@ -62,17 +59,18 @@ namespace Agrond.Lycute.Bus
             string[] authours = pStrAuthor.Split(';');
             return authours[0];
         }
-        public static string GetFileURL(string pAuthor, string pBookName,string pFileType )
+        public static string GetFileURL(string pAuthor, string pBookName,string pFileName )
         {
-            string strFileLocation = NameCreater.CreateLocation(pAuthor,pBookName, pFileType);
+            string strBookName = CreateName(pBookName);
+            //string strFileLocation = FileLocation(CreateLocation(pAuthor,strBookName),pFileName);
             string strRootLocation = LycuteApplication.GetLocationString();
-            string strRealLocation = strRootLocation + "/" + strFileLocation;
+            string strRealLocation = strRootLocation + "\\"+NameCreater.CreateLocation(pAuthor,strBookName)+"\\" + pFileName;//strFileLocation;
             return strRealLocation;
         }
-        public static List<string> AuthorStringToList(string pAuthor)
-        {
-            List<string> listAuthor = new List<string>(pAuthor.Split(';'));
-            return listAuthor;
+        public static string GetFileType(string pStrFileName) {
+            string[] FileNameArray = pStrFileName.Split('.');
+            string strFileType = FileNameArray[FileNameArray.Count() - 1];
+            return strFileType;
         }
         //public static string CreateImageUrl(string pAuthor, string pBookName, string pImageName) {
             
@@ -83,5 +81,6 @@ namespace Agrond.Lycute.Bus
         //    string strFileLocation = pAuthor + "/" + pBookName + "/" + pBookName + "." + pFileType;
         //    return strFileLocation;
         //}
+        //public static Boolean BookInFileType()
     }
 }
