@@ -18,12 +18,11 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_publisher", "Publisher", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Publisher), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
+[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_Category", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Category), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
+[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_Language", "Language", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Language), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
+[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_Publisher", "Publisher", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Publisher), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
 [assembly: EdmRelationshipAttribute("LibraryModel", "Author_Book", "Author", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Author), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book))]
-[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Category_Book_ctgID", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Category), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
-[assembly: EdmRelationshipAttribute("LibraryModel", "Tag_Book", "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), "Tag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Tag))]
-[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_Language_lngID", "Language", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Language), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
-[assembly: EdmRelationshipAttribute("LibraryModel", "fk_Book_Seri_seriID", "Seri", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Agrond.Lycute.DAO.Seri), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book), true)]
+[assembly: EdmRelationshipAttribute("LibraryModel", "Tag_Book", "Tag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Tag), "Book", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Agrond.Lycute.DAO.Book))]
 
 #endregion
 
@@ -110,22 +109,6 @@ namespace Agrond.Lycute.DAO
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Publisher> Publishers
-        {
-            get
-            {
-                if ((_Publishers == null))
-                {
-                    _Publishers = base.CreateObjectSet<Publisher>("Publishers");
-                }
-                return _Publishers;
-            }
-        }
-        private ObjectSet<Publisher> _Publishers;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Category> Categories
         {
             get
@@ -138,22 +121,6 @@ namespace Agrond.Lycute.DAO
             }
         }
         private ObjectSet<Category> _Categories;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Tag> Tags
-        {
-            get
-            {
-                if ((_Tags == null))
-                {
-                    _Tags = base.CreateObjectSet<Tag>("Tags");
-                }
-                return _Tags;
-            }
-        }
-        private ObjectSet<Tag> _Tags;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -174,18 +141,34 @@ namespace Agrond.Lycute.DAO
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Seri> Seris
+        public ObjectSet<Publisher> Publishers
         {
             get
             {
-                if ((_Seris == null))
+                if ((_Publishers == null))
                 {
-                    _Seris = base.CreateObjectSet<Seri>("Seris");
+                    _Publishers = base.CreateObjectSet<Publisher>("Publishers");
                 }
-                return _Seris;
+                return _Publishers;
             }
         }
-        private ObjectSet<Seri> _Seris;
+        private ObjectSet<Publisher> _Publishers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Tag> Tags
+        {
+            get
+            {
+                if ((_Tags == null))
+                {
+                    _Tags = base.CreateObjectSet<Tag>("Tags");
+                }
+                return _Tags;
+            }
+        }
+        private ObjectSet<Tag> _Tags;
 
         #endregion
         #region AddTo Methods
@@ -207,27 +190,11 @@ namespace Agrond.Lycute.DAO
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Publishers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPublishers(Publisher publisher)
-        {
-            base.AddObject("Publishers", publisher);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Categories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToCategories(Category category)
         {
             base.AddObject("Categories", category);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Tags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTags(Tag tag)
-        {
-            base.AddObject("Tags", tag);
         }
     
         /// <summary>
@@ -239,11 +206,19 @@ namespace Agrond.Lycute.DAO
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Seris EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Publishers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToSeris(Seri seri)
+        public void AddToPublishers(Publisher publisher)
         {
-            base.AddObject("Seris", seri);
+            base.AddObject("Publishers", publisher);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Tags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTags(Tag tag)
+        {
+            base.AddObject("Tags", tag);
         }
 
         #endregion
@@ -268,7 +243,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Author object.
         /// </summary>
         /// <param name="ath_ID">Initial value of the ath_ID property.</param>
-        public static Author CreateAuthor(global::System.Int32 ath_ID)
+        public static Author CreateAuthor(global::System.String ath_ID)
         {
             Author author = new Author();
             author.ath_ID = ath_ID;
@@ -283,7 +258,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ath_ID
+        public global::System.String ath_ID
         {
             get
             {
@@ -295,14 +270,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Onath_IDChanging(value);
                     ReportPropertyChanging("ath_ID");
-                    _ath_ID = StructuralObject.SetValidValue(value);
+                    _ath_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("ath_ID");
                     Onath_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _ath_ID;
-        partial void Onath_IDChanging(global::System.Int32 value);
+        private global::System.String _ath_ID;
+        partial void Onath_IDChanging(global::System.String value);
         partial void Onath_IDChanged();
     
         /// <summary>
@@ -372,7 +347,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Book object.
         /// </summary>
         /// <param name="bok_ID">Initial value of the bok_ID property.</param>
-        public static Book CreateBook(global::System.Int32 bok_ID)
+        public static Book CreateBook(global::System.String bok_ID)
         {
             Book book = new Book();
             book.bok_ID = bok_ID;
@@ -387,7 +362,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 bok_ID
+        public global::System.String bok_ID
         {
             get
             {
@@ -399,14 +374,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Onbok_IDChanging(value);
                     ReportPropertyChanging("bok_ID");
-                    _bok_ID = StructuralObject.SetValidValue(value);
+                    _bok_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("bok_ID");
                     Onbok_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _bok_ID;
-        partial void Onbok_IDChanging(global::System.Int32 value);
+        private global::System.String _bok_ID;
+        partial void Onbok_IDChanging(global::System.String value);
         partial void Onbok_IDChanged();
     
         /// <summary>
@@ -534,31 +509,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> pbl_ID
-        {
-            get
-            {
-                return _pbl_ID;
-            }
-            set
-            {
-                Onpbl_IDChanging(value);
-                ReportPropertyChanging("pbl_ID");
-                _pbl_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("pbl_ID");
-                Onpbl_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _pbl_ID;
-        partial void Onpbl_IDChanging(Nullable<global::System.Int32> value);
-        partial void Onpbl_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> bok_Modified
+        public Nullable<global::System.Int32> bok_Modified
         {
             get
             {
@@ -573,57 +524,9 @@ namespace Agrond.Lycute.DAO
                 Onbok_ModifiedChanged();
             }
         }
-        private Nullable<global::System.Boolean> _bok_Modified;
-        partial void Onbok_ModifiedChanging(Nullable<global::System.Boolean> value);
+        private Nullable<global::System.Int32> _bok_Modified;
+        partial void Onbok_ModifiedChanging(Nullable<global::System.Int32> value);
         partial void Onbok_ModifiedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ctg_ID
-        {
-            get
-            {
-                return _ctg_ID;
-            }
-            set
-            {
-                Onctg_IDChanging(value);
-                ReportPropertyChanging("ctg_ID");
-                _ctg_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ctg_ID");
-                Onctg_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ctg_ID;
-        partial void Onctg_IDChanging(Nullable<global::System.Int32> value);
-        partial void Onctg_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> lng_ID
-        {
-            get
-            {
-                return _lng_ID;
-            }
-            set
-            {
-                Onlng_IDChanging(value);
-                ReportPropertyChanging("lng_ID");
-                _lng_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("lng_ID");
-                Onlng_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _lng_ID;
-        partial void Onlng_IDChanging(Nullable<global::System.Int32> value);
-        partial void Onlng_IDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -678,30 +581,6 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> seri_ID
-        {
-            get
-            {
-                return _seri_ID;
-            }
-            set
-            {
-                Onseri_IDChanging(value);
-                ReportPropertyChanging("seri_ID");
-                _seri_ID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("seri_ID");
-                Onseri_IDChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _seri_ID;
-        partial void Onseri_IDChanging(Nullable<global::System.Int32> value);
-        partial void Onseri_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> bok_Edition
         {
             get
@@ -744,6 +623,78 @@ namespace Agrond.Lycute.DAO
         private global::System.String _bok_Review;
         partial void Onbok_ReviewChanging(global::System.String value);
         partial void Onbok_ReviewChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String pbl_ID
+        {
+            get
+            {
+                return _pbl_ID;
+            }
+            set
+            {
+                Onpbl_IDChanging(value);
+                ReportPropertyChanging("pbl_ID");
+                _pbl_ID = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("pbl_ID");
+                Onpbl_IDChanged();
+            }
+        }
+        private global::System.String _pbl_ID;
+        partial void Onpbl_IDChanging(global::System.String value);
+        partial void Onpbl_IDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String lng_ID
+        {
+            get
+            {
+                return _lng_ID;
+            }
+            set
+            {
+                Onlng_IDChanging(value);
+                ReportPropertyChanging("lng_ID");
+                _lng_ID = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("lng_ID");
+                Onlng_IDChanged();
+            }
+        }
+        private global::System.String _lng_ID;
+        partial void Onlng_IDChanging(global::System.String value);
+        partial void Onlng_IDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ctg_ID
+        {
+            get
+            {
+                return _ctg_ID;
+            }
+            set
+            {
+                Onctg_IDChanging(value);
+                ReportPropertyChanging("ctg_ID");
+                _ctg_ID = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ctg_ID");
+                Onctg_IDChanged();
+            }
+        }
+        private global::System.String _ctg_ID;
+        partial void Onctg_IDChanging(global::System.String value);
+        partial void Onctg_IDChanged();
 
         #endregion
     
@@ -755,16 +706,92 @@ namespace Agrond.Lycute.DAO
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_publisher", "Publisher")]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Category", "Category")]
+        public Category Category
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Book_Category", "Category").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Book_Category", "Category").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Category> CategoryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Book_Category", "Category");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("LibraryModel.fk_Book_Category", "Category", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Language", "Language")]
+        public Language Language
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language", "Language").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language", "Language").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Language> LanguageReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language", "Language");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Language>("LibraryModel.fk_Book_Language", "Language", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Publisher", "Publisher")]
         public Publisher Publisher
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_publisher", "Publisher").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_Publisher", "Publisher").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_publisher", "Publisher").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_Publisher", "Publisher").Value = value;
             }
         }
         /// <summary>
@@ -776,13 +803,13 @@ namespace Agrond.Lycute.DAO
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_publisher", "Publisher");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Publisher>("LibraryModel.fk_Book_Publisher", "Publisher");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Publisher>("LibraryModel.fk_Book_publisher", "Publisher", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Publisher>("LibraryModel.fk_Book_Publisher", "Publisher", value);
                 }
             }
         }
@@ -815,44 +842,6 @@ namespace Agrond.Lycute.DAO
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Category_Book_ctgID", "Category")]
-        public Category Category
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Category_Book_ctgID", "Category").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Category_Book_ctgID", "Category").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Category> CategoryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("LibraryModel.fk_Category_Book_ctgID", "Category");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("LibraryModel.fk_Category_Book_ctgID", "Category", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "Tag_Book", "Tag")]
         public EntityCollection<Tag> Tags
         {
@@ -865,82 +854,6 @@ namespace Agrond.Lycute.DAO
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Tag>("LibraryModel.Tag_Book", "Tag", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Language_lngID", "Language")]
-        public Language Language
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language_lngID", "Language").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language_lngID", "Language").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Language> LanguageReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Language>("LibraryModel.fk_Book_Language_lngID", "Language");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Language>("LibraryModel.fk_Book_Language_lngID", "Language", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Seri_seriID", "Seri")]
-        public Seri Seri
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Seri>("LibraryModel.fk_Book_Seri_seriID", "Seri").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Seri>("LibraryModel.fk_Book_Seri_seriID", "Seri").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Seri> SeriReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Seri>("LibraryModel.fk_Book_Seri_seriID", "Seri");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Seri>("LibraryModel.fk_Book_Seri_seriID", "Seri", value);
                 }
             }
         }
@@ -962,7 +875,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Category object.
         /// </summary>
         /// <param name="ctg_ID">Initial value of the ctg_ID property.</param>
-        public static Category CreateCategory(global::System.Int32 ctg_ID)
+        public static Category CreateCategory(global::System.String ctg_ID)
         {
             Category category = new Category();
             category.ctg_ID = ctg_ID;
@@ -977,7 +890,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ctg_ID
+        public global::System.String ctg_ID
         {
             get
             {
@@ -989,14 +902,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Onctg_IDChanging(value);
                     ReportPropertyChanging("ctg_ID");
-                    _ctg_ID = StructuralObject.SetValidValue(value);
+                    _ctg_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("ctg_ID");
                     Onctg_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _ctg_ID;
-        partial void Onctg_IDChanging(global::System.Int32 value);
+        private global::System.String _ctg_ID;
+        partial void Onctg_IDChanging(global::System.String value);
         partial void Onctg_IDChanged();
     
         /// <summary>
@@ -1033,18 +946,18 @@ namespace Agrond.Lycute.DAO
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Category_Book_ctgID", "Book")]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Category", "Book")]
         public EntityCollection<Book> Books
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Category_Book_ctgID", "Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_Category", "Book");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Category_Book_ctgID", "Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_Category", "Book", value);
                 }
             }
         }
@@ -1066,7 +979,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Language object.
         /// </summary>
         /// <param name="lng_ID">Initial value of the lng_ID property.</param>
-        public static Language CreateLanguage(global::System.Int32 lng_ID)
+        public static Language CreateLanguage(global::System.String lng_ID)
         {
             Language language = new Language();
             language.lng_ID = lng_ID;
@@ -1081,7 +994,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 lng_ID
+        public global::System.String lng_ID
         {
             get
             {
@@ -1093,14 +1006,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Onlng_IDChanging(value);
                     ReportPropertyChanging("lng_ID");
-                    _lng_ID = StructuralObject.SetValidValue(value);
+                    _lng_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("lng_ID");
                     Onlng_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _lng_ID;
-        partial void Onlng_IDChanging(global::System.Int32 value);
+        private global::System.String _lng_ID;
+        partial void Onlng_IDChanging(global::System.String value);
         partial void Onlng_IDChanged();
     
         /// <summary>
@@ -1137,18 +1050,18 @@ namespace Agrond.Lycute.DAO
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Language_lngID", "Book")]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Language", "Book")]
         public EntityCollection<Book> Books
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_Language_lngID", "Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_Language", "Book");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_Language_lngID", "Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_Language", "Book", value);
                 }
             }
         }
@@ -1170,7 +1083,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Publisher object.
         /// </summary>
         /// <param name="pbl_ID">Initial value of the pbl_ID property.</param>
-        public static Publisher CreatePublisher(global::System.Int32 pbl_ID)
+        public static Publisher CreatePublisher(global::System.String pbl_ID)
         {
             Publisher publisher = new Publisher();
             publisher.pbl_ID = pbl_ID;
@@ -1185,7 +1098,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 pbl_ID
+        public global::System.String pbl_ID
         {
             get
             {
@@ -1197,14 +1110,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Onpbl_IDChanging(value);
                     ReportPropertyChanging("pbl_ID");
-                    _pbl_ID = StructuralObject.SetValidValue(value);
+                    _pbl_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("pbl_ID");
                     Onpbl_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _pbl_ID;
-        partial void Onpbl_IDChanging(global::System.Int32 value);
+        private global::System.String _pbl_ID;
+        partial void Onpbl_IDChanging(global::System.String value);
         partial void Onpbl_IDChanged();
     
         /// <summary>
@@ -1241,122 +1154,18 @@ namespace Agrond.Lycute.DAO
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_publisher", "Book")]
+        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Publisher", "Book")]
         public EntityCollection<Book> Books
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_publisher", "Book");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_Publisher", "Book");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_publisher", "Book", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="LibraryModel", Name="Seri")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Seri : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Seri object.
-        /// </summary>
-        /// <param name="seri_ID">Initial value of the seri_ID property.</param>
-        public static Seri CreateSeri(global::System.Int32 seri_ID)
-        {
-            Seri seri = new Seri();
-            seri.seri_ID = seri_ID;
-            return seri;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 seri_ID
-        {
-            get
-            {
-                return _seri_ID;
-            }
-            set
-            {
-                if (_seri_ID != value)
-                {
-                    Onseri_IDChanging(value);
-                    ReportPropertyChanging("seri_ID");
-                    _seri_ID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("seri_ID");
-                    Onseri_IDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _seri_ID;
-        partial void Onseri_IDChanging(global::System.Int32 value);
-        partial void Onseri_IDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String seri_Name
-        {
-            get
-            {
-                return _seri_Name;
-            }
-            set
-            {
-                Onseri_NameChanging(value);
-                ReportPropertyChanging("seri_Name");
-                _seri_Name = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("seri_Name");
-                Onseri_NameChanged();
-            }
-        }
-        private global::System.String _seri_Name;
-        partial void Onseri_NameChanging(global::System.String value);
-        partial void Onseri_NameChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("LibraryModel", "fk_Book_Seri_seriID", "Book")]
-        public EntityCollection<Book> Books
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Book>("LibraryModel.fk_Book_Seri_seriID", "Book");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_Seri_seriID", "Book", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Book>("LibraryModel.fk_Book_Publisher", "Book", value);
                 }
             }
         }
@@ -1378,7 +1187,7 @@ namespace Agrond.Lycute.DAO
         /// Create a new Tag object.
         /// </summary>
         /// <param name="tag_ID">Initial value of the tag_ID property.</param>
-        public static Tag CreateTag(global::System.Int32 tag_ID)
+        public static Tag CreateTag(global::System.String tag_ID)
         {
             Tag tag = new Tag();
             tag.tag_ID = tag_ID;
@@ -1393,7 +1202,7 @@ namespace Agrond.Lycute.DAO
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 tag_ID
+        public global::System.String tag_ID
         {
             get
             {
@@ -1405,14 +1214,14 @@ namespace Agrond.Lycute.DAO
                 {
                     Ontag_IDChanging(value);
                     ReportPropertyChanging("tag_ID");
-                    _tag_ID = StructuralObject.SetValidValue(value);
+                    _tag_ID = StructuralObject.SetValidValue(value, false);
                     ReportPropertyChanged("tag_ID");
                     Ontag_IDChanged();
                 }
             }
         }
-        private global::System.Int32 _tag_ID;
-        partial void Ontag_IDChanging(global::System.Int32 value);
+        private global::System.String _tag_ID;
+        partial void Ontag_IDChanging(global::System.String value);
         partial void Ontag_IDChanged();
     
         /// <summary>

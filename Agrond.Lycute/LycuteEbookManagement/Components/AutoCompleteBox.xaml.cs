@@ -28,6 +28,7 @@ namespace LycuteEbookManagement.Components
 
         #region Variable
         public static List<string> _ListData { get; set; }
+        public bool IsClearData { get; set; }
         #endregion
 
         #region set get
@@ -63,8 +64,15 @@ namespace LycuteEbookManagement.Components
         {
             string listboxItem = (string)listBox1.SelectedItem;
             string data = listboxItem;
-            textBox1.Text = textBox1.Text + data + ";";
-            listBox1.Visibility = Visibility.Hidden;
+            if (IsClearData)
+            {
+                textBox1.Text = data;  
+            }
+            else {
+                string text = textBox1.Text + data;
+                textBox1.Text = text;         
+            }
+            listBox1.Visibility = Visibility.Hidden; 
         }
         #endregion
 

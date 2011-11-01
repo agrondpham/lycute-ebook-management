@@ -56,7 +56,7 @@
                 <my:AutoCompleteBox Canvas.Left="242" Canvas.Top="353" Height="155" x:Name="autoCompleteBox_Publisher" Width="305" />
                 <Canvas  Margin="11340,-117,0,0" x:Name="InternetData">
                 </Canvas>
-                <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="730" Width="1260"/>
+                <my:FileLocation Canvas.Left="0" Canvas.Top="0" x:Name="fileLocation1" Height="660" Width="1260"/>
             </Canvas>
         </Border>
     </Grid>

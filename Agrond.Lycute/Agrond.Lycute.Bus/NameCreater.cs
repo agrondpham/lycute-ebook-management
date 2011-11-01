@@ -72,6 +72,11 @@ namespace Agrond.Lycute.Bus
             string strFileType = FileNameArray[FileNameArray.Count() - 1];
             return strFileType;
         }
+        public static string RepalceURL(string pURL) {
+            string strFileName = pURL;
+            strFileName = strFileName.Replace("\\", "/");
+            return strFileName;
+        }
         //public static string CreateImageUrl(string pAuthor, string pBookName, string pImageName) {
             
         //    return pAuthor + "/" + pBookName + "/" + pImageName;

@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorLib.cs" />
+    <Compile Include="CommonLib.cs" />
     <Compile Include="ConvertData.cs" />
     <Compile Include="FileCopy.cs" />
     <Compile Include="LycuteApplication.cs" />
@@ -61,8 +63,10 @@
     <Compile Include="LycuteOption.cs" />
     <Compile Include="NameCreater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublisherLib.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="StoreLocation.cs" />
+    <Compile Include="ValidationLib.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Agrond.AmazonAPI\Agrond.AmazonAPI.csproj">

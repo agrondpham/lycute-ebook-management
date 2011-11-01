@@ -67,7 +67,7 @@ namespace LycuteEbookManagement.Search
         {
             Search.CoverAndReview._isbn = SelectedBook.bok_ISBN;
             //add real id to book
-            SelectedBook.bok_ID = Convert.ToInt32(_bookID);
+            SelectedBook.bok_ID = _bookID;
             Search.CoverAndReview._SelectedBook=SelectedBook;
             m.loadMain(new Search.CoverAndReview());
         }

@@ -37,5 +37,11 @@ namespace LycuteEbookManagement.Components
         {
             this.Visibility = Visibility.Hidden;
         }
+
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            txtFileLocation.Text = "";
+            this.Visibility = Visibility.Hidden;
+        }
     }
 }

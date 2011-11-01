@@ -19,8 +19,8 @@ namespace Agrond.CopyFile
             FileStream fsOut;
             try
             {
-                fsIn = new FileStream(pStrSourceFile, FileMode.Open, FileAccess.Read);
-                fsOut = new FileStream(pStrTargetFile, FileMode.Create);
+                fsIn = new FileStream(pStrSourceFile, FileMode.Open, FileAccess.Read,FileShare.None);
+                fsOut = new FileStream(pStrTargetFile, FileMode.Create,FileAccess.Write,FileShare.None);
                 fsIn.CopyTo(fsOut);
                 fsIn.Close();
                 fsOut.Close();
@@ -31,6 +31,8 @@ namespace Agrond.CopyFile
         }
         protected void DownloadImage(string pStrSourceFile, string pStrTargetFile) { 
             byte[] b;
+            if(pStrSourceFile.Contains("\\"))
+                pStrSourceFile=pStrSourceFile.Replace('\\','/');
             HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(pStrSourceFile);
             WebResponse Response = Request.GetResponse();
 
@@ -119,7 +121,7 @@ namespace Agrond.CopyFile
         {
             if (pStrType.ToLower() == "file")
             {
-                if (pStrSourcePath.StartsWith("http://"))
+                if (pStrSourcePath.StartsWith("http://") || pStrSourcePath.StartsWith("http:\\\\"))
                     DownloadImage(pStrSourcePath, pStrTargetPath);
                 else
                     if(pStrSourcePath!=pStrTargetPath)
