@@ -1,0 +1,297 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 10/31/2011 21:24:10
+-- Generated from EDMX file: D:\Projects\Agrond.Lycute\Agrond.Lycute.DAO\LibraryModel.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    ALTER TABLE [Author_Book] DROP CONSTRAINT [fk_Book_Author_athID];
+GO
+    ALTER TABLE [Author_Book] DROP CONSTRAINT [fk_Book_Author_bokID];
+GO
+    ALTER TABLE [Book] DROP CONSTRAINT [fk_Book_Category];
+GO
+    ALTER TABLE [Book] DROP CONSTRAINT [fk_Book_Publisher];
+GO
+    ALTER TABLE [Tag_Book] DROP CONSTRAINT [fk_Book_Tag_athID];
+GO
+    ALTER TABLE [Tag_Book] DROP CONSTRAINT [fk_Book_Tag_bokID];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+    DROP TABLE [Author];
+GO
+    DROP TABLE [Author_Book];
+GO
+    DROP TABLE [Book];
+GO
+    DROP TABLE [Category];
+GO
+    DROP TABLE [Language];
+GO
+    DROP TABLE [Publisher];
+GO
+    DROP TABLE [Tag];
+GO
+    DROP TABLE [Tag_Book];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'Authors'
+CREATE TABLE [Authors] (
+    [ath_ID] int IDENTITY(1,1) NOT NULL,
+    [ath_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Books'
+CREATE TABLE [Books] (
+    [bok_ID] int IDENTITY(1,1) NOT NULL,
+    [bok_Title] nvarchar(100)  NULL,
+    [bok_Year] int  NULL,
+    [bok_Rank] nvarchar(4000)  NULL,
+    [bok_ISBN] nvarchar(15)  NULL,
+    [bok_ImageURl] nvarchar(100)  NULL,
+    [pbl_ID] int  NULL,
+    [bok_Modified] bit  NULL,
+    [ctg_ID] int  NULL,
+    [lng_ID] int  NULL,
+    [bok_Location] nvarchar(4000)  NULL,
+    [bok_Volume] int  NULL,
+    [seri_ID] int  NULL,
+    [bok_Edition] int  NULL,
+    [bok_Review] nvarchar(4000)  NULL,
+    [lag_ID] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Publishers'
+CREATE TABLE [Publishers] (
+    [pbl_ID] int IDENTITY(1,1) NOT NULL,
+    [pbl_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Categories'
+CREATE TABLE [Categories] (
+    [ctg_ID] int  NOT NULL,
+    [ctg_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Tags'
+CREATE TABLE [Tags] (
+    [tag_ID] int IDENTITY(1,1) NOT NULL,
+    [tag_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Languages'
+CREATE TABLE [Languages] (
+    [lng_ID] int IDENTITY(1,1) NOT NULL,
+    [lng_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Seris'
+CREATE TABLE [Seris] (
+    [seri_ID] int IDENTITY(1,1) NOT NULL,
+    [seri_Name] nvarchar(100)  NULL
+);
+GO
+
+-- Creating table 'Author_Book'
+CREATE TABLE [Author_Book] (
+    [Authors_ath_ID] int  NOT NULL,
+    [Books_bok_ID] int  NOT NULL
+);
+GO
+
+-- Creating table 'Tag_Book'
+CREATE TABLE [Tag_Book] (
+    [Books_bok_ID] int  NOT NULL,
+    [Tags_tag_ID] int  NOT NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [ath_ID] in table 'Authors'
+ALTER TABLE [Authors]
+ADD CONSTRAINT [PK_Authors]
+    PRIMARY KEY ([ath_ID] );
+GO
+
+-- Creating primary key on [bok_ID] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [PK_Books]
+    PRIMARY KEY ([bok_ID] );
+GO
+
+-- Creating primary key on [pbl_ID] in table 'Publishers'
+ALTER TABLE [Publishers]
+ADD CONSTRAINT [PK_Publishers]
+    PRIMARY KEY ([pbl_ID] );
+GO
+
+-- Creating primary key on [ctg_ID] in table 'Categories'
+ALTER TABLE [Categories]
+ADD CONSTRAINT [PK_Categories]
+    PRIMARY KEY ([ctg_ID] );
+GO
+
+-- Creating primary key on [tag_ID] in table 'Tags'
+ALTER TABLE [Tags]
+ADD CONSTRAINT [PK_Tags]
+    PRIMARY KEY ([tag_ID] );
+GO
+
+-- Creating primary key on [lng_ID] in table 'Languages'
+ALTER TABLE [Languages]
+ADD CONSTRAINT [PK_Languages]
+    PRIMARY KEY ([lng_ID] );
+GO
+
+-- Creating primary key on [seri_ID] in table 'Seris'
+ALTER TABLE [Seris]
+ADD CONSTRAINT [PK_Seris]
+    PRIMARY KEY ([seri_ID] );
+GO
+
+-- Creating primary key on [Authors_ath_ID], [Books_bok_ID] in table 'Author_Book'
+ALTER TABLE [Author_Book]
+ADD CONSTRAINT [PK_Author_Book]
+    PRIMARY KEY ([Authors_ath_ID], [Books_bok_ID] );
+GO
+
+-- Creating primary key on [Books_bok_ID], [Tags_tag_ID] in table 'Tag_Book'
+ALTER TABLE [Tag_Book]
+ADD CONSTRAINT [PK_Tag_Book]
+    PRIMARY KEY ([Books_bok_ID], [Tags_tag_ID] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [pbl_ID] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [fk_Book_publisher]
+    FOREIGN KEY ([pbl_ID])
+    REFERENCES [Publishers]
+        ([pbl_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'fk_Book_publisher'
+CREATE INDEX [IX_fk_Book_publisher]
+ON [Books]
+    ([pbl_ID]);
+GO
+
+-- Creating foreign key on [Authors_ath_ID] in table 'Author_Book'
+ALTER TABLE [Author_Book]
+ADD CONSTRAINT [FK_Author_Book_Author]
+    FOREIGN KEY ([Authors_ath_ID])
+    REFERENCES [Authors]
+        ([ath_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Books_bok_ID] in table 'Author_Book'
+ALTER TABLE [Author_Book]
+ADD CONSTRAINT [FK_Author_Book_Book]
+    FOREIGN KEY ([Books_bok_ID])
+    REFERENCES [Books]
+        ([bok_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Author_Book_Book'
+CREATE INDEX [IX_FK_Author_Book_Book]
+ON [Author_Book]
+    ([Books_bok_ID]);
+GO
+
+-- Creating foreign key on [ctg_ID] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [fk_Category_Book_ctgID]
+    FOREIGN KEY ([ctg_ID])
+    REFERENCES [Categories]
+        ([ctg_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'fk_Category_Book_ctgID'
+CREATE INDEX [IX_fk_Category_Book_ctgID]
+ON [Books]
+    ([ctg_ID]);
+GO
+
+-- Creating foreign key on [Books_bok_ID] in table 'Tag_Book'
+ALTER TABLE [Tag_Book]
+ADD CONSTRAINT [FK_Tag_Book_Book]
+    FOREIGN KEY ([Books_bok_ID])
+    REFERENCES [Books]
+        ([bok_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Tags_tag_ID] in table 'Tag_Book'
+ALTER TABLE [Tag_Book]
+ADD CONSTRAINT [FK_Tag_Book_Tag]
+    FOREIGN KEY ([Tags_tag_ID])
+    REFERENCES [Tags]
+        ([tag_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Tag_Book_Tag'
+CREATE INDEX [IX_FK_Tag_Book_Tag]
+ON [Tag_Book]
+    ([Tags_tag_ID]);
+GO
+
+-- Creating foreign key on [lng_ID] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [fk_Book_Language_lngID]
+    FOREIGN KEY ([lng_ID])
+    REFERENCES [Languages]
+        ([lng_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'fk_Book_Language_lngID'
+CREATE INDEX [IX_fk_Book_Language_lngID]
+ON [Books]
+    ([lng_ID]);
+GO
+
+-- Creating foreign key on [seri_ID] in table 'Books'
+ALTER TABLE [Books]
+ADD CONSTRAINT [fk_Book_Seri_seriID]
+    FOREIGN KEY ([seri_ID])
+    REFERENCES [Seris]
+        ([seri_ID])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'fk_Book_Seri_seriID'
+CREATE INDEX [IX_fk_Book_Seri_seriID]
+ON [Books]
+    ([seri_ID]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

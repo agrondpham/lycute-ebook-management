@@ -128,7 +128,7 @@ namespace LycuteEbookManagement.Search
         }
         private void setData(Book pBook)
         {
-            string strAuthor = ConvertData.ToString(pBook.Authors);
+            string strAuthor = AuthorLib.ToString(pBook.Authors);
             lbl_Author.Content = strAuthor;
 
             lbl_Title.Content = pBook.bok_Title;

@@ -42,7 +42,7 @@ namespace LycuteEbookManagement.Ebook
             m = (MainWindow)Window.GetWindow(this);
         }
         private void LoadData() {
-            txt_Author.Text=ConvertData.ToString(_book.Authors);
+            txt_Author.Text=AuthorLib.ToString(_book.Authors);
             txt_Edition.Text=_book.bok_Edition.ToString();
             txt_ISBN.Text=_book.bok_ISBN;
             txt_Language.Text=_book.Language.lng_Name;
@@ -77,7 +77,7 @@ namespace LycuteEbookManagement.Ebook
 
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
-            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(ConvertData.ToString(_book.Authors)), _book.bok_Title, _book.bok_Location);
+            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(AuthorLib.ToString(_book.Authors)), _book.bok_Title, _book.bok_Location);
             Process.Start(url);
         }
 

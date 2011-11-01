@@ -75,7 +75,7 @@ namespace LycuteEbookManagement.Search
             if(cbx_Description.IsChecked==true)
                 _SelectedBook.bok_Review = _review;
             Ebook.Editor._book = _SelectedBook;
-            Ebook.Editor.IsAddnewMode = false;
+            Ebook.Editor.IsAddnewMode = true;
             Ebook.Editor._IsReload = true;
             m.loadMain(new Ebook.Editor());
         }

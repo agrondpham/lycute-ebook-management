@@ -12,7 +12,6 @@
           <EntitySet Name="Category" EntityType="LibraryModel.Store.Category" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="LibraryModel.Store.Language" store:Type="Tables" />
           <EntitySet Name="Publisher" EntityType="LibraryModel.Store.Publisher" store:Type="Tables" />
-          <EntitySet Name="Seri" EntityType="LibraryModel.Store.Seri" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="LibraryModel.Store.Tag" store:Type="Tables" />
           <EntitySet Name="Tag_Book" EntityType="LibraryModel.Store.Tag_Book" store:Type="Tables" />
           <AssociationSet Name="fk_Book_Author_athID" Association="LibraryModel.Store.fk_Book_Author_athID">
@@ -23,28 +22,24 @@
             <End Role="Book" EntitySet="Book" />
             <End Role="Author_Book" EntitySet="Author_Book" />
           </AssociationSet>
-          <AssociationSet Name="fk_Book_Category_ctgID" Association="LibraryModel.Store.fk_Book_Category_ctgID">
+          <AssociationSet Name="fk_Book_Category" Association="LibraryModel.Store.fk_Book_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Book" EntitySet="Book" />
           </AssociationSet>
-          <AssociationSet Name="fk_Book_Language_lngID" Association="LibraryModel.Store.fk_Book_Language_lngID">
+          <AssociationSet Name="fk_Book_Language" Association="LibraryModel.Store.fk_Book_Language">
             <End Role="Language" EntitySet="Language" />
             <End Role="Book" EntitySet="Book" />
           </AssociationSet>
-          <AssociationSet Name="fk_Book_publisher" Association="LibraryModel.Store.fk_Book_publisher">
+          <AssociationSet Name="fk_Book_Publisher" Association="LibraryModel.Store.fk_Book_Publisher">
             <End Role="Publisher" EntitySet="Publisher" />
             <End Role="Book" EntitySet="Book" />
           </AssociationSet>
-          <AssociationSet Name="fk_Book_Seri_seriID" Association="LibraryModel.Store.fk_Book_Seri_seriID">
-            <End Role="Seri" EntitySet="Seri" />
-            <End Role="Book" EntitySet="Book" />
+          <AssociationSet Name="fk_Book_Tag_athID" Association="LibraryModel.Store.fk_Book_Tag_athID">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="Tag_Book" EntitySet="Tag_Book" />
           </AssociationSet>
           <AssociationSet Name="fk_Book_Tag_bokID" Association="LibraryModel.Store.fk_Book_Tag_bokID">
             <End Role="Book" EntitySet="Book" />
-            <End Role="Tag_Book" EntitySet="Tag_Book" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Book_Tag_tagID" Association="LibraryModel.Store.fk_Book_Tag_tagID">
-            <End Role="Tag" EntitySet="Tag" />
             <End Role="Tag_Book" EntitySet="Tag_Book" />
           </AssociationSet>
         </EntityContainer>
@@ -52,7 +47,7 @@
           <Key>
             <PropertyRef Name="ath_ID" />
           </Key>
-          <Property Name="ath_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ath_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ath_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Author_Book">
@@ -60,62 +55,54 @@
             <PropertyRef Name="ath_ID" />
             <PropertyRef Name="bok_ID" />
           </Key>
-          <Property Name="ath_ID" Type="int" Nullable="false" />
-          <Property Name="bok_ID" Type="int" Nullable="false" />
+          <Property Name="ath_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="bok_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="bok_ID" />
           </Key>
-          <Property Name="bok_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bok_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="bok_Title" Type="nvarchar" MaxLength="100" />
           <Property Name="bok_Year" Type="int" />
-          <Property Name="bok_Rank" Type="ntext" />
+          <Property Name="bok_Rank" Type="nvarchar" MaxLength="100" />
           <Property Name="bok_ISBN" Type="nvarchar" MaxLength="15" />
-          <Property Name="bok_ImageURl" Type="ntext" />
-          <Property Name="pbl_ID" Type="int" />
-          <Property Name="bok_Modified" Type="bit" />
-          <Property Name="ctg_ID" Type="int" />
-          <Property Name="lng_ID" Type="int" />
-          <Property Name="bok_Location" Type="ntext" />
+          <Property Name="bok_ImageURl" Type="nvarchar" MaxLength="100" />
+          <Property Name="bok_Modified" Type="int" />
+          <Property Name="bok_Location" Type="nvarchar" MaxLength="100" />
           <Property Name="bok_Volume" Type="int" />
-          <Property Name="seri_ID" Type="int" />
           <Property Name="bok_Edition" Type="int" />
-          <Property Name="bok_Review" Type="ntext" />
+          <Property Name="bok_Review" Type="nvarchar" MaxLength="100" />
+          <Property Name="pbl_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="lng_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="ctg_ID" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ctg_ID" />
           </Key>
+          <Property Name="ctg_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="ctg_Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="ctg_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="lng_ID" />
           </Key>
-          <Property Name="lng_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="lng_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="lng_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Publisher">
           <Key>
             <PropertyRef Name="pbl_ID" />
           </Key>
-          <Property Name="pbl_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="pbl_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="pbl_Name" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="Seri">
-          <Key>
-            <PropertyRef Name="seri_ID" />
-          </Key>
-          <Property Name="seri_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="seri_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="tag_ID" />
           </Key>
-          <Property Name="tag_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="tag_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="tag_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Tag_Book">
@@ -123,8 +110,8 @@
             <PropertyRef Name="tag_ID" />
             <PropertyRef Name="bok_ID" />
           </Key>
-          <Property Name="tag_ID" Type="int" Nullable="false" />
-          <Property Name="bok_ID" Type="int" Nullable="false" />
+          <Property Name="tag_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="bok_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <Association Name="fk_Book_Author_athID">
           <End Role="Author" Type="LibraryModel.Store.Author" Multiplicity="1" />
@@ -150,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Book_Category_ctgID">
+        <Association Name="fk_Book_Category">
           <End Role="Category" Type="LibraryModel.Store.Category" Multiplicity="0..1" />
           <End Role="Book" Type="LibraryModel.Store.Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Book_Language_lngID">
+        <Association Name="fk_Book_Language">
           <End Role="Language" Type="LibraryModel.Store.Language" Multiplicity="0..1" />
           <End Role="Book" Type="LibraryModel.Store.Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Book_publisher">
+        <Association Name="fk_Book_Publisher">
           <End Role="Publisher" Type="LibraryModel.Store.Publisher" Multiplicity="0..1" />
           <End Role="Book" Type="LibraryModel.Store.Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -186,15 +173,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Book_Seri_seriID">
-          <End Role="Seri" Type="LibraryModel.Store.Seri" Multiplicity="0..1" />
-          <End Role="Book" Type="LibraryModel.Store.Book" Multiplicity="*" />
+        <Association Name="fk_Book_Tag_athID">
+          <End Role="Tag" Type="LibraryModel.Store.Tag" Multiplicity="1" />
+          <End Role="Tag_Book" Type="LibraryModel.Store.Tag_Book" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Seri">
-              <PropertyRef Name="seri_ID" />
+            <Principal Role="Tag">
+              <PropertyRef Name="tag_ID" />
             </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="seri_ID" />
+            <Dependent Role="Tag_Book">
+              <PropertyRef Name="tag_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -210,18 +197,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Book_Tag_tagID">
-          <End Role="Tag" Type="LibraryModel.Store.Tag" Multiplicity="1" />
-          <End Role="Tag_Book" Type="LibraryModel.Store.Tag_Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="tag_ID" />
-            </Principal>
-            <Dependent Role="Tag_Book">
-              <PropertyRef Name="tag_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -229,8 +204,19 @@
         <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="LibraryModel.Author" />
           <EntitySet Name="Books" EntityType="LibraryModel.Book" />
+          <EntitySet Name="Categories" EntityType="LibraryModel.Category" />
+          <EntitySet Name="Languages" EntityType="LibraryModel.Language" />
           <EntitySet Name="Publishers" EntityType="LibraryModel.Publisher" />
-          <AssociationSet Name="fk_Book_publisher" Association="LibraryModel.fk_Book_publisher">
+          <EntitySet Name="Tags" EntityType="LibraryModel.Tag" />
+          <AssociationSet Name="fk_Book_Category" Association="LibraryModel.fk_Book_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Book_Language" Association="LibraryModel.fk_Book_Language">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Book_Publisher" Association="LibraryModel.fk_Book_Publisher">
             <End Role="Publisher" EntitySet="Publishers" />
             <End Role="Book" EntitySet="Books" />
           </AssociationSet>
@@ -238,24 +224,8 @@
             <End Role="Author" EntitySet="Authors" />
             <End Role="Book" EntitySet="Books" />
           </AssociationSet>
-          <EntitySet Name="Categories" EntityType="LibraryModel.Category" />
-          <EntitySet Name="Tags" EntityType="LibraryModel.Tag" />
-          <AssociationSet Name="fk_Category_Book_ctgID" Association="LibraryModel.fk_Category_Book_ctgID">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Book" EntitySet="Books" />
-          </AssociationSet>
           <AssociationSet Name="Tag_Book" Association="LibraryModel.Tag_Book">
-            <End Role="Book" EntitySet="Books" />
             <End Role="Tag" EntitySet="Tags" />
-          </AssociationSet>
-          <EntitySet Name="Languages" EntityType="LibraryModel.Language" />
-          <AssociationSet Name="fk_Book_Language_lngID" Association="LibraryModel.fk_Book_Language_lngID">
-            <End Role="Language" EntitySet="Languages" />
-            <End Role="Book" EntitySet="Books" />
-          </AssociationSet>
-          <EntitySet Name="Seris" EntityType="LibraryModel.Seri" />
-          <AssociationSet Name="fk_Book_Seri_seriID" Association="LibraryModel.fk_Book_Seri_seriID">
-            <End Role="Seri" EntitySet="Seris" />
             <End Role="Book" EntitySet="Books" />
           </AssociationSet>
         </EntityContainer>
@@ -263,77 +233,67 @@
           <Key>
             <PropertyRef Name="ath_ID" />
           </Key>
-          <Property Name="ath_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ath_Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="ath_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ath_Name" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Books" Relationship="LibraryModel.Author_Book" FromRole="Author" ToRole="Book" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="bok_ID" />
           </Key>
-          <Property Name="bok_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="bok_Title" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="bok_Year" Type="Int32" />
-          <Property Name="bok_Rank" Type="String" />
-          <Property Name="bok_ISBN" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
-          <Property Name="bok_ImageURl" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="pbl_ID" Type="Int32" />
-          <NavigationProperty Name="Publisher" Relationship="LibraryModel.fk_Book_publisher" FromRole="Book" ToRole="Publisher" />
-          <NavigationProperty Name="Authors" Relationship="LibraryModel.Author_Book" FromRole="Book" ToRole="Author" />
-          <Property Type="Boolean" Name="bok_Modified" />
-          <Property Type="Int32" Name="ctg_ID" />
-          <NavigationProperty Name="Category" Relationship="LibraryModel.fk_Category_Book_ctgID" FromRole="Book" ToRole="Category" />
-          <NavigationProperty Name="Tags" Relationship="LibraryModel.Tag_Book" FromRole="Book" ToRole="Tag" />
-          <Property Type="Int32" Name="lng_ID" />
-          <NavigationProperty Name="Language" Relationship="LibraryModel.fk_Book_Language_lngID" FromRole="Book" ToRole="Language" />
-          <Property Type="String" Name="bok_Location" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bok_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bok_Title" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="bok_Year" />
+          <Property Type="String" Name="bok_Rank" />
+          <Property Type="String" Name="bok_ISBN" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bok_ImageURl" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="bok_Modified" />
+          <Property Type="String" Name="bok_Location" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="bok_Volume" />
-          <Property Type="Int32" Name="seri_ID" />
-          <NavigationProperty Name="Seri" Relationship="LibraryModel.fk_Book_Seri_seriID" FromRole="Book" ToRole="Seri" />
           <Property Type="Int32" Name="bok_Edition" />
-          <Property Type="String" Name="bok_Review" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bok_Review" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pbl_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lng_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ctg_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="LibraryModel.fk_Book_Category" FromRole="Book" ToRole="Category" />
+          <NavigationProperty Name="Language" Relationship="LibraryModel.fk_Book_Language" FromRole="Book" ToRole="Language" />
+          <NavigationProperty Name="Publisher" Relationship="LibraryModel.fk_Book_Publisher" FromRole="Book" ToRole="Publisher" />
+          <NavigationProperty Name="Authors" Relationship="LibraryModel.Author_Book" FromRole="Book" ToRole="Author" />
+          <NavigationProperty Name="Tags" Relationship="LibraryModel.Tag_Book" FromRole="Book" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ctg_ID" />
+          </Key>
+          <Property Type="String" Name="ctg_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ctg_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_Category" FromRole="Category" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="lng_ID" />
+          </Key>
+          <Property Type="String" Name="lng_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="lng_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_Language" FromRole="Language" ToRole="Book" />
         </EntityType>
         <EntityType Name="Publisher">
           <Key>
             <PropertyRef Name="pbl_ID" />
           </Key>
-          <Property Name="pbl_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pbl_Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_publisher" FromRole="Publisher" ToRole="Book" />
-        </EntityType>
-        <Association Name="fk_Book_publisher">
-          <End Role="Publisher" Type="LibraryModel.Publisher" Multiplicity="0..1" />
-          <End Role="Book" Type="LibraryModel.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Publisher">
-              <PropertyRef Name="pbl_ID" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="pbl_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Author_Book">
-          <End Role="Author" Type="LibraryModel.Author" Multiplicity="*" />
-          <End Role="Book" Type="LibraryModel.Book" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="ctg_ID" />
-          </Key>
-          <Property Type="Int32" Name="ctg_ID" Nullable="false" />
-          <Property Type="String" Name="ctg_Name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Category_Book_ctgID" FromRole="Category" ToRole="Book" />
+          <Property Type="String" Name="pbl_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="pbl_Name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_Publisher" FromRole="Publisher" ToRole="Book" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
             <PropertyRef Name="tag_ID" />
           </Key>
-          <Property Type="Int32" Name="tag_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="tag_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="tag_Name" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Books" Relationship="LibraryModel.Tag_Book" FromRole="Tag" ToRole="Book" />
         </EntityType>
-        <Association Name="fk_Category_Book_ctgID">
+        <Association Name="fk_Book_Category">
           <End Type="LibraryModel.Category" Role="Category" Multiplicity="0..1" />
           <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -345,19 +305,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Tag_Book">
-          <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
-          <End Type="LibraryModel.Tag" Role="Tag" Multiplicity="*" />
-        </Association>
-        <EntityType Name="Language">
-          <Key>
-            <PropertyRef Name="lng_ID" />
-          </Key>
-          <Property Type="Int32" Name="lng_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="lng_Name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_Language_lngID" FromRole="Language" ToRole="Book" />
-        </EntityType>
-        <Association Name="fk_Book_Language_lngID">
+        <Association Name="fk_Book_Language">
           <End Type="LibraryModel.Language" Role="Language" Multiplicity="0..1" />
           <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -369,70 +317,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Seri">
-          <Key>
-            <PropertyRef Name="seri_ID" />
-          </Key>
-          <Property Type="Int32" Name="seri_ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="seri_Name" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Books" Relationship="LibraryModel.fk_Book_Seri_seriID" FromRole="Seri" ToRole="Book" />
-        </EntityType>
-        <Association Name="fk_Book_Seri_seriID">
-          <End Type="LibraryModel.Seri" Role="Seri" Multiplicity="0..1" />
+        <Association Name="fk_Book_Publisher">
+          <End Type="LibraryModel.Publisher" Role="Publisher" Multiplicity="0..1" />
           <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Seri">
-              <PropertyRef Name="seri_ID" />
+            <Principal Role="Publisher">
+              <PropertyRef Name="pbl_ID" />
             </Principal>
             <Dependent Role="Book">
-              <PropertyRef Name="seri_ID" />
+              <PropertyRef Name="pbl_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="Author_Book">
+          <End Type="LibraryModel.Author" Role="Author" Multiplicity="*" />
+          <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
+        </Association>
+        <Association Name="Tag_Book">
+          <End Type="LibraryModel.Tag" Role="Tag" Multiplicity="*" />
+          <End Type="LibraryModel.Book" Role="Book" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LibraryModelStoreContainer" CdmEntityContainer="LibraryEntities">
-          <EntitySetMapping Name="Authors"><EntityTypeMapping TypeName="LibraryModel.Author"><MappingFragment StoreEntitySet="Author">
-            <ScalarProperty Name="ath_ID" ColumnName="ath_ID" />
-            <ScalarProperty Name="ath_Name" ColumnName="ath_Name" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Books"><EntityTypeMapping TypeName="LibraryModel.Book"><MappingFragment StoreEntitySet="Book">
-            <ScalarProperty Name="bok_Review" ColumnName="bok_Review" />
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LibraryModelStoreContainer" CdmEntityContainer="LibraryEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="LibraryModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="ath_Name" ColumnName="ath_Name" />
+                <ScalarProperty Name="ath_ID" ColumnName="ath_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LibraryModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="ctg_ID" ColumnName="ctg_ID" />
+                <ScalarProperty Name="lng_ID" ColumnName="lng_ID" />
+                <ScalarProperty Name="pbl_ID" ColumnName="pbl_ID" />
+                <ScalarProperty Name="bok_Review" ColumnName="bok_Review" />
                 <ScalarProperty Name="bok_Edition" ColumnName="bok_Edition" />
-                <ScalarProperty Name="seri_ID" ColumnName="seri_ID" />
                 <ScalarProperty Name="bok_Volume" ColumnName="bok_Volume" />
                 <ScalarProperty Name="bok_Location" ColumnName="bok_Location" />
-                <ScalarProperty Name="lng_ID" ColumnName="lng_ID" />
-                <ScalarProperty Name="ctg_ID" ColumnName="ctg_ID" />
                 <ScalarProperty Name="bok_Modified" ColumnName="bok_Modified" />
+                <ScalarProperty Name="bok_ImageURl" ColumnName="bok_ImageURl" />
+                <ScalarProperty Name="bok_ISBN" ColumnName="bok_ISBN" />
+                <ScalarProperty Name="bok_Rank" ColumnName="bok_Rank" />
+                <ScalarProperty Name="bok_Year" ColumnName="bok_Year" />
+                <ScalarProperty Name="bok_Title" ColumnName="bok_Title" />
                 <ScalarProperty Name="bok_ID" ColumnName="bok_ID" />
-            <ScalarProperty Name="bok_Title" ColumnName="bok_Title" />
-            <ScalarProperty Name="bok_Year" ColumnName="bok_Year" />
-            <ScalarProperty Name="bok_Rank" ColumnName="bok_Rank" />
-            <ScalarProperty Name="bok_ISBN" ColumnName="bok_ISBN" />
-            <ScalarProperty Name="bok_ImageURl" ColumnName="bok_ImageURl" />
-            <ScalarProperty Name="pbl_ID" ColumnName="pbl_ID" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Publishers"><EntityTypeMapping TypeName="LibraryModel.Publisher"><MappingFragment StoreEntitySet="Publisher">
-            <ScalarProperty Name="pbl_ID" ColumnName="pbl_ID" />
-            <ScalarProperty Name="pbl_Name" ColumnName="pbl_Name" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <AssociationSetMapping Name="Author_Book" TypeName="LibraryModel.Author_Book" StoreEntitySet="Author_Book">
-            <EndProperty Name="Author">
-              <ScalarProperty Name="ath_ID" ColumnName="ath_ID" />
-            </EndProperty>
-            <EndProperty Name="Book">
-              <ScalarProperty Name="bok_ID" ColumnName="bok_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="LibraryModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="ctg_Name" ColumnName="ctg_Name" />
                 <ScalarProperty Name="ctg_ID" ColumnName="ctg_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="LibraryModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="lng_Name" ColumnName="lng_Name" />
+                <ScalarProperty Name="lng_ID" ColumnName="lng_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="LibraryModel.Publisher">
+              <MappingFragment StoreEntitySet="Publisher">
+                <ScalarProperty Name="pbl_Name" ColumnName="pbl_Name" />
+                <ScalarProperty Name="pbl_ID" ColumnName="pbl_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -444,33 +403,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Tag_Book" TypeName="LibraryModel.Tag_Book" StoreEntitySet="Tag_Book">
-            <EndProperty Name="Tag">
-              <ScalarProperty Name="tag_ID" ColumnName="tag_ID" />
-            </EndProperty>
+          <AssociationSetMapping Name="Author_Book" TypeName="LibraryModel.Author_Book" StoreEntitySet="Author_Book">
             <EndProperty Name="Book">
               <ScalarProperty Name="bok_ID" ColumnName="bok_ID" />
             </EndProperty>
+            <EndProperty Name="Author">
+              <ScalarProperty Name="ath_ID" ColumnName="ath_ID" />
+            </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Languages">
-            <EntityTypeMapping TypeName="LibraryModel.Language">
-              <MappingFragment StoreEntitySet="Language">
-                <ScalarProperty Name="lng_Name" ColumnName="lng_Name" />
-                <ScalarProperty Name="lng_ID" ColumnName="lng_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Seris">
-            <EntityTypeMapping TypeName="LibraryModel.Seri">
-              <MappingFragment StoreEntitySet="Seri">
-                <ScalarProperty Name="seri_Name" ColumnName="seri_Name" />
-                <ScalarProperty Name="seri_ID" ColumnName="seri_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="Tag_Book" TypeName="LibraryModel.Tag_Book" StoreEntitySet="Tag_Book">
+            <EndProperty Name="Book">
+              <ScalarProperty Name="bok_ID" ColumnName="bok_ID" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="tag_ID" ColumnName="tag_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
@@ -488,38 +438,44 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="LibraryModel" ZoomLevel="60">
-        <EntityTypeShape EntityType="LibraryModel.Author" Width="1.5" PointX="0.75" PointY="2.25" Height="1.5956835937500005" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="3" PointY="1" Height="4.0956022135416656" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.Publisher" Width="1.5" PointX="3.75" PointY="7.625" Height="1.5956835937499996" IsExpanded="true" />
-        <AssociationConnector Association="LibraryModel.fk_Book_publisher" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.125" PointY="7.625" />
-          <ConnectorPoint PointX="4.125" PointY="5.6725065104166656" />
+      <Diagram Name="LibraryModel" ZoomLevel="192">
+        <EntityTypeShape EntityType="LibraryModel.Author" Width="1.5" PointX="0.75" PointY="2.625" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="3" PointY="1" Height="4.6725065104166674" />
+        <EntityTypeShape EntityType="LibraryModel.Category" Width="1.5" PointX="0.75" PointY="5.75" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="LibraryModel.Language" Width="1.5" PointX="0.75" PointY="8.125" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="LibraryModel.Publisher" Width="1.5" PointX="0.75" PointY="10.375" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="LibraryModel.Tag" Width="1.5" PointX="0.75" PointY="12.75" Height="1.595683593749996" />
+        <AssociationConnector Association="LibraryModel.fk_Book_Category" >
+          <ConnectorPoint PointX="2.25" PointY="6.547841796874998" />
+          <ConnectorPoint PointX="3.0572879166666667" PointY="6.5478417968749971" />
+          <ConnectorPoint PointX="3.2239545833333336" PointY="6.547841796874998" />
+          <ConnectorPoint PointX="3.2604141666666666" PointY="6.5478417968749971" />
+          <ConnectorPoint PointX="3.4270808333333336" PointY="6.547841796874998" />
+          <ConnectorPoint PointX="3.75" PointY="6.547841796874998" />
+          <ConnectorPoint PointX="3.75" PointY="5.6725065104166674" />
         </AssociationConnector>
-        <AssociationConnector Association="LibraryModel.Author_Book" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.0478417968750002" />
-          <ConnectorPoint PointX="3" PointY="3.0478417968750002" />
+        <AssociationConnector Association="LibraryModel.fk_Book_Language" >
+          <ConnectorPoint PointX="2.25" PointY="8.922841796874998" />
+          <ConnectorPoint PointX="3.0572879166666667" PointY="8.922841796874998" />
+          <ConnectorPoint PointX="3.2239545833333336" PointY="8.922841796874998" />
+          <ConnectorPoint PointX="3.3437475" PointY="8.922841796874998" />
+          <ConnectorPoint PointX="3.3437475" PointY="5.6725065104166674" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="LibraryModel.Category" Width="1.5" PointX="0.5" PointY="5.625" Height="1.5956835937499996" />
-        <EntityTypeShape EntityType="LibraryModel.Tag" Width="1.5" PointX="5.25" PointY="2.25" Height="1.5956835937499996" />
-        <AssociationConnector Association="LibraryModel.fk_Category_Book_ctgID" >
-          <ConnectorPoint PointX="2" PointY="6.4778475520833334" />
-          <ConnectorPoint PointX="3.5312475" PointY="6.4778475520833334" />
-          <ConnectorPoint PointX="3.5312475" PointY="5.6725065104166656" />
+        <AssociationConnector Association="LibraryModel.fk_Book_Publisher" >
+          <ConnectorPoint PointX="2.25" PointY="11.172841796874998" />
+          <ConnectorPoint PointX="3.0572879166666667" PointY="11.172841796874998" />
+          <ConnectorPoint PointX="3.2239545833333336" PointY="11.172841796874998" />
+          <ConnectorPoint PointX="4.1562525" PointY="11.172841796874998" />
+          <ConnectorPoint PointX="4.1562525" PointY="5.6725065104166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="LibraryModel.Author_Book" >
+          <ConnectorPoint PointX="2.25" PointY="3.4228417968750016" />
+          <ConnectorPoint PointX="3" PointY="3.4228417968750016" />
         </AssociationConnector>
         <AssociationConnector Association="LibraryModel.Tag_Book" >
-          <ConnectorPoint PointX="4.5" PointY="3.047841796875" />
-          <ConnectorPoint PointX="5.25" PointY="3.047841796875" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="LibraryModel.Language" Width="1.5" PointX="6.375" PointY="4.5" Height="1.5956835937499996" />
-        <AssociationConnector Association="LibraryModel.fk_Book_Language_lngID" >
-          <ConnectorPoint PointX="6.375" PointY="5.0862532552083328" />
-          <ConnectorPoint PointX="4.5" PointY="5.0862532552083328" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="LibraryModel.Seri" Width="1.5" PointX="7.375" PointY="0.875" Height="1.5956835937499996" />
-        <AssociationConnector Association="LibraryModel.fk_Book_Seri_seriID" >
-          <ConnectorPoint PointX="7.375" PointY="1.59375" />
-          <ConnectorPoint PointX="4.5" PointY="1.59375" />
+          <ConnectorPoint PointX="2.25" PointY="13.547841796874998" />
+          <ConnectorPoint PointX="3.14062125" PointY="13.547841796874998" />
+          <ConnectorPoint PointX="3.14062125" PointY="5.6725065104166674" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
