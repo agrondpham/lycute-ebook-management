@@ -13,11 +13,13 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Windows.Media.Animation;
-using Agrond.Lycute.Bus;
+using Agrond.DataAccess;
 using System.Collections.ObjectModel;
-using Agrond.Lycute.DAO;
+using Agrond.DataAccess;
 using System.Windows.Threading;
 using System.Diagnostics;
+using Agrond.ObjectLib;
+using Agrond.Plus;
 
 namespace LycuteEbookManagement.Search
 {
@@ -85,7 +87,7 @@ namespace LycuteEbookManagement.Search
         }
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
-            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
+            string url = Naming.GetFileURL(Naming.GetFirstAuthor(_strAuthor), _strTitle, _strFileType);
             Process.Start(url);
         }
         private void btn_CloseProperties_MouseDown(object sender, MouseButtonEventArgs e)

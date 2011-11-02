@@ -12,9 +12,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using Agrond.Lycute.DAO;
-using Agrond.Lycute.Bus;
 using System.Windows.Media.Animation;
+using Agrond.ObjectLib;
+using Agrond.DataAccess;
+using Agrond.Validation;
+using Agrond.Plus;
+using Agrond.Option;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -22,7 +25,10 @@ namespace LycuteEbookManagement.Ebook
     /// Interaction logic for Editor.xaml
     /// </summary>
     public partial class Editor : UserControl
-    {
+    {   BookLib booklib = new BookLib();
+        AuthorLib authorlib = new AuthorLib();
+        PublisherLib publisherlib = new PublisherLib();
+
         #region variable
         public static Book _book { set; get; }
         public static Book _Internetbook { set; get; }
@@ -30,9 +36,7 @@ namespace LycuteEbookManagement.Ebook
         private static string _OldAuthor { get; set; }
         private static string _OldTitle { get; set; }
         private static string _OldEbookFile { get; set; }
-        BookLib booklib = new BookLib();
-        AuthorLib authorlib = new AuthorLib();
-        PublisherLib publisherlib = new PublisherLib();
+
         public static Boolean IsAddnewMode{get;set;}
         public static string filelocation{get;set;}
         //private static string _BookID = "";
@@ -111,8 +115,9 @@ namespace LycuteEbookManagement.Ebook
                 Search.InternetSearch._bookID = _book.bok_ID.ToString();
             }
             //setdata to pass
-            Search.InternetSearch._IsISBN = IsISBN;
             Search.InternetSearch._keyword = GetDataToSearch();
+            Search.InternetSearch._IsISBN = IsISBN;
+            
             if (fileLocation1.txtFileLocation.Text != "")
                 filelocation = fileLocation1.txtFileLocation.Text;
             
@@ -246,7 +251,7 @@ namespace LycuteEbookManagement.Ebook
             return keyword;
         }
         private string CreateOldDirectory(string oldAuhthor, string oldTitle) {
-            string oldDirectory = LycuteApplication.GetLocationString() + "\\" + NameCreater.CreateLocation(oldAuhthor, NameCreater.CreateName(oldTitle));
+            string oldDirectory = LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(oldAuhthor, Naming.CreateName(oldTitle));
             return oldDirectory;
         }
         #endregion

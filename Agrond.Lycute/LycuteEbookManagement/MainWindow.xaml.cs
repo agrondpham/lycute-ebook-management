@@ -5,7 +5,8 @@ using System.Xml;
 using System.Windows.Media.Animation;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Agrond.Lycute.Bus;
+using Agrond.Plus;
+using Agrond.Option;
 namespace LycuteEbookManagement
 {
     /// <summary>
@@ -23,7 +24,7 @@ namespace LycuteEbookManagement
         public MainWindow()
         {
             InitializeComponent();
-            Agrond.Lycute.Bus.StoreLocation store=new Agrond.Lycute.Bus.StoreLocation();
+            StoreLocation store=new StoreLocation();
             if (!StoreLocation.IsDBConfiged())
             {
                 //load config forms

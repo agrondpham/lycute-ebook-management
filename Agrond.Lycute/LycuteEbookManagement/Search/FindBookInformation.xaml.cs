@@ -10,9 +10,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Agrond.Lycute.Bus;
 using System.Collections.ObjectModel;
-using Agrond.Lycute.DAO;
+using Agrond.DataAccess;
+using Agrond.ObjectLib;
 
 namespace LycuteEbookManagement.BookSearch
 {

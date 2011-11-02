@@ -265,13 +265,25 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Agrond.Lycute.Bus\Agrond.Lycute.Bus.csproj">
-      <Project>{D6F6199C-BF25-4721-AD25-E17124807DC6}</Project>
-      <Name>Agrond.Lycute.Bus</Name>
+    <ProjectReference Include="..\Agrond.DataAccess\Agrond.DataAccess.csproj">
+      <Project>{1AC669AC-59BD-4526-86C8-0380B5594CCE}</Project>
+      <Name>Agrond.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Agrond.Lycute.DAO\Agrond.Lycute.DAO.csproj">
-      <Project>{D1733DCF-A8FC-483F-8368-97BDFBCA8840}</Project>
-      <Name>Agrond.Lycute.DAO</Name>
+    <ProjectReference Include="..\Agrond.ObjectLib\Agrond.ObjectLib.csproj">
+      <Project>{18EDC6F3-3633-4DB9-B1F1-DEDAF67006F2}</Project>
+      <Name>Agrond.ObjectLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Agrond.Option\Agrond.Option.csproj">
+      <Project>{6A172D97-8C5A-40A4-A25E-F1BE1BA00B94}</Project>
+      <Name>Agrond.Option</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Agrond.Plus\Agrond.Plus.csproj">
+      <Project>{1DD05742-20AE-4F8C-97E4-7322725E726C}</Project>
+      <Name>Agrond.Plus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Agrond.Validation\Agrond.Validation.csproj">
+      <Project>{98C01C3C-019B-486F-BCF1-697F18E657D9}</Project>
+      <Name>Agrond.Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

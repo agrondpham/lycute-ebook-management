@@ -11,9 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Agrond.Lycute.DAO;
-using Agrond.Lycute.Bus;
+using Agrond.DataAccess;
 using System.Diagnostics;
+using Agrond.ObjectLib;
+using Agrond.Plus;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -23,7 +24,7 @@ namespace LycuteEbookManagement.Ebook
     public partial class Detail : UserControl
     {
         #region Variable
-        Agrond.Lycute.Bus.BookLib booklib=new Agrond.Lycute.Bus.BookLib();
+        BookLib booklib=new BookLib();
         public static Book _book{ set; get; }
         MainWindow m;
         #endregion
@@ -77,7 +78,7 @@ namespace LycuteEbookManagement.Ebook
 
         private void btn_Read_Click(object sender, RoutedEventArgs e)
         {
-            string url = NameCreater.GetFileURL(NameCreater.GetFirstAuthor(AuthorLib.ToString(_book.Authors)), _book.bok_Title, _book.bok_Location);
+            string url = Naming.GetFileURL(Naming.GetFirstAuthor(AuthorLib.ToString(_book.Authors)), _book.bok_Title, _book.bok_Location);
             Process.Start(url);
         }
 
