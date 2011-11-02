@@ -16,8 +16,8 @@ namespace Agrond.AmazonAPI
     {
         public XmlDocument GetData(Boolean pImage,Boolean pReview,string pISBN,string keyword) {
             try{
-                AmazonBookAPI.SetSerConfig("AKIAJ5DRZQZOCAF5O4HQ", "SgWiKs444qY3i+7jQ1j/tUdsc6J/cnauAKUy5Z1m");
-                AmazonBookAPI._strVersion = "2011-04-01";
+                AmazonBookAPI.SetSerConfig("AKIAJKYDGZUB55CJSPIQ", "k8/H7DouynptnUheX125oXg3byDvleLs4J0EDZYZ");
+                AmazonBookAPI._strVersion = "2011-11-01";
                 AmazonBookAPI._strServiceEndPoint="https://ecs.amazonaws.com/onca/xml";
 
 
@@ -31,10 +31,12 @@ namespace Agrond.AmazonAPI
                     parameters.Add("ItemId", pISBN);
                     parameters.Add("IdType", "ISBN");
                     parameters.Add("Operation", "ItemLookup");
+                    parameters.Add("AssociateTag", "agrondlycute-20");
                 }
                 else {
                     parameters.Add("Keywords", keyword);
-                    parameters.Add("Operation", "ItemSearch"); 
+                    parameters.Add("Operation", "ItemSearch");
+                    parameters.Add("AssociateTag", "agrondlycute-20");
                 }
 
                 // Version 2 - New approach of signing requests

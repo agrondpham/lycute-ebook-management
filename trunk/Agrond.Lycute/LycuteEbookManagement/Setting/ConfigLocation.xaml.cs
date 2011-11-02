@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Agrond.Option;
+using Agrond.Plus;
 
 namespace LycuteEbookManagement.Setting
 {
@@ -23,7 +25,7 @@ namespace LycuteEbookManagement.Setting
         public ConfigLocation()
         {
             InitializeComponent();
-            tbx_Store.Text= Agrond.Lycute.Bus.LycuteApplication.GetLocationString();
+            tbx_Store.Text= LycuteApplication.GetLocationString();
             this.Loaded += new RoutedEventHandler(loadParent);
         }
         private void loadParent(object sender, RoutedEventArgs e)
@@ -40,8 +42,8 @@ namespace LycuteEbookManagement.Setting
 
         private void btn_ok_Click(object sender, RoutedEventArgs e)
         {
-            Agrond.Lycute.Bus.StoreLocation store = new Agrond.Lycute.Bus.StoreLocation();
-            Agrond.Lycute.Bus.LycuteApplication.SetLocation(tbx_Store.Text);
+            StoreLocation store = new StoreLocation();
+            LycuteApplication.SetLocation(tbx_Store.Text);
             store.CheckDatabase(tbx_Store.Text);
             DBHelper.ConfigDatabase();
             m.loadMain(new Home());

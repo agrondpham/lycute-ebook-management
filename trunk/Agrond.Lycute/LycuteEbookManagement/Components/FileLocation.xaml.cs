@@ -19,9 +19,11 @@ namespace LycuteEbookManagement.Components
     /// </summary>
     public partial class FileLocation : UserControl
     {
+        MainWindow m;
         public FileLocation()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(loadParent);
         }
         //Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
         private void btn_GetFile_Click(object sender, RoutedEventArgs e)
@@ -32,7 +34,10 @@ namespace LycuteEbookManagement.Components
             if (dlg.FileName != "")
                 txtFileLocation.Text = dlg.FileName;
         }
-
+        private void loadParent(object sender, RoutedEventArgs e)
+        {
+            m = (MainWindow)Window.GetWindow(this);
+        }
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Hidden;
@@ -41,7 +46,8 @@ namespace LycuteEbookManagement.Components
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
             txtFileLocation.Text = "";
-            this.Visibility = Visibility.Hidden;
+            //this.Visibility = Visibility.Hidden;
+            m.loadMain(new Home());
         }
     }
 }

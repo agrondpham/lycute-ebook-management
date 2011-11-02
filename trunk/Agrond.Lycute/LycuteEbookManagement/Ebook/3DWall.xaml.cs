@@ -11,7 +11,8 @@ using System.Diagnostics;
 using System.Windows.Threading;
 using LycuteEbookManagement._3DWall;
 using System.Collections.ObjectModel;
-using Agrond.Lycute.DAO;
+using Agrond.DataAccess;
+using Agrond.ObjectLib;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -113,7 +114,7 @@ namespace LycuteEbookManagement.Ebook
         /// <returns></returns>
         private ObservableCollection<Book> GetQueryResults()
         {
-            Agrond.Lycute.Bus.BookLib bokLib = new Agrond.Lycute.Bus.BookLib();
+            BookLib bokLib = new BookLib();
             return bokLib.Search("");
         }
         private void CreateModelsForImages(ObservableCollection<Book> pBookObj)
