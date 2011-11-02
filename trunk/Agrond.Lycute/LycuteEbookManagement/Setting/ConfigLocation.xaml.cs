@@ -44,14 +44,18 @@ namespace LycuteEbookManagement.Setting
         {
             StoreLocation store = new StoreLocation();
             LycuteApplication.SetLocation(tbx_Store.Text);
-            store.CheckDatabase(tbx_Store.Text);
+            store.CreateDatabase(tbx_Store.Text);
             DBHelper.ConfigDatabase();
             m.loadMain(new Home());
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
-            m.loadMain(new Home());
+            StoreLocation store = new StoreLocation();
+            if (store.IsDatabaseExist(tbx_Store.Text))
+                m.loadMain(new Home());
+            else
+                m.Close();
         }
     }
 }

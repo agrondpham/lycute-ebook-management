@@ -11,7 +11,7 @@ namespace Agrond.Plus
             if (strLocation != "") { Option.LycuteOption._RootFolderDrection = strLocation;return true; }
             else {  return false; }
         }
-        public void CheckDatabase(string pStrLibLocation) {
+        public void CreateDatabase(string pStrLibLocation) {
             string strDBFileName = "\\Library.sdf";
             //bool checkResult = false;
             if (Directory.Exists(pStrLibLocation))
@@ -21,10 +21,21 @@ namespace Agrond.Plus
                     CreateDB(pStrLibLocation, "\\Library.sdf");
                 }
             }
-            else {
+            else
+            {
                 Directory.CreateDirectory(pStrLibLocation);
-                CreateDB(pStrLibLocation,strDBFileName);
+                CreateDB(pStrLibLocation, strDBFileName);
             }
+        }
+        public bool IsDatabaseExist(string pStrLibLocation)
+        {
+            if (Directory.Exists(pStrLibLocation))
+                if (!File.Exists(pStrLibLocation + "\\Library.sdf"))
+                    return false;
+                else
+                    return true;
+            else
+                return false;
         }
         private void CreateDB(string pStrLocation,string pStrFileName) {
             FileCopy CopyLib = new FileCopy();

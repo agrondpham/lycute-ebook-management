@@ -14,14 +14,14 @@ namespace Agrond.Option
         /// <returns>String location</returns>
         /// 
         //static LycuteEntities _mainDB = new LycuteEntities();
-        public static string GetLocationString() { 
-            LycuteEntities _mainDB=new LycuteEntities();
-            string strLocation = "";
-            var strLocations = from location in _mainDB.Configurations where location.Type == "Location" select location.Value;
-            foreach (string strLoca in strLocations) {
-                strLocation = strLoca;
+        public static string GetLocationString() {
+            try
+            {
+                LycuteEntities _mainDB = new LycuteEntities();
+                string strLocation = (from location in _mainDB.Configurations where location.Type == "Location" select location.Value).First();
+                return strLocation;
             }
-            return strLocation;
+            catch (Exception e) { return ""; }
         }
         public static string GetStructureFolderString()
         {         

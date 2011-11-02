@@ -32,7 +32,7 @@ namespace LycuteEbookManagement
             }
             else
             {
-                store.CheckDatabase(LycuteOption._RootFolderDrection);
+                store.CreateDatabase(LycuteOption._RootFolderDrection);
                 DBHelper.ConfigDatabase();
                 loadMain(_Element);
             }
