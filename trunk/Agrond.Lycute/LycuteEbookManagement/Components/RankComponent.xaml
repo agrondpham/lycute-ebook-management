@@ -8,7 +8,7 @@
     <Grid>
         <TextBox HorizontalAlignment="Left" Margin="34,89,0,0" Name="textBox1" Style="{StaticResource textBoxStyle}" VerticalAlignment="Top" Width="39" Text="1"/>
         <Image Height="32" HorizontalAlignment="Left" Margin="88,72,0,0" Name="btn_Add" Source="/LycuteEbookManagement;component/Images/Components/add.png" Stretch="Fill" VerticalAlignment="Top" Visibility="Visible" Width="32" MouseDown="btn_Add_MouseDown" />
-        <Image Height="32" HorizontalAlignment="Left" Margin="88,0,0,12" Name="btn_Minus" Source="/LycuteEbookManagement;component/Images/Components/minus.png" Stretch="Fill" VerticalAlignment="Bottom" Visibility="Visible" Width="32" MouseDown="btn_Minus_MouseDown" />
+        <Image Height="32" HorizontalAlignment="Left" Margin="88,110,0,0" Name="btn_Minus" Source="/LycuteEbookManagement;component/Images/Components/minus.png" Stretch="Fill" VerticalAlignment="Top" Visibility="Visible" Width="32" MouseDown="btn_Minus_MouseDown" />
         <Image Height="43" HorizontalAlignment="Left" Margin="10,10,0,0" Name="image1" Source="/LycuteEbookManagement;component/Images/Components/1star.png" Stretch="Uniform" VerticalAlignment="Top" Width="148" />
     </Grid>
 </UserControl>

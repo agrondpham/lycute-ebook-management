@@ -78,33 +78,36 @@ namespace LycuteEbookManagement.Ebook
         }
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            string strAuthor = ValidationLib.DefaultData(autoCompleteBox_Author.Text);
-            TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
-            Book editedBook ;
-            if (IsAddnewMode)
+            if (DataIsValidated())
             {
-                if (fileLocation1.txtFileLocation.Text != "" || filelocation!="")
+                string strAuthor = ValidationLib.DefaultData(autoCompleteBox_Author.Text);
+                TextRange textRange = new TextRange(txtReview.Document.ContentStart, txtReview.Document.ContentEnd);
+                Book editedBook;
+                if (IsAddnewMode)
                 {
+                    if (fileLocation1.txtFileLocation.Text != "" || filelocation != "")
+                    {
 
-                    string filesource = "";
-                    if (fileLocation1.txtFileLocation.Text != "")
-                        filesource = fileLocation1.txtFileLocation.Text;
-                    else
-                        filesource = filelocation;
-                    editedBook = AddData( new Book());
-                    string[] arrayFileSource = fileLocation1.txtFileLocation.Text.Split('\\');
-                    _OldEbookFile = arrayFileSource[arrayFileSource.Count() - 1];
-                    booklib.Add(editedBook, strAuthor, textRange.Text, filesource, _OldEbookFile);
+                        string filesource = "";
+                        if (fileLocation1.txtFileLocation.Text != "")
+                            filesource = fileLocation1.txtFileLocation.Text;
+                        else
+                            filesource = filelocation;
+                        editedBook = AddData(new Book());
+                        string[] arrayFileSource = fileLocation1.txtFileLocation.Text.Split('\\');
+                        _OldEbookFile = arrayFileSource[arrayFileSource.Count() - 1];
+                        booklib.Add(editedBook, strAuthor, textRange.Text, filesource, _OldEbookFile);
+                    }
                 }
+                else
+                {
+                    editedBook = AddData(_book);
+                    string oldDri = CreateOldDirectory(_OldAuthor, _OldTitle);
+                    booklib.Edit(editedBook, strAuthor, oldDri, textRange.Text, _OldEbookFile);
+                } m.loadMain(new Home());
+                //Save Author
+                //Save Publisher
             }
-            else
-            {
-                editedBook = AddData(_book);
-                string oldDri = CreateOldDirectory(_OldAuthor, _OldTitle);
-                booklib.Edit(editedBook, strAuthor, oldDri, textRange.Text,_OldEbookFile);
-            } m.loadMain(new Home());
-            //Save Author
-            //Save Publisher
         }
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
         {
@@ -154,8 +157,8 @@ namespace LycuteEbookManagement.Ebook
             txtTitle.Text = pBook.bok_Title;
             txtEdition.Text = pBook.bok_Edition.ToString();
 
-            ucComBoxVolume.setText(pBook.bok_Volume.ToString());
-            ucComBoxYear.setText(pBook.bok_Year.ToString());
+            ucComBoxVolume.Text=pBook.bok_Volume.ToString();
+            ucComBoxYear.Text=pBook.bok_Year.ToString();
             rankComponent1.setText(Rank.RankNumber(pBook.bok_Rank));
 
             txtReview.AppendText(pBook.bok_Review);
@@ -173,16 +176,19 @@ namespace LycuteEbookManagement.Ebook
         
         }
 
-        private Book AddData(Book pbook) { 
+        private Book AddData(Book pbook) {
+            
             if (img_Cover.Source.ToString() != "pack://application:,,,/LycuteEbookManagement;component/Images/no_picture_available.png")
             pbook.bok_ImageURl = img_Cover.Source.ToString();
             pbook.bok_ID = pbook.bok_ID;
+            
             pbook.bok_ISBN = txtISBN.Text;
             pbook.bok_Title = txtTitle.Text;
             //error if textbox has not data
             pbook.bok_Edition= Convert.ToInt32(txtEdition.Text);
-            pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.getText());
-            pbook.bok_Year=Convert.ToInt32(ucComBoxYear.getText());
+            pbook.bok_Volume=Convert.ToInt32(ucComBoxVolume.Text);
+            pbook.bok_Year=Convert.ToInt32(ucComBoxYear.Text);
+            
             pbook.bok_Rank=rankComponent1.getText().ToString();
             
             // publisher
@@ -253,6 +259,40 @@ namespace LycuteEbookManagement.Ebook
         private string CreateOldDirectory(string oldAuhthor, string oldTitle) {
             string oldDirectory = LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(oldAuhthor, Naming.CreateName(oldTitle));
             return oldDirectory;
+        }
+        private bool DataIsValidated() {
+            if (ValidationLib.IsNum(txtEdition.Text)==true
+                && ValidationLib.IsNum(ucComBoxVolume.Text)==true
+                && ValidationLib.IsNum(ucComBoxYear.Text)==true
+                && ValidationLib.IsNull(txtTitle.Text)==false
+                )
+            {
+                return true;
+            }
+            else
+            {//alert
+
+                DetectErrors();
+                return false;
+            }
+
+
+        
+        }
+        private void DetectErrors() {
+            if (ValidationLib.IsNull(txtTitle.Text) == true) {
+                txtTitle.Background = Brushes.Red;
+            }
+            if (ValidationLib.IsNum(txtEdition.Text) == false) {
+                txtEdition.Bground = Brushes.Red;
+            }
+            if (ValidationLib.IsNum(ucComBoxVolume.Text) == false) {
+                ucComBoxVolume.Bground = Brushes.Red;
+            }
+            if (ValidationLib.IsNum(ucComBoxYear.Text) == false) {
+                ucComBoxYear.Bground = Brushes.Red;
+            }
+        
         }
         #endregion
     }

@@ -23,20 +23,13 @@ namespace LycuteEbookManagement.Components
         {
             InitializeComponent();
         }
-        private static string strTextBoxValue = "";
-        public string getText() {
-            return strTextBoxValue = textBox1.Text;
+        public string Text { get{return textBox1.Text;} set {textBox1.Text = value; } }
+        public Brush Bground { get { return textBox1.Background; } set { textBox1.Background = value; /*textBox1.Background.Opacity = .90;*/ } }
 
-        }
-        public void setText(string value) {
-            strTextBoxValue = value;
-            textBox1.Text = strTextBoxValue;
-        }
         private void textBox1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //textBox1.IsReadOnly = true;
         }
-
         private void btn_Add_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
@@ -45,7 +38,9 @@ namespace LycuteEbookManagement.Components
                 value += 1;
                 textBox1.Text = value.ToString();
             }
-            catch (Exception ex) { }
+            catch {
+                textBox1.Text = "0";
+            }
         }
 
         private void btn_Minus_MouseDown(object sender, MouseButtonEventArgs e)
@@ -59,7 +54,9 @@ namespace LycuteEbookManagement.Components
                 }
                 textBox1.Text = value.ToString();
             }
-            catch (Exception ex) { }
+            catch {
+                textBox1.Text = "0";
+            }
         }
     }
 }
