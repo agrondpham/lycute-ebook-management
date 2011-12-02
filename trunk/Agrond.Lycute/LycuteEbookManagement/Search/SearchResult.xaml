@@ -41,27 +41,18 @@
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="ItemContainerStyle" Value="{DynamicResource ItemContStyle}"/>
         </Style>
-        <Style TargetType="{x:Type ListViewItem}" x:Key="ListViewItemStyleBase">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                            <StackPanel>
-                                <GridViewRowPresenter />
-                                <TextBlock Text="{Binding XPath=Details}" Visibility="Collapsed" Name="tb" TextWrapping="Wrap" Margin="2,0,0,4"/>
-                            </StackPanel>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Trigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible" TargetName="tb"/>
-                                </Trigger.Setters>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="Foreground" Value="#000000"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="#000000"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="GridViewColumnHeaderStyle"  TargetType="GridViewColumnHeader">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -121,9 +112,9 @@
                         <!--Search result-->
                         <Border Style="{StaticResource canvas_border}" Height="700" Width="860" Margin="-12,0,0,0">
 		                    <Canvas Background="#000000">
-		                        <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="550" Canvas.Left="2" Canvas.Top="132" Width="838" SelectionChanged="listview_Result_SelectionChanged" >
+                            <ListView x:Name="listview_Result" ItemsSource="{Binding}" d:LayoutOverrides="HorizontalAlignment" Style="{StaticResource ListviewStyle}" Height="550" Canvas.Left="2" Canvas.Top="132" Width="838" SelectionChanged="listview_Result_SelectionChanged">
 		                            <ListView.View>
-		                                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
+		                               <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
 		                                    <GridViewColumn Header="Title" DisplayMemberBinding="{Binding bok_Title}" Width="250"/>
 		                                    <GridViewColumn Header="Category" DisplayMemberBinding="{Binding ath_Name}" Width="240"/>
 		                                    <GridViewColumn Header="Rank" CellTemplate="{StaticResource RankItemTemplate}"  Width="150"/>

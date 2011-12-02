@@ -281,6 +281,10 @@
       <Project>{1DD05742-20AE-4F8C-97E4-7322725E726C}</Project>
       <Name>Agrond.Plus</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Agrond.SearchEngin\Agrond.SearchEngin.csproj">
+      <Project>{F77968D5-1B66-458B-A9DF-DFCAF36588D3}</Project>
+      <Name>Agrond.SearchEngin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Agrond.Validation\Agrond.Validation.csproj">
       <Project>{98C01C3C-019B-486F-BCF1-697F18E657D9}</Project>
       <Name>Agrond.Validation</Name>

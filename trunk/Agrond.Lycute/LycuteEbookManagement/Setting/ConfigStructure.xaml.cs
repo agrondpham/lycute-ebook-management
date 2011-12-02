@@ -26,7 +26,7 @@ namespace LycuteEbookManagement.Setting
         {
 
             Common.AlertDiag alert = new Common.AlertDiag();
-            alert.setStrAlertNote("This change can be lead to the reload of application. \n It can get the time for change setting");
+            alert._strAlertNote="This change can be lead to the reload of application. \n It can get the time for change setting";
             alert.ShowInTaskbar = false;
             alert.WindowStyle = WindowStyle.ToolWindow;
             alert.ShowDialog();

@@ -25,7 +25,7 @@ namespace LycuteEbookManagement.Setting
         public ConfigLocation()
         {
             InitializeComponent();
-            tbx_Store.Text= LycuteApplication.GetLocationString();
+            tbx_Store.Content= LycuteApplication.GetLocationString();
             this.Loaded += new RoutedEventHandler(loadParent);
         }
         private void loadParent(object sender, RoutedEventArgs e)
@@ -37,22 +37,30 @@ namespace LycuteEbookManagement.Setting
             System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
             dlg.ShowDialog();
             if (dlg.SelectedPath != "")
-            tbx_Store.Text = dlg.SelectedPath;
+            tbx_Store.Content = dlg.SelectedPath;
         }
 
         private void btn_ok_Click(object sender, RoutedEventArgs e)
         {
             StoreLocation store = new StoreLocation();
-            LycuteApplication.SetLocation(tbx_Store.Text);
-            store.CreateDatabase(tbx_Store.Text);
+            LycuteApplication.SetLocation(tbx_Store.Content.ToString());
+            store.CreateDatabase(tbx_Store.Content.ToString());
             DBHelper.ConfigDatabase();
+            //alert
+            Common.AlertDiag alert1 = new Common.AlertDiag();
+            alert1._strAlertNote = "Location of e-book library is changed";
+            alert1.ShowInTaskbar = false;
+            alert1.WindowStyle = WindowStyle.ToolWindow;
+            alert1.CancelButton = Visibility.Hidden;
+            alert1.ShowDialog();
+
             m.loadMain(new Home());
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
             StoreLocation store = new StoreLocation();
-            if (store.IsDatabaseExist(tbx_Store.Text))
+            if (store.IsDatabaseExist(tbx_Store.Content.ToString()))
                 m.loadMain(new Home());
             else
                 m.Close();

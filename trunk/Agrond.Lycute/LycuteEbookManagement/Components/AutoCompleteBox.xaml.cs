@@ -20,6 +20,7 @@ namespace LycuteEbookManagement.Components
     /// </summary>
     public partial class AutoCompleteBox : UserControl
     {
+
         public AutoCompleteBox()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace LycuteEbookManagement.Components
         #region Variable
         public static List<string> _ListData { get; set; }
         public bool IsClearData { get; set; }
+        public Brush Bground { get { return textBox1.Background; } set { textBox1.Background = value; /*textBox1.Background.Opacity = .90;*/ } }
         #endregion
 
         #region set get

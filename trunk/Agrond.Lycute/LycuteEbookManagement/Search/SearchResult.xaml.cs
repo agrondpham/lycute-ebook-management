@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using Agrond.ObjectLib;
 using Agrond.Plus;
+using Agrond.SearchEngin;
 
 namespace LycuteEbookManagement.Search
 {
@@ -47,7 +48,7 @@ namespace LycuteEbookManagement.Search
         {
             InitializeComponent();
             if (_strKeyword != null) {
-                loadData(_strKeyword);
+                loadData(SearchLib.Search(_strKeyword));
                 tbx_Search.Text = _strKeyword;
             }
             this.Loaded += new RoutedEventHandler(loadParent);
@@ -57,7 +58,8 @@ namespace LycuteEbookManagement.Search
         #region Event
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            loadData(tbx_Search.Text);
+
+            loadData(SearchLib.Search(tbx_Search.Text));
             closeBookProperties();
         }
 
@@ -98,7 +100,7 @@ namespace LycuteEbookManagement.Search
         #endregion
 
         #region function
-        private void loadData(string pStrKeyword) {
+        private void loadData(Dictionary<string,string> pStrKeyword) {
             ObservableCollection<Book> _book = booklib.Search(pStrKeyword);
             listview_Result.DataContext = _book;
         }
@@ -167,9 +169,6 @@ namespace LycuteEbookManagement.Search
             }
         }
         #endregion
-
-
-
 
     }
 }
