@@ -126,24 +126,109 @@ namespace Agrond.ObjectLib
         
 
         /*Show ebook data from database*/
-        public ObservableCollection<Book> Search(string pKeywords)
+        //public ObservableCollection<Book> Search(string pKeywords)
+        //{
+        //    LibraryEntities mainDB = new LibraryEntities();
+        //    var ebooks = from ebook in mainDB.Books
+        //                 select ebook;
+        //    if (pKeywords != null && pKeywords != "")
+        //    {
+        //        ebooks = from ebook in mainDB.Books
+        //                 where ebook.bok_Title.Contains(pKeywords)
+        //                 select ebook ;
+        //    }
+        //    ObservableCollection<Book> obserCollectionBook=new ObservableCollection<Book>(ebooks);
+            
+        //    foreach (var b in obserCollectionBook)
+        //    {
+        //        string strAuthors = AuthorLib.ToString(b.Authors);
+        //        string strFirstAuthor = ConvertData.ToList(strAuthors)[0];
+        //        b.bok_ImageURl = LycuteApplication.GetLocationString() + "\\"+Naming.CreateLocation(strFirstAuthor,Naming.CreateName(b.bok_Title))+"\\"+b.bok_ImageURl;
+        //        b.bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank));
+        //        b.bok_Review = GetReview(LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(strFirstAuthor, Naming.CreateName(b.bok_Title)) + "\\" + b.bok_Review);
+
+        //    }
+        //    return obserCollectionBook;
+        //}
+        
+        //need to optimus
+        public ObservableCollection<Book> Search(Dictionary<string,string> pKeywords)
         {
             LibraryEntities mainDB = new LibraryEntities();
             var ebooks = from ebook in mainDB.Books
+                         from auth in ebook.Authors
                          select ebook;
-            if (pKeywords != null && pKeywords != "")
+            if (pKeywords != null)
             {
-                ebooks = from ebook in mainDB.Books
-                         where ebook.bok_Title.Contains(pKeywords)
-                         select ebook ;
+                string author="";
+                string publisher = "";
+                string title = "";
+                if(pKeywords.ContainsKey("author"))
+                {
+                    author = pKeywords["author"];
+                }
+                if (pKeywords.ContainsKey("publisher"))
+                {
+                    publisher = pKeywords["publisher"];
+                }
+                if (pKeywords.ContainsKey("title"))
+                {
+                    title = pKeywords["title"];
+                }
+                if (author != "" && publisher != "" && title!="")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             from auth in ebook.Authors
+                             where ebook.bok_Title.Contains(pKeywords["title"])
+                             where auth.ath_Name.Contains(author)
+                             where ebook.Publisher.pbl_Name.Contains(publisher)
+                             select ebook;
+                }
+                else if (author != "" && title != "")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             from auth in ebook.Authors
+                             where ebook.bok_Title.Contains(title)
+                             where auth.ath_Name.Contains(author)
+                             select ebook;
+                }
+                else if (publisher != "" && title != "")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             where ebook.bok_Title.Contains(title)
+                             where ebook.Publisher.pbl_Name.Contains(publisher)
+                             select ebook;
+                }
+                else if (author != "" && title == "")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             from auth in ebook.Authors
+                             //where ebook.bok_Title.Contains(pKeywords["title"])
+                             where auth.ath_Name.Contains(author)
+                             select ebook;
+                }
+                else if (publisher != "" && title == "")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             //where ebook.bok_Title.Contains(pKeywords["title"])
+                             where ebook.Publisher.pbl_Name.Contains(publisher)
+                             select ebook;
+                }
+                else if (title != "")
+                {
+                    ebooks = from ebook in mainDB.Books
+                             where ebook.bok_Title.Contains(title)
+                             //where ebook.Publisher.pbl_Name.Contains(publisher)
+                             select ebook;
+                }
             }
-            ObservableCollection<Book> obserCollectionBook=new ObservableCollection<Book>(ebooks);
-            
+            ObservableCollection<Book> obserCollectionBook = new ObservableCollection<Book>(ebooks);
+
             foreach (var b in obserCollectionBook)
             {
                 string strAuthors = AuthorLib.ToString(b.Authors);
                 string strFirstAuthor = ConvertData.ToList(strAuthors)[0];
-                b.bok_ImageURl = LycuteApplication.GetLocationString() + "\\"+Naming.CreateLocation(strFirstAuthor,Naming.CreateName(b.bok_Title))+"\\"+b.bok_ImageURl;
+                b.bok_ImageURl = LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(strFirstAuthor, Naming.CreateName(b.bok_Title)) + "\\" + b.bok_ImageURl;
                 b.bok_Rank = Rank.RankImage(Convert.ToInt32(b.bok_Rank));
                 b.bok_Review = GetReview(LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(strFirstAuthor, Naming.CreateName(b.bok_Title)) + "\\" + b.bok_Review);
 
@@ -198,6 +283,8 @@ namespace Agrond.ObjectLib
           
             ebooks.bok_Edition = pEbook.bok_Edition;
             ebooks.bok_ISBN = pEbook.bok_ISBN;
+            if (strFileType != "")
+                ebooks.bok_ImageURl = "cover." + strFileType;
             ebooks.bok_Modified = pEbook.bok_Modified;
             ebooks.bok_Rank = pEbook.bok_Rank;
             ebooks.bok_Title = pEbook.bok_Title;
@@ -303,7 +390,16 @@ namespace Agrond.ObjectLib
             xmlWriter.WriteEndDocument();
             xmlWriter.Close();
         }
-
+        public void Delete(string pID) {
+            LibraryEntities mainDB = new LibraryEntities();
+            
+            var ebooks = (from ebook in mainDB.Books
+                          from athour in ebook.Authors
+                          where ebook.bok_ID == pID
+                          select ebook).First();
+            mainDB.DeleteObject(ebooks);
+            mainDB.SaveChanges();
+        }
         
         
     }
