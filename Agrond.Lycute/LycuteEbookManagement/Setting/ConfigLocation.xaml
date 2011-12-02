@@ -3,14 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Height="800" Width="1280">
     <UserControl.Resources>
-        <Style x:Key="textBoxStyle" TargetType="TextBox">
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Background" Value="#AA4E4D4D"/>
-            <Setter Property="Foreground" Value="#FFFFFF" />
-            <Setter Property="BorderBrush" Value="#99FFFFFF"/>
-            <Setter Property="BorderThickness" Value="5"/>
-        </Style>
         <Style x:Key="labelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -19,7 +11,8 @@
 
     </UserControl.Resources>
     <Grid>
-        <TextBox HorizontalAlignment="Left" Text="C:/Program Files/Agrond/Lycute" Margin="279,66,0,0" Name="tbx_Store" VerticalAlignment="Top" Width="400" Style="{StaticResource textBoxStyle}"/>
+        <Label Content="" Style="{StaticResource labelInTextBoxStyle}" Height="50" HorizontalAlignment="Left" Margin="228,64,0,0" Name="tbx_Store" VerticalAlignment="Top" Width="450" />
+        <!--<TextBox HorizontalAlignment="Left" Text="C:/Program Files/Agrond/Lycute" Margin="279,66,0,0" Name="tbx_Store" VerticalAlignment="Top" Width="400" Style="{StaticResource textBoxStyle}"/>-->
         <Label Content="Ebook Store Area" HorizontalAlignment="Left" Margin="36,66,0,0" Name="label1" VerticalAlignment="Top" Style="{StaticResource labelStyle}"/>
         <Button Content="Browse" HorizontalAlignment="Left" Margin="703,54,0,679" Name="btn_BrowserFolder" Style="{StaticResource btnGlass}" Width="150" Click="btn_BrowserFolder_Click"/>
         <Image Height="48" HorizontalAlignment="Left" Margin="794,64,0,0" Name="image1" Stretch="Uniform" VerticalAlignment="Top" Width="48" Source="/LycuteEbookManagement;component/Images/Components/folder.png" />

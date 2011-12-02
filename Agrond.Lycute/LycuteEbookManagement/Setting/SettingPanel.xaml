@@ -42,9 +42,9 @@
             <StackPanel>
                 <Grid Height="1280">
                     <Button Content="Change Ebook's Library location" HorizontalAlignment="Left" Margin="183,53,0,0" Name="btn_SetLocation" VerticalAlignment="Top" Width="381" Style="{StaticResource btnGlass}" Click="btn_SetLocation_Click" />
-                    <Button Content="Change Structure of Library" HorizontalAlignment="Left" Margin="183,124,0,0" Name="btn_SetStructure" VerticalAlignment="Top" Width="381" Style="{StaticResource btnGlass}" Click="btn_SetStructure_Click" />
+                    <Button Content="Change Structure of Library" HorizontalAlignment="Left" Margin="183,124,0,0" Name="btn_SetStructure" VerticalAlignment="Top" Width="381" Style="{StaticResource btnGlass}" Click="btn_SetStructure_Click" Visibility="Hidden"/>
                     <Image Height="48" HorizontalAlignment="Left" Margin="93,54,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="48" Source="/LycuteEbookManagement;component/Images/Components/settings.png" />
-                    <Image Height="48" HorizontalAlignment="Left" Margin="93,125,0,0" Name="image3" Source="/LycuteEbookManagement;component/Images/Components/settings.png" Stretch="Fill" VerticalAlignment="Top" Width="48" />
+                    <Image Height="48" HorizontalAlignment="Left" Margin="93,125,0,0" Name="image3" Source="/LycuteEbookManagement;component/Images/Components/settings.png" Stretch="Fill" VerticalAlignment="Top" Width="48" Visibility="Hidden"/>
                 </Grid>
             </StackPanel>
         </StackPanel>

@@ -87,5 +87,28 @@ namespace LycuteEbookManagement.Ebook
             m.loadMain(new Home());
         }
         #endregion
+
+        private void btn_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            //ask for sure to delete
+            Common.AlertDiag alert = new Common.AlertDiag();
+            alert._strAlertNote="Do you sure to delete this ebook.\nYou will can NOT restore this ebook for next time";
+            alert.ShowInTaskbar = false;
+            alert.WindowStyle = WindowStyle.ToolWindow;
+            alert.ShowDialog();
+            if (alert.result)
+            {
+                //remove the folder
+                booklib.Delete(_book.bok_ID);
+                //
+                Common.AlertDiag alert1 = new Common.AlertDiag();
+                alert1._strAlertNote = "E-book is deleted successfull";
+                alert1.ShowInTaskbar = false;
+                alert1.WindowStyle = WindowStyle.ToolWindow;
+                alert1.CancelButton = Visibility.Hidden;
+                alert1.ShowDialog();
+                m.loadMain(new Home());
+            }
+        }
     }
 }

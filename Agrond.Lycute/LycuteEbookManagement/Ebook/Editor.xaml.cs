@@ -69,6 +69,7 @@ namespace LycuteEbookManagement.Ebook
         {
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
             dlg.Multiselect = false;
+            dlg.Filter = "JPG Image Files (*.jpg)|*.jpg";
             dlg.ShowDialog();
             if (dlg.FileName != "")
             {
@@ -78,6 +79,7 @@ namespace LycuteEbookManagement.Ebook
         }
         private void btn_save_Click(object sender, RoutedEventArgs e)
         {
+            string location = fileLocation1.txtFileLocation.Content.ToString();
             if (DataIsValidated())
             {
                 string strAuthor = ValidationLib.DefaultData(autoCompleteBox_Author.Text);
@@ -85,16 +87,16 @@ namespace LycuteEbookManagement.Ebook
                 Book editedBook;
                 if (IsAddnewMode)
                 {
-                    if (fileLocation1.txtFileLocation.Text != "" || filelocation != "")
+                    if (location != "" || filelocation != "")
                     {
 
                         string filesource = "";
-                        if (fileLocation1.txtFileLocation.Text != "")
-                            filesource = fileLocation1.txtFileLocation.Text;
+                        if (location != "")
+                            filesource = location;
                         else
                             filesource = filelocation;
                         editedBook = AddData(new Book());
-                        string[] arrayFileSource = fileLocation1.txtFileLocation.Text.Split('\\');
+                        string[] arrayFileSource = location.Split('\\');
                         _OldEbookFile = arrayFileSource[arrayFileSource.Count() - 1];
                         booklib.Add(editedBook, strAuthor, textRange.Text, filesource, _OldEbookFile);
                     }
@@ -104,9 +106,14 @@ namespace LycuteEbookManagement.Ebook
                     editedBook = AddData(_book);
                     string oldDri = CreateOldDirectory(_OldAuthor, _OldTitle);
                     booklib.Edit(editedBook, strAuthor, oldDri, textRange.Text, _OldEbookFile);
-                } m.loadMain(new Home());
-                //Save Author
-                //Save Publisher
+                }
+                Common.AlertDiag alert1 = new Common.AlertDiag();
+                alert1._strAlertNote = "E-book is inserted/Updated successfull";
+                alert1.ShowInTaskbar = false;
+                alert1.WindowStyle = WindowStyle.ToolWindow;
+                alert1.CancelButton = Visibility.Hidden;
+                alert1.ShowDialog();
+                m.loadMain(new Home());
             }
         }
         private void btn_getInfo_Click(object sender, RoutedEventArgs e)
@@ -121,8 +128,8 @@ namespace LycuteEbookManagement.Ebook
             Search.InternetSearch._keyword = GetDataToSearch();
             Search.InternetSearch._IsISBN = IsISBN;
             
-            if (fileLocation1.txtFileLocation.Text != "")
-                filelocation = fileLocation1.txtFileLocation.Text;
+            if (fileLocation1.txtFileLocation.Content.ToString() != "")
+                filelocation = fileLocation1.txtFileLocation.Content.ToString();
             
             m.loadMain(new Search.InternetSearch()) ;
         }
@@ -138,7 +145,6 @@ namespace LycuteEbookManagement.Ebook
         {
             m = (MainWindow)Window.GetWindow(this);
         }
-
         private void Load(Book pBook) {
             string strAuthor="AgrondPham;";
             if (pBook.Authors != null)
@@ -175,7 +181,6 @@ namespace LycuteEbookManagement.Ebook
             }
         
         }
-
         private Book AddData(Book pbook) {
             
             if (img_Cover.Source.ToString() != "pack://application:,,,/LycuteEbookManagement;component/Images/no_picture_available.png")
@@ -218,8 +223,7 @@ namespace LycuteEbookManagement.Ebook
                 }
             }
             return pbook;
-        }
-        
+        }      
         private void SetPic(string pStrPicURI) {
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
@@ -265,6 +269,8 @@ namespace LycuteEbookManagement.Ebook
                 && ValidationLib.IsNum(ucComBoxVolume.Text)==true
                 && ValidationLib.IsNum(ucComBoxYear.Text)==true
                 && ValidationLib.IsNull(txtTitle.Text)==false
+                && ValidationLib.IsNull(autoCompleteBox_Author.Text)==false
+                && ValidationLib.IsNull(autoCompleteBox_Publisher.Text)==false
                 )
             {
                 return true;
@@ -291,6 +297,14 @@ namespace LycuteEbookManagement.Ebook
             }
             if (ValidationLib.IsNum(ucComBoxYear.Text) == false) {
                 ucComBoxYear.Bground = Brushes.Red;
+            }
+            if (ValidationLib.IsNum(autoCompleteBox_Author.Text) == false)
+            {
+                autoCompleteBox_Author.Bground = Brushes.Red;
+            }
+            if (ValidationLib.IsNum(autoCompleteBox_Publisher.Text) == false)
+            {
+                autoCompleteBox_Publisher.Bground = Brushes.Red;
             }
         
         }

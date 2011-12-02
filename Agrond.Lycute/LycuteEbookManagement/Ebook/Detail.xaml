@@ -20,8 +20,8 @@
                 <TextBlock Canvas.Left="38" Canvas.Top="452" Style="{StaticResource defautText}" Text="Language:" TextWrapping="Wrap" />
                 <TextBlock Canvas.Left="38" Canvas.Top="514" Style="{StaticResource defautText}" Text="Target:" TextWrapping="Wrap" />
                 <Button Content="Edit" HorizontalAlignment="Left" Margin="1123,114,0,0" Name="btn_Edit" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-1065" Canvas.Top="463" Click="btn_Edit_Click" />
-                <Button Content="Read" HorizontalAlignment="Left" Margin="1123,192,0,0" Name="btn_Read" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-922" Canvas.Top="385" Click="btn_Read_Click" />
-                <Button Content="Cancel" HorizontalAlignment="Left" Margin="1123,272,0,0" Name="btn_Cancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-781" Canvas.Top="305" Click="btn_Cancel_Click" />
+                <Button Content="Read" HorizontalAlignment="Left" Margin="1123,192,0,0" Name="btn_Read" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-938" Canvas.Top="385" Click="btn_Read_Click" />
+                <Button Content="Cancel" HorizontalAlignment="Left" Margin="1123,272,0,0" Name="btn_Cancel" Style="{StaticResource btnGlass}" VerticalAlignment="Top" Width="100" Canvas.Left="-694" Canvas.Top="305" Click="btn_Cancel_Click" />
                 
                 <TextBlock Margin="55,523,679,730" Style="{StaticResource defautText}" Text="Review:" TextWrapping="Wrap" Canvas.Left="935" Canvas.Top="-497" />
                 <RichTextBox Height="564" Margin="252,528,-205,624" Name="txt_Review" Style="{StaticResource richTextBoxStyle}" Width="388" Canvas.Top="-466" Canvas.Left="580" />
@@ -44,6 +44,7 @@
                     </i:Interaction.Behaviors>
                 </Image>
                 </Canvas>
+                <Button Canvas.Left="308" Canvas.Top="577" Content="Delete" Style="{StaticResource btnGlass}" Width="100" Name="btn_Delete" Click="btn_Delete_Click" />
             </Canvas>
         </Border>
     </Grid>

@@ -84,6 +84,14 @@ namespace LycuteEbookManagement
         {
             this.Close();
         }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) {
+                if (WindowState == WindowState.Maximized) {
+                    NormalWindown();
+                }
+            }
+        }
         #endregion
         #region function
         //event open and close menu
@@ -153,7 +161,21 @@ namespace LycuteEbookManagement
             bi.EndInit();
             btn_CloseQuickMenu.Source = bi;
         }
+        private void MaximizedWindown() {
+          WindowState = WindowState.Maximized;
+          this.WindowStyle = WindowStyle.None;
+                this.Topmost = true;
+            
+        }
+        private void NormalWindown()
+        {
+            WindowState = WindowState.Normal;
+                this.WindowStyle = WindowStyle.ThreeDBorderWindow;
+                this.Topmost = false;
+        }
         #endregion
+
+
 
 
     }

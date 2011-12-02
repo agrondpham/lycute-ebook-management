@@ -13,6 +13,7 @@ using LycuteEbookManagement._3DWall;
 using System.Collections.ObjectModel;
 using Agrond.DataAccess;
 using Agrond.ObjectLib;
+using Agrond.SearchEngin;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -115,7 +116,7 @@ namespace LycuteEbookManagement.Ebook
         private ObservableCollection<Book> GetQueryResults()
         {
             BookLib bokLib = new BookLib();
-            return bokLib.Search("");
+            return bokLib.Search(SearchLib.Search(""));
         }
         private void CreateModelsForImages(ObservableCollection<Book> pBookObj)
         {

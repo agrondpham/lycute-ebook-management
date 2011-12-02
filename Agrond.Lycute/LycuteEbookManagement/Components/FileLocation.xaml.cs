@@ -30,9 +30,10 @@ namespace LycuteEbookManagement.Components
         {
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
             dlg.Multiselect = false;
+            //dlg.Filter = "";
             dlg.ShowDialog();
             if (dlg.FileName != "")
-                txtFileLocation.Text = dlg.FileName;
+                txtFileLocation.Content = dlg.FileName;
         }
         private void loadParent(object sender, RoutedEventArgs e)
         {
@@ -40,12 +41,24 @@ namespace LycuteEbookManagement.Components
         }
         private void btn_OK_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            if (txtFileLocation.Content.ToString() != "")
+            {
+                this.Visibility = Visibility.Hidden;
+            }
+            else {
+                Common.AlertDiag alert = new Common.AlertDiag();
+                alert._strAlertNote = "Insert e-book location";
+                alert.ShowInTaskbar = false;
+                alert.WindowStyle = WindowStyle.ToolWindow;
+                alert.CancelButton = Visibility.Hidden;
+                alert.ShowDialog();
+            
+            }
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
         {
-            txtFileLocation.Text = "";
+            txtFileLocation.Content = "";
             //this.Visibility = Visibility.Hidden;
             m.loadMain(new Home());
         }
