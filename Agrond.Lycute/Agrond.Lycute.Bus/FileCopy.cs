@@ -67,6 +67,19 @@ namespace Agrond.CopyFile
                 {
                     fsIn = new FileStream(s, FileMode.Open, FileAccess.Read);
                     string[] arrayFile=s.Split(new string[]{"\\"},StringSplitOptions.None);
+<<<<<<< .mine
+                    if (s.ToLower().Contains(pStrOldEbookFile.ToLower()))
+                    {   
+                        //same function with getfiletype in NameCreater
+                        string[] FileParts = arrayFile[arrayFile.Count() - 1].Split('.');
+                        string strFilType =  FileParts[FileParts.Count() - 1];
+                        fsOut = new FileStream(pStrTargetFile + "/" + NameCreater. pStrNewEbookTitle+"."+strFilType, FileMode.Create);
+
+                    }
+                    else
+                        fsOut = new FileStream(pStrTargetFile + "/" + arrayFile[arrayFile.Count() - 1], FileMode.Create);
+                    
+=======
                     if (s.ToLower().Contains(pStrOldEbookFile.ToLower()))
                     {   
                         //same function with getfiletype in NameCreater
@@ -80,6 +93,7 @@ namespace Agrond.CopyFile
                     else
                         fsOut = new FileStream(pStrTargetFile + "/" + arrayFile[arrayFile.Count() - 1], FileMode.Create);
                     
+>>>>>>> .r28
                     fsIn.CopyTo(fsOut);
                     fsIn.Close();
                     fsOut.Close();
