@@ -6,7 +6,7 @@
 	mc:Ignorable="d"
 	x:Class="LycuteEbookManagement.Home"
 	x:Name="UserControl"
-	d:DesignWidth="640" d:DesignHeight="480">
+	d:DesignWidth="1062" d:DesignHeight="608">
     <UserControl.Resources>
         <Style x:Key="textStyle_white" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="20" />
@@ -25,13 +25,13 @@
                             <TextBox Height="44" Margin="42,98,240,0" x:Name="tbx_Search" VerticalAlignment="Top" FontSize="20" Width="258" Canvas.Left="-21" Canvas.Top="-2" Style="{StaticResource textBoxStyle}" />
                             <Button Content="Search" Height="60" HorizontalAlignment="Right" Margin="0,89,39,0" x:Name="btn_Search" VerticalAlignment="Top" Width="177" Style="{StaticResource btnGlass}" Canvas.Left="303" Canvas.Top="-1" Click="btn_Search_Click" />
                             <Label Content="Search" HorizontalAlignment="Left" Margin="144,23,0,0" x:Name="label9" VerticalAlignment="Top" Style="{StaticResource textStyle_white}" Width="86" />
-                            <Label Content="Ebook" HorizontalAlignment="Left" Margin="216,23,0,0" x:Name="label10" VerticalAlignment="Top" Width="110" Style="{StaticResource textStyle_brown}"/>
+                            <Label Content="Ebook" HorizontalAlignment="Left" Margin="216,23,0,0" x:Name="label10" VerticalAlignment="Top" Width="110" Style="{StaticResource textStyle_brown}" Foreground="#FF00F16B" />
                             <Image Canvas.Left="303" Canvas.Top="23" Height="48" x:Name="image9" Stretch="Uniform" Width="48" Source="/LycuteEbookManagement;component/Images/Components/search.png" />
                         </Canvas>
                     </Border>
                     <Border  Style="{StaticResource canvas_border}" Margin="58,146,0,0" Cursor="Hand">
                         <Canvas Height="200" HorizontalAlignment="Left" x:Name="canvas1" VerticalAlignment="Top" Width="200" Background="#FD1BB11B" MouseDown="btn_ManagerPanel">
-                            <Image Height="147" x:Name="image1" Stretch="Uniform" Width="107" Canvas.Left="70" Canvas.Top="47" Source="/LycuteEbookManagement;component/Images/book.png" />
+                            <Image Height="147" x:Name="image1" Stretch="Uniform" Width="171" Canvas.Left="6" Canvas.Top="47" Source="/LycuteEbookManagement;component/Images/BOOKS%20SMALL.gif" />
                             <Label Canvas.Left="2" Canvas.Top="14" Content="Ebook" x:Name="label1" Style="{StaticResource textStyle_white}" Width="95" />
                             <Label Canvas.Left="61" Canvas.Top="14" Content="Management" x:Name="label2" Style="{StaticResource textStyle_brown}" Width="140" />
                         </Canvas>
@@ -45,19 +45,17 @@
                     </Border>
                     <Border  Style="{StaticResource canvas_border}" Margin="60,381,0,0" Cursor="Hand">
                         <Canvas Background="#FDB41B1B" Height="200" HorizontalAlignment="Left" x:Name="canvas3" VerticalAlignment="Top" Width="200">
-                            <Image Canvas.Left="70" Canvas.Top="47" Height="147" x:Name="image3" Source="/LycuteEbookManagement;component/Images/book.png" Stretch="Uniform" Width="107" />
+                            <Image Canvas.Left="6" Canvas.Top="47" Height="147" x:Name="image3" Source="/LycuteEbookManagement;component/Images/Bookworm.png" Stretch="Uniform" Width="188" />
                             <Label Canvas.Left="2" Canvas.Top="14" Content="Ebook" x:Name="label5" Style="{StaticResource textStyle_white}" Width="95" />
                             <Label Canvas.Left="61" Canvas.Top="14" Content="Managerment" x:Name="label6" Style="{StaticResource textStyle_brown}" Width="140" />
                         </Canvas>
                     </Border>
                     <Border  Style="{StaticResource canvas_border}" Margin="297,381,0,0" Cursor="Hand">
                         <Canvas Background="#FDFCFC03" Height="200" HorizontalAlignment="Left"  x:Name="canvas4" VerticalAlignment="Top" Width="200" MouseDown="btn_AddEbook">
-                            <Image Canvas.Left="1" Canvas.Top="56" Height="132" x:Name="image4" Source="/LycuteEbookManagement;component/Images/book.png" Stretch="Uniform" Width="78" />
-                            <Label Canvas.Left="99" Canvas.Top="6" Content="Ebook" Height="48" x:Name="label7" Style="{StaticResource textStyle_white}" Width="95" />
+                            <Image Canvas.Left="1" Canvas.Top="47" Height="141" x:Name="image4" Source="/LycuteEbookManagement;component/Images/v4_bookworm_cartoon.gif" Stretch="Uniform" Width="193" />
+                            <Label Canvas.Left="99" Canvas.Top="6" Content="Ebook" Height="48" x:Name="label7" Style="{StaticResource textStyle_white}" Width="95" Foreground="#FFA50AA7" />
                             <Label Canvas.Left="6" Canvas.Top="8" Content="Addition" Height="48" x:Name="label8" Style="{StaticResource textStyle_brown}" Width="89" />
-                            <Image Canvas.Left="121" Canvas.Top="57" Height="134" x:Name="image5" Stretch="Uniform" Width="86" Source="/LycuteEbookManagement;component/Images/Hdd.png" />
-                            <Image Canvas.Left="68" Canvas.Top="102" Height="42" x:Name="image6" Stretch="Uniform" Width="78" Source="/LycuteEbookManagement;component/Images/next.png" />
-                        </Canvas>
+            </Canvas>
                     </Border>
 	</Grid>
 </UserControl>
