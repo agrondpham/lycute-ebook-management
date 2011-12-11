@@ -27,21 +27,23 @@ namespace Agrond.Option
         {         
             string strStructure = "";
             LycuteEntities _mainDB = new LycuteEntities();
-            var strStructures = from location in _mainDB.Configurations where location.Type == "Structure" select location.Value;
-            foreach (string strStru in strStructures)
-            {
-                strStructure = strStru;
-            }
+            var strStructures = (from location in _mainDB.Configurations where location.Type == "Structure" select location.Value).First();
+            strStructure = strStructures;
+            //foreach (string strStru in strStructures)
+            //{
+            //    strStructure = strStru;
+            //}
             return strStructure;
         }
         public static void SetLocation(string pStrLocation) {
             //string strLocation = "";
             LycuteEntities _mainDB = new LycuteEntities();
-            var Locations = from location in _mainDB.Configurations where location.Type == "Location" select location;
-            foreach (var Location in Locations)
-            {
-                Location.Value=pStrLocation;
-            }
+            var Locations = (from location in _mainDB.Configurations where location.Type == "Location" select location).First();
+            Locations.Value = pStrLocation;
+            //foreach (var Location in Locations)
+            //{
+            //    Location.Value=pStrLocation;
+            //}
             _mainDB.SaveChanges();
             //convert old store to new store
             //old store link
