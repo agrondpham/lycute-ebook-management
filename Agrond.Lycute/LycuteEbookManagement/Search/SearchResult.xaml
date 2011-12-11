@@ -84,10 +84,14 @@
         <DataTemplate x:Key="CoverItemTemplate">
             <Border BorderThickness="0,0,0,0" BorderBrush="#6FBDE8">
                 <Grid>
-                    <Image Source="{Binding bok_ImageURl}" Width="100" Height="150" HorizontalAlignment="Center" Stretch="Fill">
+                    
+                    <Image Width="100" Height="150" HorizontalAlignment="Center" Stretch="Fill">
                     <i:Interaction.Behaviors>
                         <local:ReflectionBehavior/>
                     </i:Interaction.Behaviors>
+                        <Image.Source>
+                            <BitmapImage CacheOption="OnLoad" UriSource="{Binding bok_ImageURl}" />
+                        </Image.Source>
                 </Image>
                 </Grid>
                 <!--<TextBlock Text="{Binding bok_ImageURl}" VerticalAlignment="Center"/>-->

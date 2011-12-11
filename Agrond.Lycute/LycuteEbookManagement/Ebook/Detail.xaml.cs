@@ -15,6 +15,7 @@ using Agrond.DataAccess;
 using System.Diagnostics;
 using Agrond.ObjectLib;
 using Agrond.Plus;
+using Agrond.Option;
 
 namespace LycuteEbookManagement.Ebook
 {
@@ -25,7 +26,11 @@ namespace LycuteEbookManagement.Ebook
     {
         #region Variable
         BookLib booklib=new BookLib();
+        FileCopy copy = new FileCopy();
         public static Book _book{ set; get; }
+        private string _OldAuthor = "";
+        private string _OldTitle = "";
+        private string pOldDirectory = "";
         MainWindow m;
         #endregion
 
@@ -56,6 +61,12 @@ namespace LycuteEbookManagement.Ebook
 
             SetPic(img_Rank, _book.bok_Rank);
             SetPic(img_Cover, _book.bok_ImageURl);
+
+            //set value to create location for e-book
+            string strAuthor = AuthorLib.ToString(_book.Authors);
+            _OldAuthor = ConvertData.ToList(strAuthor)[0];
+            _OldTitle = _book.bok_Title;
+            pOldDirectory = CreateOldDirectory(_OldAuthor, _OldTitle);
         }
         private void SetPic(Image img,string pStrPicURI)
         {
@@ -99,8 +110,9 @@ namespace LycuteEbookManagement.Ebook
             if (alert.result)
             {
                 //remove the folder
+                copy.Delete(pOldDirectory, "folder");
+                //delete data in database
                 booklib.Delete(_book.bok_ID);
-                //
                 Common.AlertDiag alert1 = new Common.AlertDiag();
                 alert1._strAlertNote = "E-book is deleted successfull";
                 alert1.ShowInTaskbar = false;
@@ -109,6 +121,11 @@ namespace LycuteEbookManagement.Ebook
                 alert1.ShowDialog();
                 m.loadMain(new Home());
             }
+        }
+        private string CreateOldDirectory(string oldAuhthor, string oldTitle)
+        {
+            string oldDirectory = LycuteApplication.GetLocationString() + "\\" + Naming.CreateLocation(oldAuhthor, Naming.CreateName(oldTitle));
+            return oldDirectory;
         }
     }
 }
