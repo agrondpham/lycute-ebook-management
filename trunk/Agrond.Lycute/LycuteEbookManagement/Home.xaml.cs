@@ -51,5 +51,10 @@ namespace LycuteEbookManagement
             LycuteEbookManagement.Ebook.Editor.IsAddnewMode = true;
             m.loadMain(new Ebook.Editor());
         }
+
+        private void canvas3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            m.loadMain(new Common.AboutUS());
+        }
 	}
 }

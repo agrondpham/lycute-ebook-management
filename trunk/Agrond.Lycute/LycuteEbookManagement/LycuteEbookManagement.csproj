@@ -112,6 +112,9 @@
     </ApplicationDefinition>
     <Compile Include="3DWall\3DWallLayout.cs" />
     <Compile Include="3DWall\Wall3dHelper.cs" />
+    <Compile Include="Common\AboutUS.xaml.cs">
+      <DependentUpon>AboutUS.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\AlertDiag.xaml.cs">
       <DependentUpon>AlertDiag.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
     <Compile Include="Setting\StructureStore.xaml.cs">
       <DependentUpon>StructureStore.xaml</DependentUpon>
     </Compile>
+    <Page Include="Common\AboutUS.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\LoadingWait.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -44,10 +44,10 @@
                         </Canvas>
                     </Border>
                     <Border  Style="{StaticResource canvas_border}" Margin="60,381,0,0" Cursor="Hand">
-                        <Canvas Background="#FDB41B1B" Height="200" HorizontalAlignment="Left" x:Name="canvas3" VerticalAlignment="Top" Width="200">
+                        <Canvas Background="#FDB41B1B" Height="200" HorizontalAlignment="Left" x:Name="canvas3" VerticalAlignment="Top" Width="200" MouseDown="canvas3_MouseDown">
                             <Image Canvas.Left="6" Canvas.Top="47" Height="147" x:Name="image3" Source="/LycuteEbookManagement;component/Images/Bookworm.png" Stretch="Uniform" Width="188" />
                             <Label Canvas.Left="2" Canvas.Top="14" Content="Ebook" x:Name="label5" Style="{StaticResource textStyle_white}" Width="95" />
-                            <Label Canvas.Left="61" Canvas.Top="14" Content="Managerment" x:Name="label6" Style="{StaticResource textStyle_brown}" Width="140" />
+                            <Label Canvas.Left="61" Canvas.Top="14" Content="About" x:Name="label6" Style="{StaticResource textStyle_brown}" Width="140" />
                         </Canvas>
                     </Border>
                     <Border  Style="{StaticResource canvas_border}" Margin="297,381,0,0" Cursor="Hand">
