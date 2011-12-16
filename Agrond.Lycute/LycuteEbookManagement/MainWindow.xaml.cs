@@ -174,9 +174,5 @@ namespace LycuteEbookManagement
                 this.Topmost = false;
         }
         #endregion
-
-
-
-
     }
 }

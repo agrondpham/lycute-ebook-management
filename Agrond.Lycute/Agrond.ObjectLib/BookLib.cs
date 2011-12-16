@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Agrond.AmazonAPI;
 using Agrond.DataAccess;
-using Agrond.Plus;
 using Agrond.Plus;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
 using System.Xml;
 using System.Data.Objects.DataClasses;
 using System.IO;
-using System.Data.Objects;
 using Agrond.Option;
 //using System.Linq;
 
@@ -124,7 +121,6 @@ namespace Agrond.ObjectLib
             return pb;
         }        
         
-
         /*Show ebook data from database*/
         //public ObservableCollection<Book> Search(string pKeywords)
         //{

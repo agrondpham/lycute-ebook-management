@@ -91,12 +91,20 @@ namespace LycuteEbookManagement.Ebook
                     {
 
                         string filesource = "";
+                        string[] arrayFileSource;
                         if (location != "")
+                        {
                             filesource = location;
+                            arrayFileSource = location.Split('\\');
+                        }
                         else
+                        {
                             filesource = filelocation;
+                            arrayFileSource = filelocation.Split('\\');
+                        }
                         editedBook = AddData(new Book());
-                        string[] arrayFileSource = location.Split('\\');
+                        //string[] arrayFileSource = location.Split('\\');
+                        //string[] arrayFileSource = filelocation.Split('\\');
                         _OldEbookFile = arrayFileSource[arrayFileSource.Count() - 1];
                         booklib.Add(editedBook, strAuthor, textRange.Text, filesource, _OldEbookFile);
                     }
